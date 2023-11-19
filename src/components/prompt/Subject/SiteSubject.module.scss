@@ -1,0 +1,15 @@
+.subject {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+
+    input {
+        display: block;
+        width: 400px;
+        height: 35px;
+    }
+
+    button {
+        display: block;
+    }
+}

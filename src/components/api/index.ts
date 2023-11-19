@@ -1,0 +1,1 @@
+export {getContent, IMessage} from './getContent'

@@ -1,0 +1,13 @@
+.item {
+    display: grid;
+    grid-template-columns: auto 300px auto auto;
+    gap: 10px;
+    justify-content: start;
+    counter-increment: item 1;
+
+    &:before {
+        content: counter(item)".";
+        display: block;
+        min-width: 25px;
+    }
+}
