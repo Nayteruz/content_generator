@@ -10,7 +10,9 @@ export const buildPlugins = ({mode, paths}: BuildOptions): Configuration['plugin
     const isProd = mode === 'production';
     const plugins: Configuration['plugins'] = [
         new HtmlWebpackPlugin({template: paths.html}),
-        new Dotenv()
+        new Dotenv({
+            systemvars: true,
+        })
     ];
 
     if (isDev) {
