@@ -18,7 +18,7 @@ export const App = () => {
         {id: 2, title: 'О нас', content: ''},
         {id: 3, title: 'Контакты', content: ''},
     ]);
-    const [promptSubject, setPromptSubject] = useState('');
+    const [promptSubject, setPromptSubject] = useState('шашлыки и мангалы');
     const [responseSubject, setResponseSubject] = useState('');
 
     const messagesSiteSubject: IMessage[] = [

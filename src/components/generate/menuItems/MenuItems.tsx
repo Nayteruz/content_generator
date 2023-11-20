@@ -13,6 +13,11 @@ export const MenuItems = ({items, addPage}: MenuItemsProps) => {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
+
+        if(!items) {
+            return;
+        }
+
         const list = items.trim().split(',').filter((s) => s.length);
 
         const itemsList: IPage[] = list.reduce((acc: IPage[], current: string): IPage[] => {
