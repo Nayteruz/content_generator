@@ -1,8 +1,8 @@
 import webpack, {Configuration} from 'webpack'
+import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import dotenv from 'dotenv';
-const envVariable = dotenv.config().parsed;
+import Dotenv from "dotenv-webpack";
 import {BuildOptions} from "./types/types";
 
 export const buildPlugins = ({mode, paths}: BuildOptions): Configuration['plugins'] => {
@@ -11,8 +11,8 @@ export const buildPlugins = ({mode, paths}: BuildOptions): Configuration['plugin
     const isProd = mode === 'production';
     const plugins: Configuration['plugins'] = [
         new HtmlWebpackPlugin({template: paths.html}),
-        new webpack.DefinePlugin({
-            APIKEY: envVariable.APIKEY || process.env.APIKEY,
+        new Dotenv({
+            path: path.resolve(__dirname, '.env')
         })
     ];
 
