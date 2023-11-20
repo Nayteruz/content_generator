@@ -15,7 +15,7 @@ interface getContentProps {
 }
 
 export const getContent = async ({messages}: getContentProps) => {
-    console.log('api key', process.env.APIKEY);
+
     try {
         const response = await fetch(`${apiUrl}`, {
             method: 'POST',
