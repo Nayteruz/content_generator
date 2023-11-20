@@ -34,14 +34,10 @@ export const App = () => {
         })
     }
 
-    useEffect(() => {
-        (async () => {
-            const responseDataMessage = await getContent({messages: messagesSiteSubject});
-            setResponseSubject(responseDataMessage);
-        })()
-
-    }, [promptSubject]);
-
+    const getContentInfo = async () => {
+        const responseDataMessage = await getContent({messages: messagesSiteSubject});
+        setResponseSubject(responseDataMessage);
+    }
 
     return (
         <div className={s.wrap}>
@@ -55,7 +51,7 @@ export const App = () => {
                 </InfoBlock>
                 <InfoBlock background="#eee" color="#333">
                     <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента</p>
-                    <SiteSubject value={promptSubject} addValue={setPromptSubject}/>
+                    <SiteSubject value={promptSubject} addValue={setPromptSubject} getContentInfo={getContentInfo}/>
                     <MenuItems items={responseSubject} addPage={addItemPage}/>
                     <Pagelist pages={pages}/>
                 </InfoBlock>

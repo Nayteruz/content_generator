@@ -17,7 +17,6 @@ interface getContentProps {
 export const getContent = async ({messages}: getContentProps) => {
 
     try {
-
         const response = await fetch(`${apiUrl}`, {
             method: 'POST',
             headers: header,
@@ -28,8 +27,7 @@ export const getContent = async ({messages}: getContentProps) => {
             }),
         });
         const responseData = await response.json();
-
-        return responseData.choices[0].message.content;
+        return responseData?.choices[0]?.message?.content;
     } catch (error) {
         console.error('Произошла ошибка при вызове API GPT:', error);
     }
