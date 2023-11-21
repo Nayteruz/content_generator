@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 import {InfoBlock} from "./infoBlock";
 import {IPage, Pagelist} from "./pages";
 import {info1, info2} from "./information";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {MenuItems} from "./generate";
 import {SiteSubject} from "./prompt/Subject/SiteSubject";
 import {getContent} from "./api";
@@ -28,6 +28,7 @@ export const App = () => {
         property: ''
     });
     const [responseSubject, setResponseSubject] = useState('');
+    const [isPending, setIsPending] = useState(false);
 
 
 
@@ -42,10 +43,15 @@ export const App = () => {
     ]
 
     const getContentInfo = async () => {
+        setIsPending(true);
         // const list = getMessage(promptSubject, promptMenuList);
         const responseDataMessage = await getContent({messages: message});
         setResponseSubject(responseDataMessage);
     }
+
+    useEffect(() => {
+        setIsPending(false);
+    }, [responseSubject]);
 
     return (
         <div className={s.wrap}>
@@ -61,7 +67,7 @@ export const App = () => {
                     <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента</p>
                     <SiteSubject value={promptSubject} addValue={setPromptSubject} getContentInfo={getContentInfo}/>
                     <hr/>
-                    <div>Ответ:  {responseSubject}</div>
+                    <div>Ответ:  {isPending ? 'Loading...' : responseSubject}</div>
                     <hr/>
                     <MenuItems items={responseSubject} addPage={addItemPage}/>
                     <Pagelist pages={pages}/>
