@@ -4,3 +4,10 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
+
+.answer {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
