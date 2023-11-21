@@ -5,10 +5,12 @@ import { Footer } from "./footer";
 import {InfoBlock} from "./infoBlock";
 import {IPage, Pagelist} from "./pages";
 import {info1, info2} from "./information";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {MenuItems} from "./generate";
 import {SiteSubject} from "./prompt/Subject/SiteSubject";
-import {getContent, IMessage} from "./api";
+import {getContent} from "./api";
+import {IMessage, getMessage, promptMenuList, messagesSiteSubject} from "./prompt";
+
 
 
 export const App = () => {
@@ -18,14 +20,15 @@ export const App = () => {
         {id: 2, title: 'О нас', content: ''},
         {id: 3, title: 'Контакты', content: ''},
     ]);
-    const [promptSubject, setPromptSubject] = useState('шашлыки и мангалы');
+
+    const [promptSubject, setPromptSubject] = useState({
+        subject: '',
+        type: '',
+        purpose: '',
+        property: ''
+    });
     const [responseSubject, setResponseSubject] = useState('');
 
-    const messagesSiteSubject: IMessage[] = [
-        { role: 'system', content: 'Ты - копирайтер, занимаешься наполнением сайтов. Твоя задача придумать названия для пунктов меню которые будут размещаться в шапке сайта. Ответ предоставь в виде списка через запятую' },
-        { role: 'user', content: 'Ответ предоставь в виде списка через запятую без чисел' },
-        {role: 'user', content: `Тематика сайта ${promptSubject}. Напиши мне названия пунктов меню сайта через запятую не менее 10 пунктов`}
-    ]
 
 
     const addItemPage = (page: IPage) => {
@@ -34,8 +37,13 @@ export const App = () => {
         })
     }
 
+    const message: IMessage[] = [
+        {role: 'system', content: `Ты профессиональный копирайтер-маркетолог и консультант по созданию контента для веб-сайта. Сайт разрабатывается по тематике ${promptSubject.subject}, вид сайта ${promptSubject.type}, цель создания сайта ${promptSubject.purpose}, тип сайта ${promptSubject.property}. Твоя задача подготовить рекомендованный список и структуру страниц  для этого сайта.`}
+    ]
+
     const getContentInfo = async () => {
-        const responseDataMessage = await getContent({messages: messagesSiteSubject});
+        // const list = getMessage(promptSubject, promptMenuList);
+        const responseDataMessage = await getContent({messages: message});
         setResponseSubject(responseDataMessage);
     }
 
@@ -52,6 +60,9 @@ export const App = () => {
                 <InfoBlock background="#eee" color="#333">
                     <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента</p>
                     <SiteSubject value={promptSubject} addValue={setPromptSubject} getContentInfo={getContentInfo}/>
+                    <hr/>
+                    <div>Ответ:  {responseSubject}</div>
+                    <hr/>
                     <MenuItems items={responseSubject} addPage={addItemPage}/>
                     <Pagelist pages={pages}/>
                 </InfoBlock>
