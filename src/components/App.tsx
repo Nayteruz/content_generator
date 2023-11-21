@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 import {MenuItems} from "./generate";
 import {SiteSubject} from "./prompt/Subject/SiteSubject";
 import {getContent} from "./api";
-import {IMessage, getMessage, promptMenuList, messagesSiteSubject} from "./prompt";
+import {IMessage, getMessage, promptMenuList, messagesSiteSubject, fields} from "./prompt";
 
 
 
@@ -65,7 +65,8 @@ export const App = () => {
                 </InfoBlock>
                 <InfoBlock background="#eee" color="#333">
                     <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента</p>
-                    <SiteSubject value={promptSubject} addValue={setPromptSubject} getContentInfo={getContentInfo}/>
+                    {fields.map((field) => <SiteSubject key={field.id} value={promptSubject} addValue={setPromptSubject} field={field}/>)}
+                    <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                     <hr/>
                     <div>Ответ:  {isPending ? 'Loading...' : responseSubject}</div>
                     <hr/>

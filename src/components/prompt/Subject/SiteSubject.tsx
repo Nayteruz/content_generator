@@ -1,5 +1,6 @@
-import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
+import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import s from './SiteSubject.module.scss'
+import {IField} from "../fields/fields";
 
 interface ValueProps {
     subject: string,
@@ -9,38 +10,26 @@ interface ValueProps {
 }
 
 interface SubjectProps {
-    value: ValueProps;
+    value: Record<string, string>;
     addValue:  Dispatch<SetStateAction<ValueProps>>
-    getContentInfo: () => void;
+    field: IField
 }
 
-export const SiteSubject = ({value, addValue, getContentInfo}: SubjectProps) => {
+export const SiteSubject = ({value, addValue, field}: SubjectProps) => {
 
-    const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const val = e.target.value;
-        const name = e.target.name;
 
         addValue((prev) => {
             return {
                 ...prev,
-                [name]: val
+                [field.name]: val
             }
         })
     }
 
     return <div className={s.subject}>
-        <div>
-            <input type="text" name="subject" value={value.subject} placeholder="Тематика(subject)" onChange={(e) => changeValue(e)}/>
-        </div>
-        <div>
-            <input type="text" name="type" value={value.type} placeholder="Тип сайта(type)" onChange={(e) => changeValue(e)}/>
-        </div>
-        <div>
-            <input type="text" name="purpose" value={value.purpose} placeholder="Цель сайта(purpose)" onChange={(e) => changeValue(e)}/>
-        </div>
-        <div>
-            <input type="text" name="property" value={value.property} placeholder="Вид сайта(property)" onChange={(e) => changeValue(e)}/>
-        </div>
-        <button role="button" onClick={getContentInfo}>Отправить</button>
+        <div>{field.note}</div>
+        <textarea cols={30} rows={3} value={value[field.name]} placeholder={field.placeholder} onChange={(e) => changeValue(e)}></textarea>
     </div>
 }
