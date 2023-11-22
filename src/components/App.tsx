@@ -59,7 +59,7 @@ export const App = () => {
     const getContentInfo = async () => {
         setIsPending(true);
         // const list = getMessage(promptSubject, promptMenuList);
-        const messages = manualMessage ? extraMessage : lang === 'ru' ? message : message2;
+        const messages = manualMessage.extra ? extraMessage : lang === 'ru' ? message : message2;
         const responseDataMessage = await getContent({messages});
         setResponseSubject(responseDataMessage);
     }
