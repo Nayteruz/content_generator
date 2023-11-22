@@ -22,8 +22,8 @@ export const getContent = async ({messages}: getContentProps) => {
             headers: header,
             body: JSON.stringify({
                 messages,
-                model: "gpt-3.5-turbo-1106",
-                temperature: 0.9,
+                model: "gpt-4",
+                temperature: 0.7,
             }),
         });
         const responseData = await response.json();
