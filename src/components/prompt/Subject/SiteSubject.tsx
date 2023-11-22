@@ -2,16 +2,9 @@ import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import s from './SiteSubject.module.scss'
 import {IField} from "../fields/fields";
 
-interface ValueProps {
-    subject: string,
-    type: string,
-    purpose: string,
-    property: string
-}
-
 interface SubjectProps {
     value: Record<string, string>;
-    addValue:  Dispatch<SetStateAction<ValueProps>>
+    addValue:  Dispatch<SetStateAction<Record<string, string>>>
     field: IField
 }
 

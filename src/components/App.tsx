@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 import {MenuItems} from "./generate";
 import {SiteSubject} from "./prompt/Subject/SiteSubject";
 import {getContent} from "./api";
-import {IMessage, getMessage, promptMenuList, messagesSiteSubject, fields} from "./prompt";
+import {IMessage, fields} from "./prompt";
 import {Loading} from "./loading";
 
 
@@ -30,7 +30,8 @@ export const App = () => {
     });
     const [responseSubject, setResponseSubject] = useState('');
     const [isPending, setIsPending] = useState(false);
-    const [lang, setLang] = useState('ru')
+    const [lang, setLang] = useState('ru');
+    const [manualMessage, setManualMessage] = useState({extra: ''});
 
 
 
@@ -47,12 +48,18 @@ export const App = () => {
         {role: 'system', content: `You are a professional copywriter-marketer and content creation consultant for a website. The theme of a website is ${promptSubject.subject}. Website type is ${promptSubject.type}. The purpose of the website is ${promptSubject.purpose}. The website will be ${promptSubject.property}. Your task is to prepare a recommended list and structure of pages for this website based on the information about the site. Provide the response in the form of a structured list of pages in Russian.`}
     ]
 
+    const extraMessage: IMessage[] = [
+        {role: 'system', content: manualMessage.extra}
+    ]
+    const extraConfig = {
+        id: '1', placeholder: 'Свой запрос', name: 'extra', note:'Ручной ввод запроса. Заполнять либо 4 верхних, либо только этот.'
+    }
 
 
     const getContentInfo = async () => {
         setIsPending(true);
         // const list = getMessage(promptSubject, promptMenuList);
-        const messages = lang === 'ru' ? message : message2;
+        const messages = manualMessage ? extraMessage : lang === 'ru' ? message : message2;
         const responseDataMessage = await getContent({messages});
         setResponseSubject(responseDataMessage);
     }
@@ -79,6 +86,8 @@ export const App = () => {
                         </select>
                     </p>
                     {fields.map((field) => <SiteSubject key={field.id} value={promptSubject} addValue={setPromptSubject} field={field}/>)}
+                    <hr/>
+                    <SiteSubject value={promptSubject} addValue={setManualMessage} field={extraConfig}/>
                     <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                     <hr/>
                     <div className={s.answer}>Ответ:  {isPending ? <Loading/> : responseSubject}</div>
