@@ -23,11 +23,11 @@ export const getContent = async ({messages}: getContentProps) => {
             body: JSON.stringify({
                 messages,
                 model: "gpt-4",
-                temperature: 0.7,
+                temperature: 0.5,
             }),
         });
         const responseData = await response.json();
-        return responseData?.choices[0]?.message?.content;
+        return responseData;
     } catch (error) {
         console.error('Произошла ошибка при вызове API GPT:', error);
     }

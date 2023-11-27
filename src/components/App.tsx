@@ -32,6 +32,7 @@ export const App = () => {
     const [isPending, setIsPending] = useState(false);
     const [lang, setLang] = useState('ru');
     const [manualMessage, setManualMessage] = useState({extra: ''});
+    const [tokens, setTokens] = useState(0);
 
 
 
@@ -60,8 +61,10 @@ export const App = () => {
         setIsPending(true);
         // const list = getMessage(promptSubject, promptMenuList);
         const messages = manualMessage.extra ? extraMessage : lang === 'ru' ? message : message2;
-        const responseDataMessage = await getContent({messages});
-        setResponseSubject(responseDataMessage);
+        const responseData = await getContent({messages});
+        const responseMessage = responseData?.choices[0]?.message?.content
+        setTokens(responseData?.usage?.total_tokens);
+        setResponseSubject(responseMessage);
     }
 
     useEffect(() => {
@@ -91,6 +94,7 @@ export const App = () => {
                     <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                     <hr/>
                     <div className={s.answer}>Ответ:  {isPending ? <Loading/> : responseSubject}</div>
+                    {tokens > 0 && <div>Затрачено токенов: {tokens}</div>}
                     <hr/>
                     <MenuItems items={responseSubject} addPage={addItemPage}/>
                     <Pagelist pages={pages}/>
