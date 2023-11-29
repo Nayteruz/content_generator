@@ -26,3 +26,17 @@ body {
         box-sizing: border-box;
     }
 }
+
+.cg-button {
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    padding: 0;
+    background: none;
+
+    &.black {
+        background: #242424;
+    }
+}

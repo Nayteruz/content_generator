@@ -1,5 +1,6 @@
 import {ReactNode} from "react";
-import logo from '../../../assets/logo-megagroup-cabinet.png';
+import { Button } from "@/components/ui";
+import logo from '../../../assets/logo-megagroup.png';
 import s from './Header.module.scss'
 
 interface HeaderProps {
@@ -8,12 +9,9 @@ interface HeaderProps {
 
 export const Header = ({children}: HeaderProps) => {
     return <div className={s.header}>
-        <a href="https://cabinet.megagroup.ru/services">
+        <a className={s.logo} href="https://cabinet.megagroup.ru/services">
             <img src={logo} alt="Мегагруп – интернет решения"/>
         </a>
-        <div className={s.contacts}>
-            <span>Техническая поддержка</span>
-            <span>8-800-555-2214</span>
-        </div>
+        <Button appearance="black" size="small" tag="button">Контент</Button>
     </div>
 }
