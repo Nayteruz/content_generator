@@ -3,16 +3,17 @@
     margin: 0 0 10px 0;
     list-style: none;
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
     gap:5px;
 
     li {
-        display: block;
-        padding: 5px;
-        background:#c69fd9;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #fff;
+        span {
+            display: inline-flex;
+            padding: 5px;
+            background:#c69fd9;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+        }
     }
 }

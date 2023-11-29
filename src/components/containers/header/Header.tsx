@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import logo from '../assets/logo-megagroup-cabinet.png';
+import logo from '../../../assets/logo-megagroup-cabinet.png';
 import s from './Header.module.scss'
 
 interface HeaderProps {

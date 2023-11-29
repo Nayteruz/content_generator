@@ -1,2 +1,2 @@
-export { Pagelist } from './Pagelist/Pagelist';
+export { Pages } from './Pagelist/Pages';
 export type {IPage} from './types/types';

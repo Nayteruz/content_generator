@@ -1,5 +1,7 @@
 import s from './Page.module.scss'
 import {IPage} from "../types/types";
+import {Link} from 'react-router-dom';
+import {useState} from "react";
 
 interface IPageProps {
     page: IPage
@@ -7,9 +9,10 @@ interface IPageProps {
 
 export const Page = ({page}: IPageProps) => {
 
+    const [value, setValue] = useState(page.name);
+
     return <li className={s.item}>
-        <input value={page.title} type="text"/>
-        <button>сгенерировать наполнение</button>
-        <button>Отдать в работу</button>
+        <input value={value} onChange={(e) => setValue(e.target.value)} type="text"/>
+        <Link to={"/page"}>Сформировать страницу</Link>
     </li>
 }
