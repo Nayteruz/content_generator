@@ -1,6 +1,6 @@
 import s from './MenuItems.module.scss'
 import {Dispatch, SetStateAction } from "react";
-import {IItem} from "../../../utils/parse";
+import {IItem} from "@/utils/parse";
 
 interface MenuItemsProps {
     items: IItem[];

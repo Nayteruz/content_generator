@@ -8,8 +8,8 @@ import {Menu} from "../../components/generate";
 import {IPage, Pages} from "../../components/pages";
 import {getContent} from "../../api";
 import s from "./Main.module.scss";
-import {extraConfig, getMessage} from "../../utils/getMessage";
-import {IItem, parseResult} from "../../utils/parse";
+import {extraConfig, getMessage} from "@/utils/getMessage";
+import {IItem, parseResult} from "@/utils/parse";
 
 export const Main = () => {
 

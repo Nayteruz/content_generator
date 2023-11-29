@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
-import {Main, PageInfo, NotFound} from "./pages";
-import {Layout} from "./components/layout/Layout";
+import {Layout} from "@/components/layout/Layout";
+import {Main, NotFound, PageInfo} from "@/pages";
 
 
 export const App = () => {
