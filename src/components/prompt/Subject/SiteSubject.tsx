@@ -1,28 +1,37 @@
-import {ChangeEvent, Dispatch, SetStateAction} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import s from './SiteSubject.module.scss'
-import {IField} from "../fields/fields";
+import {useStore} from "@/hooks/useStore";
+import {keys} from "mobx";
 
 interface SubjectProps {
-    value: Record<string, string>;
-    addValue:  Dispatch<SetStateAction<Record<string, string>>>
-    field: IField
+    value: string;
+    addValue: (value: string) => void;
+    field: Record<string, string>
+    fieldKey: string;
 }
 
-export const SiteSubject = ({value, addValue, field}: SubjectProps) => {
+export const SiteSubject = ({field, fieldKey}: SubjectProps) => {
+    const {page} = useStore();
 
-    const changeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const val = e.target.value;
+    const [value, setValue] = useState('');
 
-        addValue((prev) => {
-            return {
-                ...prev,
-                [field.name]: val
-            }
-        })
-    }
+    useEffect(() => {
+        if (fieldKey === 'promptSubject') {
+            page.setPromptSubject(value);
+        }
+        if (fieldKey === 'promptType') {
+            page.setPromptSubject(value);
+        }
+        if (fieldKey === 'promptPurpose') {
+            page.setPromptSubject(value);
+        }
+        if (fieldKey === 'promptProperty') {
+            page.setPromptSubject(value);
+        }
+    }, [value]);
 
     return <div className={s.subject}>
         <div>{field.note}</div>
-        <textarea cols={30} rows={3} value={value[field.name]} placeholder={field.placeholder} onChange={(e) => changeValue(e)}></textarea>
+        <textarea cols={30} rows={3} value={value} placeholder={field.placeholder} onChange={(e) => setValue(e.target.value)}></textarea>
     </div>
 }

@@ -1,52 +1,39 @@
 import {useEffect, useState} from 'react';
-import {InfoBlock} from "../../components/infoBlock";
-import {info1, info2} from "../../components/information";
-import {fields, IMessage} from "../../components/prompt";
-import {SiteSubject} from "../../components/prompt/Subject/SiteSubject";
-import {Loading} from "../../components/loading";
-import {Menu} from "../../components/generate";
-import {IPage, Pages} from "../../components/pages";
-import {getContent} from "../../api";
+import {InfoBlock} from "@/components/infoBlock";
+import {info1, info2} from "@/components/information";
+import {fields, IMessage} from "@/components/prompt";
+import {SiteSubject} from "@/components/prompt/Subject/SiteSubject";
+import {Loading} from "@/components/loading";
+import {Menu} from "@/components/generate";
+import {IPage, Pages} from "@/components/pages";
+import {getContent} from "@/api";
 import s from "./Main.module.scss";
 import {extraConfig, getMessage} from "@/utils/getMessage";
 import {IItem, parseResult} from "@/utils/parse";
+import {useStore} from "@/hooks/useStore";
+import {observer} from "mobx-react-lite";
+import {IPageListPrompt} from "@/store/model/Pages/types";
 
-export const Main = () => {
+export const Main = observer(() => {
 
-    const [pages, setPages] = useState<IPage[]>([
-        {id: '1', name: 'Главная', content: ''},
-        {id: '2', name: 'О нас', content: ''},
-        {id: '3', name: 'Контакты', content: ''},
-    ]);
+    const {page} = useStore();
 
-    const [promptSubject, setPromptSubject] = useState({
-        subject: 'Собственное производство полуфабрикатов',
-        type: 'интернет-магазин',
-        purpose: 'продажа',
-        property: 'микробизнес'
-    });
     const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
-    const [manualMessage, setManualMessage] = useState({extra: ''});
+    const [manualMessage, setManualMessage] = useState('');
     const [tokens, setTokens] = useState<number>(0);
 
-    const addItemPage = (page: IPage) => {
-        setPages((prev) => {
-            return [...prev, page];
-        })
-    }
-
-    const message: IMessage[] = getMessage(promptSubject)
+    const message: IMessage[] = getMessage(page.pageListPrompt);
 
     const extraMessage: IMessage[] = [
-        {role: 'system', content: manualMessage.extra}
+        {role: 'system', content: manualMessage}
     ]
 
     const getContentInfo = async () => {
         setIsPending(true);
 
         try {
-            const messages = manualMessage.extra ? extraMessage : message;
+            const messages = manualMessage ? extraMessage : message;
             const responseData = await getContent({messages});
             const responseMessage = responseData?.choices[0]?.message?.content
 
@@ -76,17 +63,21 @@ export const Main = () => {
             <InfoBlock background="#eee" color="#333">
                 <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента
                 </p>
-                {fields.map((field) => <SiteSubject key={field.id} value={promptSubject} addValue={setPromptSubject} field={field}/>)}
+                <SiteSubject fieldKey="promptSubject" value={page.promptSubject} addValue={page.setPromptSubject} field={fields['promptSubject']}/>
+                <SiteSubject fieldKey="promptType" value={page.promptType} addValue={page.setPromptType} field={fields['promptType']}/>
+                <SiteSubject fieldKey="promptPurpose" value={page.promptPurpose} addValue={page.setPromptPurpose} field={fields['promptPurpose']}/>
+                <SiteSubject fieldKey="promptProperty" value={page.promptProperty} addValue={page.setPromptProperty} field={fields['promptProperty']}/>
+
                 <hr/>
-                <SiteSubject value={promptSubject} addValue={setManualMessage} field={extraConfig}/>
+                {/*<SiteSubject value={manualMessage} addValue={setManualMessage} field={extraConfig}/>*/}
                 <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                 <hr/>
                 <div className={s.answer}>Ответ:  {isPending ? <Loading/> : ''}</div>
                 {tokens > 0 && <div>Затрачено токенов: {tokens}</div>}
                 <hr/>
-                <Menu items={generatedItems} setItems={setGeneratedItems} addPage={addItemPage}/>
-                <Pages pages={pages}/>
+                <Menu items={generatedItems} setItems={setGeneratedItems} addPage={() => {}}/>
+                <Pages pages={page.pages}/>
             </InfoBlock>
         </>
     );
-};
+});

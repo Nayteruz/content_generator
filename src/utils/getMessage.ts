@@ -1,13 +1,8 @@
-import {IMessage} from "../components/prompt";
+import {IMessage} from "@/components/prompt";
+import {IPageListPrompt} from "@/store/model/Pages/types";
 
-interface IPrompt {
-    subject: string,
-    type: string,
-    purpose: string,
-    property: string
-}
 
-export const getMessage = (props: IPrompt): IMessage[] => {
+export const getMessage = (props: IPageListPrompt): IMessage[] => {
     const {subject, type, purpose, property} = props;
     return [
     {role: 'system', content: `You are a professional copywriter-marketer and content creation consultant for a website. The theme of a website is ${subject}. Website type is ${type}. The purpose of the website is ${purpose}. The website will be ${property}. Your task is to prepare a recommended list and structure of pages for this website based on the information about the site. 
