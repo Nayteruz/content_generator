@@ -5,7 +5,6 @@ import {buildPlugins} from "./buildPlugins";
 import {buildResolvers} from "./buildResolvers";
 import {BuildOptions} from "./types/types";
 
-
 export const buildWebpack = (options: BuildOptions): webpack.Configuration => {
     const {mode, paths} = options;
     const isDev = mode === 'development';
@@ -22,6 +21,7 @@ export const buildWebpack = (options: BuildOptions): webpack.Configuration => {
             path: paths.output,
             filename: '[name].[contenthash].js',
             clean: true,
+            publicPath: '/',
         },
         optimization: {
             runtimeChunk: 'single',

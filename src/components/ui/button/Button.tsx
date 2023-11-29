@@ -1,9 +1,10 @@
 import { MouseEventHandler, ReactNode } from "react";
-import s from './Button.module.scss'
+import s from './Button.module.scss';
+import i from './Icon.module.scss';
 
 type TSize = 'small' | 'medium' | 'large';
-type TColor = 'color__black' | 'color__blue' | 'color__purple';
-type TAppearance = 'black' | 'blue' | 'gray' | 'red' | 'purple';
+type TColor = 'color__black' | 'color__blue' | 'color__purple' | 'color_green' | 'color_grey';
+type TAppearance = 'black' | 'blue' | 'gray' | 'red' | 'purple' | 'green';
 
 export type ButtonProps = {
   size?: TSize;
@@ -15,19 +16,36 @@ export type ButtonProps = {
   children?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  icon?: string;
 };
 
-export const Button = ({ size, color, appearance, tag, href, children, onClick, className }: ButtonProps) => {
+export const Button = ({ size, color, appearance, tag, href, children, onClick, className, icon }: ButtonProps) => {
   const Component = href ? 'a' : tag;
-  const arrayClassName = ['', appearance, size, color];
-  const prefixedClassNames = arrayClassName.map((name) => s.button + name).join(' ');
+  const additionalClasses = [
+    s.button,
+    appearance && s[appearance],
+    size && s[size],
+    color && s[color],
+    className,
+  ].filter(Boolean).join(' ');
+
+  const iconComponentClass = [
+    i.icon,
+    icon && i[icon],
+    size && i[size],
+  ].filter(Boolean).join(' ');
+
+  const iconComponent = (
+    <i className={iconComponentClass}></i>
+  )
 
   return (
     <Component
-      className={prefixedClassNames}
+      className={additionalClasses}
       onClick={onClick}
       href={href}
     >
+      {icon && iconComponent}
       {children}
     </Component>
   );

@@ -1,5 +1,5 @@
 export interface IPage {
-    id: number | string;
-    title: string;
-    content: string;
+    id: string;
+    name: string;
+    content?: string;
 }

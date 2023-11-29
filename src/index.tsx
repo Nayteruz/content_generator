@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
-import { App } from "./components/App";
+import {BrowserRouter} from "react-router-dom";
+import {App} from "./App";
 import "./index.scss"
-
 
 const root = document.getElementById('root');
 
@@ -11,4 +11,8 @@ if (!root) {
 
 const container = createRoot(root);
 
-container.render(<App />)
+container.render(
+    <BrowserRouter>
+        <App/>
+    </BrowserRouter>
+)

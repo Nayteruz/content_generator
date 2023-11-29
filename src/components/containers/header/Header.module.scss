@@ -1,25 +1,26 @@
 .header {
-    background:#4f4f4f;
+    background:#131313;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-
-    a {
-        font-size: 0;
-        line-height: 0;
-        display: block;
-        flex: 1;
-
-        img {
-            max-width: 100%;
-        }
-    }
 
     @media all and (max-width: 768px) {
         flex-direction: column;
         padding: 10px 20px;
     }
 }
+
+.logo {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    text-decoration: none;
+    margin-right: 50px;
+
+    img {
+        max-width: 100%;
+    }
+}
+
 
 .contacts {
     margin-right: 20px;

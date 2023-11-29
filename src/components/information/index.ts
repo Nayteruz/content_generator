@@ -1,5 +1,3 @@
-import {ReactNode} from "react";
-
 export const info1 = `
     <ol>
         <li>Впишите названия страниц;</li>

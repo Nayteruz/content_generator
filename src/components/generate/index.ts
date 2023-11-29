@@ -1,1 +1,1 @@
-export {MenuItems} from './menuItems/MenuItems'
+export {Menu} from './menuItems/Menu'
