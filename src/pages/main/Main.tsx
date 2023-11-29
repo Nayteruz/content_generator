@@ -12,7 +12,6 @@ import {extraConfig, getMessage} from "@/utils/getMessage";
 import {IItem, parseResult} from "@/utils/parse";
 import {useStore} from "@/hooks/useStore";
 import {observer} from "mobx-react-lite";
-import {IPageListPrompt} from "@/store/model/Pages/types";
 
 export const Main = observer(() => {
 
@@ -23,7 +22,14 @@ export const Main = observer(() => {
     const [manualMessage, setManualMessage] = useState('');
     const [tokens, setTokens] = useState<number>(0);
 
-    const message: IMessage[] = getMessage(page.pageListPrompt);
+    const messageData = {
+        subject: page.promptSubject,
+        type: page.promptType,
+        purpose: page.promptPurpose,
+        property: page.promptProperty
+    }
+
+    const message: IMessage[] = getMessage(messageData);
 
     const extraMessage: IMessage[] = [
         {role: 'system', content: manualMessage}
