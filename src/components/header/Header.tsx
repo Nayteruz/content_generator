@@ -1,4 +1,5 @@
 import {ReactNode} from "react";
+import {Button} from "../ui/index";
 import logo from '../assets/logo-megagroup-cabinet.png';
 import s from './Header.module.scss'
 
@@ -15,5 +16,6 @@ export const Header = ({children}: HeaderProps) => {
             <span>Техническая поддержка</span>
             <span>8-800-555-2214</span>
         </div>
+        <Button appearance="black" size="small" color="color__black" tag="button">Контент</Button>git
     </div>
 }

@@ -1,0 +1,51 @@
+.cg-button {
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  padding: 0;
+  background: none;
+  color: #ffffff;
+
+  &.black {
+    background: #242424;
+  }
+
+  &.blue {
+    background: #3E97FF;
+  }
+  
+  &.purple {
+    background: #7458E1;
+  }
+
+  &.gray {
+    background: #F1F1F2;
+  }
+
+  &.color {
+
+    &__black {
+      color: #181c32;
+    }
+
+    &__purple {
+      color: #7239EA;
+    }
+
+    &__blue {
+      color: #3E97FF;
+    }
+  }
+
+  &.small {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  &.medium {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
