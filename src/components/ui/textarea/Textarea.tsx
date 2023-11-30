@@ -1,8 +1,5 @@
-import React, { ChangeEvent, FocusEvent, MouseEventHandler, useState } from "react";
+import { ChangeEvent, FocusEvent, MouseEventHandler, useState } from "react";
 import s from "./Textarea.module.scss";
-
-type TColor = "color__black" | "color__blue" | "color__purple" | "color_green" | "color_grey";
-type TAppearance = "black" | "blue" | "gray" | "red" | "purple" | "green";
 
 export type TextareaProps = {
   name?: string;
@@ -13,6 +10,7 @@ export type TextareaProps = {
   maxLength?: number;
   rows?: number;
   value?: string;
+  formField?: boolean;
 };
 
 export const Textarea = ({
@@ -24,6 +22,7 @@ export const Textarea = ({
    maxLength,
    rows,
    value,
+   formField,
  }: TextareaProps) => {
   const [characterCount, setCharacterCount] = useState(value?.length || 0);
   const calculateLabelClass = (): string => {
@@ -35,7 +34,7 @@ export const Textarea = ({
       return s.labelGrey;
     }
   };
-  const isError = characterCount > 500;
+  const isError = !formField ? characterCount > 500 : false;
   const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     const currentCharacterCount = event.target.value.length;
     setCharacterCount(currentCharacterCount);
@@ -49,7 +48,9 @@ export const Textarea = ({
     <label className={s.textareaLabel}>
       <div className={s.title}>
         <div className={s.name}>{name}</div>
-        <div className={`${s.counter} ${isError ? s.error : ""} ${calculateLabelClass()}`}>{`${characterCount} из 500`}</div>
+        {!formField && (
+          <div className={`${s.counter} ${isError ? s.error : ""} ${calculateLabelClass()}`}>{`${characterCount} из 500`}</div>
+        )}
       </div>
       <textarea
         className={`${s.textarea} ${isError ? s.error : ""}`}

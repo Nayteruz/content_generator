@@ -11,6 +11,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  transition: .3s all;
+
+  &:hover {
+    opacity: .8;
+  }
 }
 
 .black {
