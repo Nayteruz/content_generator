@@ -4,34 +4,31 @@ import {IMessage} from "@/components/prompt";
 export const getMessage = (props: {subject: string; type: string; purpose: string; property: string;}): IMessage[] => {
     const {subject, type, purpose, property} = props;
     return [
-    {role: 'system', content: `You are a professional copywriter-marketer and content creation consultant for a website. 
-    The theme of a website is ${subject}. Website type is ${type}. The purpose of the website is ${purpose}. 
-    The website will be ${property}. 
-    Your task is to prepare a recommended list and structure of pages for this website based on the information about the site. 
-            Provide the result in the form of a list of pages and subpages, formatted as a json as shown below:
-            {
-              "list": [
-                {
-                  "name":"страница 1",
-                  "sublist":[
-                    {"name":"под страница 1.1"},
-                        {"name":"под страница 1.2"}
-                  ]
-                },
-                {
-                  "name":"страница 2",
-                  "sublist":[
-                    {"name":"под страница 2.1"},
-                        {"name":"под страница 2.2"}
-                  ]
-                },
-                {
-                  "name":"страница 3"
-                }
-              ]
-            }
-    Page and subpage names should be in Russian. The first page should always be named "Главная”. 
-    There should be no fewer than 15 options.`
+    {role: 'system',
+        content: `You are a professional copywriter-marketer and content creation consultant for a website. The theme of a website is ${subject}. Website type is ${type}. The purpose of the website is ${purpose}. The website will be ${property}. Your task is to prepare a recommended list and structure of pages for this website based on the information about the site. 
+    Provide the result in the form of a list of pages and subpages, formatted as a json as shown below: {
+      "list": [
+        {
+          "name":"страница 1",
+          "sublist":[
+            {"name":"под страница 1.1"},
+                {"name":"под страница 1.2"}
+          ]
+        },
+        {
+          "name":"страница 2",
+          "sublist":[
+            {"name":"под страница 2.1"},
+                {"name":"под страница 2.2"}
+          ]
+        },
+        {
+          "name":"страница 3"
+        }
+      ]
+    }
+    Page and subpage names should be in Russian. In the list, the following page names should always be present: “Главная”, “Контакты”, “Вопрос-ответ”
+    The first page should always be named "Главная” and should not contain subpages. The last page should always be named "Контакты” and should not contain subpages. Consider the context when creating the "О нас" or "Обо мне" or "О компании" page. If the website represents an individual, use the title "Обо мне". If the website represents a company or institution, you can name the page "О нас" or "О компании". There should be no fewer than 15 options.`
     }
     ]
 }
