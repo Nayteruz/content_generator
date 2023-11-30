@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {InfoBlock} from "@/components/infoBlock";
 import {info1, info2} from "@/components/information";
 import {fields, IMessage} from "@/components/prompt";
@@ -14,6 +14,7 @@ import {useStore} from "@/hooks/useStore";
 import {observer} from "mobx-react-lite";
 import CreationOptions from "@/components/creationOptions";
 import ActionPanel from "@/components/actionPanel";
+import {Textarea} from "@/components/ui";
 
 export const Main = observer(() => {
 
@@ -28,6 +29,10 @@ export const Main = observer(() => {
         type: page.promptType,
         purpose: page.promptPurpose,
         property: page.promptProperty
+    }
+
+    const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        page.setPromptSubject(event.target.value)
     }
 
     const message: IMessage[] = getMessage(messageData);
@@ -70,7 +75,7 @@ export const Main = observer(() => {
             <InfoBlock background="#eee" color="#333">
                 <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента
                 </p>
-                <SiteSubject fieldKey="promptSubject" value={page.promptSubject} addValue={page.setPromptSubject} field={fields['promptSubject']}/>
+                <Textarea name={fields['promptSubject'].note} value={page.promptSubject} onChange={onChangeSubject} />
                 <SiteSubject fieldKey="promptType" value={page.promptType} addValue={page.setPromptType} field={fields['promptType']}/>
                 <SiteSubject fieldKey="promptPurpose" value={page.promptPurpose} addValue={page.setPromptPurpose} field={fields['promptPurpose']}/>
                 <SiteSubject fieldKey="promptProperty" value={page.promptProperty} addValue={page.setPromptProperty} field={fields['promptProperty']}/>

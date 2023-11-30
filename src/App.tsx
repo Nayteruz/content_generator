@@ -1,8 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import {Layout} from "@/components/layout/Layout";
-import {Main, NotFound, PageInfo} from "@/pages";
-import GeneratePages from "@/pages/generatePages";
-import PagesList from "@/pages/pagesList";
+import {GeneratePages, Main, NotFound, PageInfo, PagesList} from "@/pages";
+
 
 export const App = () => {
     return (
