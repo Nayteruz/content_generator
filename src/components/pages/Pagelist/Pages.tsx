@@ -1,9 +1,10 @@
 import {Page} from "../Page/Page";
 import s from './Pagelist.module.scss'
-import { IPage } from "../types/types";
+import {IPageItem} from "@/store/model/Pages/types";
+
 
 interface PageProps {
-    pages: IPage[]
+    pages: IPageItem[]
 }
 
 export const Pages = ({pages}: PageProps) => {

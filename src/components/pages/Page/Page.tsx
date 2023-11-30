@@ -1,10 +1,10 @@
 import s from './Page.module.scss'
-import {IPage} from "../types/types";
 import {Link} from 'react-router-dom';
 import {useState} from "react";
+import {IPageItem} from "@/store/model/Pages/types";
 
 interface IPageProps {
-    page: IPage
+    page: IPageItem
 }
 
 export const Page = ({page}: IPageProps) => {
