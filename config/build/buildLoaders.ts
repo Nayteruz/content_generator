@@ -34,10 +34,28 @@ export const buildLoaders = ({mode}: BuildOptions): ModuleOptions['rules'] => {
             },
         ],
     };
+    const svgLoader = {
+        test: /\.svg$/i,
+        use: [{
+            loader: '@svgr/webpack', options: {
+                icon: true, svgoConfig: {
+                    plugins: [
+                        {
+                            name: 'convertColors',
+                            params: {
+                                currentColor: true,
+                            }
+                        }
+                    ]
+                }
+            }
+        }],
+    };
 
     return [
         cssLoader,
         tsLoader,
         fileLoader,
+        svgLoader
     ]
 }

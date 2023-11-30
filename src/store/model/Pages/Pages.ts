@@ -8,6 +8,7 @@ export class Pages implements IPages {
     promptType = '';
     promptPurpose = '';
     promptProperty = '';
+    promptExtra = '';
 
     pageListPrompt: IPageListPrompt = {
         subject: 'Собственное производство полуфабрикатов',
@@ -56,6 +57,9 @@ export class Pages implements IPages {
     }
     setPromptProperty(value: string) {
         this.promptProperty = value;
+    }
+    setPromptExtra(value: string) {
+        this.promptExtra = value;
     }
 
 }

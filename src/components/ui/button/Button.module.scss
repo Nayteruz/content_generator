@@ -8,7 +8,7 @@
   background: none;
   color: #ffffff;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: .3s all;
@@ -25,6 +25,10 @@
 
 .blue {
   background: #3E97FF;
+}
+
+.light_blue {
+  background: #EEF6FF;
 }
 
 .purple {
@@ -56,7 +60,7 @@
   &-green {
     color: #50CD89;
   }
-  
+
   &-grey {
     color: #7E8299;
   }

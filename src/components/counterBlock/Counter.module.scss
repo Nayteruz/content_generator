@@ -1,0 +1,21 @@
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counterText {
+  color: #7239EA;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  padding: 0 5px;
+}
+
+.counterImage{
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

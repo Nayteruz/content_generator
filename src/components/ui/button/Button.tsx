@@ -4,7 +4,7 @@ import i from './Icon.module.scss';
 
 type TSize = 'small' | 'medium' | 'large';
 type TColor = 'color-black' | 'color-blue' | 'color-purple' | 'color-green' | 'color-grey';
-type TAppearance = 'black' | 'blue' | 'gray' | 'red' | 'purple' | 'green';
+type TAppearance = 'black' | 'blue' | 'light_blue' | 'gray' | 'red' | 'purple' | 'green';
 
 export type ButtonProps = {
   size?: TSize;

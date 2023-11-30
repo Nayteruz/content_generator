@@ -1,0 +1,43 @@
+.block {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 14px;
+  border-radius: 12px;
+  background: #F8F5FF;
+}
+
+.blockLeftSide {
+  display: flex;
+  align-items: center;
+}
+
+.blockTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 400px;
+}
+
+.blockTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.blockSubtitle {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.blockRightSide {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.blockImage {
+  margin-right: 15px;
+  width: 35px;
+  height: 35px;
+}

@@ -28,6 +28,9 @@ export const SiteSubject = ({field, fieldKey}: SubjectProps) => {
         if (fieldKey === 'promptProperty') {
             page.setPromptSubject(value);
         }
+        if (fieldKey === 'promptExtra') {
+            page.setPromptExtra(value);
+        }
     }, [value]);
 
     return <div className={s.subject}>

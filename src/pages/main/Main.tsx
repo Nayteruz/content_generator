@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {InfoBlock} from "@/components/infoBlock";
 import {info1, info2} from "@/components/information";
 import {fields, IMessage} from "@/components/prompt";
@@ -12,14 +12,16 @@ import {extraConfig, getMessage} from "@/utils/getMessage";
 import {IItem, parseResult} from "@/utils/parse";
 import {useStore} from "@/hooks/useStore";
 import {observer} from "mobx-react-lite";
+import CreationOptions from "@/components/creationOptions";
+import ActionPanel from "@/components/actionPanel";
+import {Textarea} from "@/components/ui";
 
 export const Main = observer(() => {
 
-    const {page} = useStore();
+    const { page } = useStore();
 
     const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
-    const [manualMessage, setManualMessage] = useState('');
     const [tokens, setTokens] = useState<number>(0);
 
     const messageData = {
@@ -29,25 +31,29 @@ export const Main = observer(() => {
         property: page.promptProperty
     }
 
+    const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        page.setPromptSubject(event.target.value)
+    }
+
     const message: IMessage[] = getMessage(messageData);
 
     const extraMessage: IMessage[] = [
-        {role: 'system', content: manualMessage}
+        {role: 'system', content: page.promptExtra}
     ]
 
     const getContentInfo = async () => {
         setIsPending(true);
 
         try {
-            const messages = manualMessage ? extraMessage : message;
+            const messages = page.promptExtra ? extraMessage : message;
             const responseData = await getContent({messages});
             const responseMessage = responseData?.choices[0]?.message?.content
-
 
             setTokens(responseData?.usage?.total_tokens);
             setGeneratedItems(parseResult(responseMessage));
         } catch (e) {
-            alert('Ошибка запроса')
+            console.log(e);
+            alert('Ошибка запроса, не могу распарсить ответ');
         } finally {
             setIsPending(false);
         }
@@ -59,7 +65,7 @@ export const Main = observer(() => {
     }, [generatedItems]);
 
     return (
-        <>
+        <div className={s.mainWrapper}>
             <InfoBlock background="#d9edf7" color="#3a87ad" border={2} html>
                 {info1}
             </InfoBlock>
@@ -69,13 +75,13 @@ export const Main = observer(() => {
             <InfoBlock background="#eee" color="#333">
                 <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента
                 </p>
-                <SiteSubject fieldKey="promptSubject" value={page.promptSubject} addValue={page.setPromptSubject} field={fields['promptSubject']}/>
+                <Textarea name={fields['promptSubject'].note} value={page.promptSubject} onChange={onChangeSubject} />
                 <SiteSubject fieldKey="promptType" value={page.promptType} addValue={page.setPromptType} field={fields['promptType']}/>
                 <SiteSubject fieldKey="promptPurpose" value={page.promptPurpose} addValue={page.setPromptPurpose} field={fields['promptPurpose']}/>
                 <SiteSubject fieldKey="promptProperty" value={page.promptProperty} addValue={page.setPromptProperty} field={fields['promptProperty']}/>
 
                 <hr/>
-                {/*<SiteSubject value={manualMessage} addValue={setManualMessage} field={extraConfig}/>*/}
+                <SiteSubject fieldKey="promptExtra" value={page.promptExtra} addValue={page.setPromptExtra} field={extraConfig}/>
                 <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                 <hr/>
                 <div className={s.answer}>Ответ:  {isPending ? <Loading/> : ''}</div>
@@ -84,6 +90,21 @@ export const Main = observer(() => {
                 <Menu items={generatedItems} setItems={setGeneratedItems} addPage={() => {}}/>
                 <Pages pages={page.pages}/>
             </InfoBlock>
-        </>
+            <ActionPanel title="Контент сайта" />
+            <div className={s.mainInner}>
+                <CreationOptions
+                    title="Создать самостоятельно"
+                    subtitle="Добавьте страницы и заполните текстовое наполнение и добавьте изображение"
+                    buttonText="Заполнить"
+                    ai={false}
+                />
+                <CreationOptions
+                    title="Создать с помощью ИИ"
+                    subtitle="Ответьте на вопросы и опишите тематику сайта. ИИ предложит подходящую структуру и список страниц."
+                    buttonText="Сгенерировать"
+                    ai={true}
+                />
+            </div>
+        </div>
     );
 });
