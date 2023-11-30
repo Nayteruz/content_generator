@@ -33,6 +33,7 @@ export const PageInfo = observer(() => {
                     tag="div"
                     icon="message"
                     appearance="light_blue"
+                    color="color-blue"
                 >
                     Добавить комментарий
                 </Button>

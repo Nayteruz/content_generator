@@ -46,12 +46,12 @@ export class Pages implements IPages {
         return this.pages.find((page) => page.id === id);
     }
 
-
     setPages(pages: IPageItem[] | null) {
         this.pages = pages || []
     }
 
-    addPage(page: IPageItem) {
+    addPage(page: IPageItem, isAi: boolean = false) {
+        page.isAi = isAi;
         this.pages.push(page);
     }
 
@@ -59,10 +59,11 @@ export class Pages implements IPages {
         this.pages = this.pages.filter((page) => page.id !== pageId);
     }
 
-    addUniquePages(page: IPageItem) {
+    addUniquePages(page: IPageItem, isAi: boolean = false) {
         const isPageUnique = !this.pages.some(existingPage => existingPage.name === page.name);
 
         if (isPageUnique) {
+            page.isAi = isAi;
             this.pages.push(page);
         }
     }

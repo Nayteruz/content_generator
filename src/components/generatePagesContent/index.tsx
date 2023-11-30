@@ -57,7 +57,7 @@ const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
             const result = parseResult(responseMessage);
 
             result.map((item) => {
-                page.addPage(item);
+                page.addPage(item, true);
             })
 
             onClose();

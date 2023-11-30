@@ -2,6 +2,8 @@ export interface IPageItem {
     name: string;
     id?: string;
     content?: string;
+    description?: string;
+    isAi?: boolean;
 }
 
 export interface IPageListPrompt {

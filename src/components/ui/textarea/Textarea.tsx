@@ -1,14 +1,11 @@
-import { ChangeEvent, FocusEvent, MouseEventHandler, useState } from "react";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
 import s from "./Textarea.module.scss";
 
 export type TextareaProps = {
   name?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: MouseEventHandler<HTMLElement>;
-  onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
-  maxLength?: number;
-  rows?: number;
   value?: string;
   formField?: boolean;
 };
@@ -17,10 +14,7 @@ export const Textarea = ({
    name,
    onClick,
    onChange,
-   onFocus,
    placeholder,
-   maxLength,
-   rows,
    value,
    formField,
  }: TextareaProps) => {
@@ -56,11 +50,8 @@ export const Textarea = ({
         className={`${s.textarea} ${isError ? s.error : ""}`}
         onChange={handleTextareaChange}
         placeholder={placeholder}
-        rows={rows}
-        maxLength={maxLength}
         value={value}
         onClick={onClick}
-        onFocus={onFocus}
       />
       {isError && <div className={s.errorMessage}>Превышен лимит символов (500 макс.)</div>}
     </label>
