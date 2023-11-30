@@ -1,0 +1,33 @@
+.inputLabel {
+  .title {
+    padding-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .name {
+      color: #5E6278;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 14px;
+    }
+  }
+
+  .input {
+    border-radius: 6px;
+    border: 1px solid #E1E3EA;
+    background: #FFF;
+    padding: 0 15px;
+    min-height: 48px;
+    box-sizing: border-box;
+    color: #1D1D1B;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    width: 100%;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+  }
+}
