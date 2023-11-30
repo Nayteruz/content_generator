@@ -1,92 +1,110 @@
-import {action, makeAutoObservable} from "mobx";
+import {action, makeAutoObservable} from 'mobx';
 import {IPageItem, IPageListPrompt, IPages} from './types';
 
 export class Pages implements IPages {
 
-    pages: IPageItem[] = [];
-    promptSubject = '';
-    promptType = '';
-    promptPurpose = '';
-    promptProperty = '';
-    promptExtra = '';
+  pages: IPageItem[] = [];
 
-    pageListPrompt: IPageListPrompt = {
-        subject: 'Собственное производство полуфабрикатов',
-        type: 'интернет-магазин',
-        purpose: 'продажа',
-        property: 'микробизнес'
-    };
+  promptSubject = '';
 
-    promptContentSubject = '';
-    promptContentType = '';
-    promptContentPurpose = '';
-    promptContentProperty = '';
+  promptType = '';
+
+  promptPurpose = '';
+
+  promptProperty = '';
+
+  promptExtra = '';
+
+  pageListPrompt: IPageListPrompt = {
+    subject: 'Собственное производство полуфабрикатов',
+    type: 'интернет-магазин',
+    purpose: 'продажа',
+    property: 'микробизнес',
+  };
+
+  promptContentSubject = '';
+
+  promptContentType = '';
+
+  promptContentPurpose = '';
+
+  promptContentProperty = '';
 
 
-    constructor() {
-        makeAutoObservable(this);
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  setPageListPrompt({subject = '', type = '', purpose = '', property = ''}: IPageListPrompt) {
+    if (subject) {
+      this.pageListPrompt.subject = subject;
     }
 
-    setPageListPrompt({subject = '', type = '', purpose = '', property = ''}: IPageListPrompt) {
-        if (subject) {
-            this.pageListPrompt.subject = subject;
-        }
-        if (type) {
-            this.pageListPrompt.type = type;
-        }
-        if (purpose) {
-            this.pageListPrompt.purpose = purpose;
-        }
-        if (property) {
-            this.pageListPrompt.property = property;
-        }
+    if (type) {
+      this.pageListPrompt.type = type;
     }
 
-    getPageById(id: number | string) {
-        return this.pages.find((page) => page.id === id);
+    if (purpose) {
+      this.pageListPrompt.purpose = purpose;
     }
 
-
-    setPages(pages: IPageItem[] | null) {
-        this.pages = pages || []
+    if (property) {
+      this.pageListPrompt.property = property;
     }
+  }
+
+  getPageById(id: number | string) {
+    return this.pages.find((page) => page.id === id);
+  }
+
+
+  setPages(pages: IPageItem[] | null) {
+    this.pages = pages || [];
+  }
 
     @action
-    addPage(page: IPageItem) {
-        this.pages.push(page);
-    }
+  addPage(page: IPageItem) {
+    this.pages.push(page);
+  }
 
     deletePage(pageId: string) {
-        this.pages = this.pages.filter((page) => page.id !== pageId);
+      this.pages = this.pages.filter((page) => page.id !== pageId);
     }
 
     setPromptSubject(value: string) {
-        this.promptSubject = value;
+      this.promptSubject = value;
     }
+
     setPromptType(value: string) {
-        this.promptType = value;
+      this.promptType = value;
     }
+
     setPromptPurpose(value: string) {
-        this.promptPurpose = value;
+      this.promptPurpose = value;
     }
+
     setPromptProperty(value: string) {
-        this.promptProperty = value;
+      this.promptProperty = value;
     }
+
     setPromptExtra(value: string) {
-        this.promptExtra = value;
+      this.promptExtra = value;
     }
 
     setContentSubject(value: string) {
-        this.promptContentSubject = value;
+      this.promptContentSubject = value;
     }
+
     setContentType(value: string) {
-        this.promptContentType = value;
+      this.promptContentType = value;
     }
+
     setContentPurpose(value: string) {
-        this.promptContentPurpose = value;
+      this.promptContentPurpose = value;
     }
+
     setContentProperty(value: string) {
-        this.promptContentProperty = value;
+      this.promptContentProperty = value;
     }
 
 }

@@ -1,6 +1,6 @@
-import s from './MenuItems.module.scss'
-import {Dispatch, SetStateAction } from "react";
-import {IItem} from "@/utils/parse";
+import {Dispatch, SetStateAction } from 'react';
+import {IItem} from '@/utils/parse';
+import s from './MenuItems.module.scss';
 
 interface MenuItemsProps {
     items: IItem[];
@@ -10,20 +10,18 @@ interface MenuItemsProps {
 
 export const Menu = ({items, setItems, addPage}: MenuItemsProps) => {
 
-    const addNewPage = (item: IItem) => {
-        addPage(item);
-        setItems((prev) => prev.filter((menuItem) => menuItem.id !== item.id))
-    }
+  const addNewPage = (item: IItem) => {
+    addPage(item);
+    setItems((prev) => prev.filter((menuItem) => menuItem.id !== item.id));
+  };
 
-    if (!items) {
-        return null;
-    }
+  if (!items) {
+    return null;
+  }
 
-    return <ul className={s.list}>
-        {items.map((item) => {
-            return <li key={item.id}>
-                <span onClick={() => addNewPage(item)}>{item.name}</span>
-            </li>
-        })}
-    </ul>
-}
+  return <ul className={s.list}>
+    {items.map((item) => <li key={item.id}>
+      <span onClick={() => addNewPage(item)}>{item.name}</span>
+    </li>)}
+  </ul>;
+};

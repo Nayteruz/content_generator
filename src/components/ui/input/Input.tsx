@@ -1,5 +1,5 @@
-import { ChangeEventHandler, FocusEventHandler, MouseEventHandler } from "react";
-import s from "./Input.module.scss";
+import { ChangeEventHandler, FocusEventHandler, MouseEventHandler } from 'react';
+import s from './Input.module.scss';
 
 export type InputProps = {
   name?: string;
@@ -17,22 +17,19 @@ export const Input = ({
   onFocus,
   placeholder,
   value,
-}: InputProps) => {
-
-  return (
-    <label className={s.inputLabel}>
-      <div className={s.title}>
-        <div className={s.name}>{name}</div>
-      </div>
-      <input
-        type="text"
-        className={s.input}
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-        onClick={onClick}
-        onFocus={onFocus}
-      />
-    </label>
-  );
-};
+}: InputProps) => (
+  <label className={s.inputLabel}>
+    <div className={s.title}>
+      <div className={s.name}>{name}</div>
+    </div>
+    <input
+      type="text"
+      className={s.input}
+      onChange={onChange}
+      placeholder={placeholder}
+      value={value}
+      onClick={onClick}
+      onFocus={onFocus}
+    />
+  </label>
+);

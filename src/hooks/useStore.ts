@@ -4,5 +4,5 @@ import { store } from '@/store';
 const storeContext = createContext(store);
 
 export function useStore() {
-    return useContext(storeContext);
+  return useContext(storeContext);
 }

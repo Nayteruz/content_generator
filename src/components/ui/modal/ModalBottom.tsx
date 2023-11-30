@@ -5,10 +5,8 @@ export type ModalBottomProps = {
   children?: ReactNode;
 };
 
-export const ModalBottom = ({ children }: ModalBottomProps) => {
-  return (
-    <div className={s.bottom}>
-      {children}
-    </div>
-  );
-};
+export const ModalBottom = ({ children }: ModalBottomProps) => (
+  <div className={s.bottom}>
+    {children}
+  </div>
+);

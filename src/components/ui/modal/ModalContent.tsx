@@ -5,10 +5,8 @@ export type ModalContentProps = {
   children?: ReactNode;
 };
 
-export const ModalContent = ({ children }: ModalContentProps) => {
-  return (
-    <div className={s.content}>
-      {children}
-    </div>
-  );
-};
+export const ModalContent = ({ children }: ModalContentProps) => (
+  <div className={s.content}>
+    {children}
+  </div>
+);

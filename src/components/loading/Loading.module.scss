@@ -1,22 +1,26 @@
 .loader {
+  $rr: #4f4f4f;
   display: inline-flex;
-  width: 40px;
-  height: 40px;
   align-items: center;
   justify-content: center;
 
-  $rr: #4f4f4f;
+  width: 40px;
+  height: 40px;
 
-  &:after {
+  &::after {
     content: " ";
+
     display: block;
+    flex: 0 0 auto;
+
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+
     border: 6px solid $rr;
     border-color: $rr transparent $rr transparent;
+    border-radius: 50%;
+
     animation: lds-dual-ring 1.2s linear infinite;
-    flex: 0 0 auto;
   }
 }
 
@@ -24,6 +28,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

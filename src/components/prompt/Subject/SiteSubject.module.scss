@@ -1,8 +1,8 @@
 .subject {
     display: flex;
+    flex-direction: column;
     gap: 5px;
     margin-bottom: 20px;
-    flex-direction: column;
 
     textarea {
         display: block;

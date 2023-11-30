@@ -1,7 +1,7 @@
-import {ChangeEvent, useEffect, useState} from "react";
-import s from './SiteSubject.module.scss'
-import {useStore} from "@/hooks/useStore";
-import {keys} from "mobx";
+import {ChangeEvent, useEffect, useState} from 'react';
+import {keys} from 'mobx';
+import {useStore} from '@/hooks/useStore';
+import s from './SiteSubject.module.scss';
 
 interface SubjectProps {
     value: string;
@@ -11,30 +11,34 @@ interface SubjectProps {
 }
 
 export const SiteSubject = ({field, fieldKey}: SubjectProps) => {
-    const {page} = useStore();
+  const {page} = useStore();
 
-    const [value, setValue] = useState('');
+  const [value, setValue] = useState('');
 
-    useEffect(() => {
-        if (fieldKey === 'promptSubject') {
-            page.setPromptSubject(value);
-        }
-        if (fieldKey === 'promptType') {
-            page.setPromptSubject(value);
-        }
-        if (fieldKey === 'promptPurpose') {
-            page.setPromptSubject(value);
-        }
-        if (fieldKey === 'promptProperty') {
-            page.setPromptSubject(value);
-        }
-        if (fieldKey === 'promptExtra') {
-            page.setPromptExtra(value);
-        }
-    }, [value]);
+  useEffect(() => {
+    if (fieldKey === 'promptSubject') {
+      page.setPromptSubject(value);
+    }
 
-    return <div className={s.subject}>
-        <div>{field.note}</div>
-        <textarea cols={30} rows={3} value={value} placeholder={field.placeholder} onChange={(e) => setValue(e.target.value)}></textarea>
-    </div>
-}
+    if (fieldKey === 'promptType') {
+      page.setPromptSubject(value);
+    }
+
+    if (fieldKey === 'promptPurpose') {
+      page.setPromptSubject(value);
+    }
+
+    if (fieldKey === 'promptProperty') {
+      page.setPromptSubject(value);
+    }
+
+    if (fieldKey === 'promptExtra') {
+      page.setPromptExtra(value);
+    }
+  }, [value]);
+
+  return <div className={s.subject}>
+    <div>{field.note}</div>
+    <textarea cols={30} rows={3} value={value} placeholder={field.placeholder} onChange={(e) => setValue(e.target.value)} />
+  </div>;
+};

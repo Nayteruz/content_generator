@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from 'react';
 import s from './Button.module.scss';
 import i from './Icon.module.scss';
 
@@ -36,8 +36,8 @@ export const Button = ({ size, color, appearance, tag, href, children, onClick, 
   ].filter(Boolean).join(' ');
 
   const iconComponent = (
-    <i className={iconComponentClass}></i>
-  )
+    <i className={iconComponentClass} />
+  );
 
   return (
     <Component

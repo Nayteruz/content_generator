@@ -1,11 +1,13 @@
 .item {
     display: flex;
-    border: 1px solid #D8D8E5;
-    box-shadow: 0 3px 4px 0 #00000008;
     gap: 10px;
-    padding: 22px 28px;
-    border-radius: 12px;
     justify-content: space-between;
+
+    padding: 22px 28px;
+
+    border: 1px solid #D8D8E5;
+    border-radius: 12px;
+    box-shadow: 0 3px 4px 0 #00000008;
 }
 
 .pageActions {
@@ -17,12 +19,26 @@
     opacity: 0.5;
 }
 
+.button {
+    width: 100%;
+    color:#7E8299;
+    background:none;
+    border-radius: 0;
+
+    &:hover {
+        color: #fff;
+        background:#3E97FF;
+    }
+}
+
 .list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
     display: flex;
     flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
 
     li {
         * {
@@ -34,6 +50,7 @@
                 border-radius: 6px 6px 0 0;
             }
         }
+
         &:last-child {
             .button {
                 border-radius: 0 0 6px 6px;
@@ -41,17 +58,4 @@
         }
     }
 
-}
-
-.button {
-    width: 100%;
-    border-radius: 0;
-    background:none;
-    color:#7E8299;
-
-
-    &:hover {
-        background:#3E97FF;
-        color: #fff;
-    }
 }

@@ -1,7 +1,9 @@
 .block {
     padding: 10px;
-    background:#d9edf7;
+
     color: #3a87ad;
+
+    background:#d9edf7;
     border: 0 solid rgba(#000, 0.03);
     border-radius: 5px;
 
@@ -10,12 +12,10 @@
     }
 
     ol {
-        padding:0;
         margin: 0;
-    }
-    ol {
-        list-style-type: auto;
+        padding:0;
         list-style-position: inside;
+        list-style-type: auto;
     }
 }
 

@@ -120,6 +120,9 @@
     "no-continue": "off"
   },
   "parserOptions": {
-    "project": "tsconfig.json"
+    "project": "tsconfig.json",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   }
 }

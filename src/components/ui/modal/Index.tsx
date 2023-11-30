@@ -1,6 +1,6 @@
 import {ReactNode, useRef} from 'react';
-import { ModalContent } from './ModalContent';
 import { ModalBottom } from './ModalBottom';
+import { ModalContent } from './ModalContent';
 import s from './Modal.module.scss';
 
 export type ModalProps = {
@@ -12,16 +12,16 @@ export type ModalProps = {
 };
 
 export const Modal = ({
-   title,
-   show,
-   onClose,
-   children,
-   style
- }: ModalProps) => {
+  title,
+  show,
+  onClose,
+  children,
+  style,
+}: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>();
 
   const onClickBackdrop = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (modalRef.current === event.target) onClose();
+    if (modalRef.current === event.target) {onClose();}
   };
 
   if (!show) {
@@ -36,7 +36,7 @@ export const Modal = ({
     >
       <div className={s.modal_inner} style={style}>
         {title && <div className={s.title}>{title}</div>}
-        <button className={s.close} onClick={onClose}></button>
+        <button className={s.close} onClick={onClose} />
         {children}
       </div>
     </div>
