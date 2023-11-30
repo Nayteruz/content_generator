@@ -19,7 +19,6 @@ export const Main = observer(() => {
 
     const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
-    const [manualMessage, setManualMessage] = useState('');
     const [tokens, setTokens] = useState<number>(0);
 
     const messageData = {
@@ -32,22 +31,22 @@ export const Main = observer(() => {
     const message: IMessage[] = getMessage(messageData);
 
     const extraMessage: IMessage[] = [
-        {role: 'system', content: manualMessage}
+        {role: 'system', content: page.promptExtra}
     ]
 
     const getContentInfo = async () => {
         setIsPending(true);
 
         try {
-            const messages = manualMessage ? extraMessage : message;
+            const messages = page.promptExtra ? extraMessage : message;
             const responseData = await getContent({messages});
             const responseMessage = responseData?.choices[0]?.message?.content
-
 
             setTokens(responseData?.usage?.total_tokens);
             setGeneratedItems(parseResult(responseMessage));
         } catch (e) {
-            alert('Ошибка запроса')
+            console.log(e);
+            alert('Ошибка запроса, не могу распарсить ответ');
         } finally {
             setIsPending(false);
         }
@@ -75,7 +74,7 @@ export const Main = observer(() => {
                 <SiteSubject fieldKey="promptProperty" value={page.promptProperty} addValue={page.setPromptProperty} field={fields['promptProperty']}/>
 
                 <hr/>
-                {/*<SiteSubject value={manualMessage} addValue={setManualMessage} field={extraConfig}/>*/}
+                <SiteSubject fieldKey="promptExtra" value={page.promptExtra} addValue={page.setPromptExtra} field={extraConfig}/>
                 <button type="button" onClick={getContentInfo}>Отправить информацию</button>
                 <hr/>
                 <div className={s.answer}>Ответ:  {isPending ? <Loading/> : ''}</div>
