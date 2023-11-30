@@ -66,30 +66,6 @@ export const Main = observer(() => {
 
     return (
         <div className={s.mainWrapper}>
-            <InfoBlock background="#d9edf7" color="#3a87ad" border={2} html>
-                {info1}
-            </InfoBlock>
-            <InfoBlock background="#fcf8e3" color="#c09853" border={2}>
-                {info2}
-            </InfoBlock>
-            <InfoBlock background="#eee" color="#333">
-                <p>Вы можете сгенерировать наполнение с помощью нашей новой функции генерации контента
-                </p>
-                <Textarea name={fields['promptSubject'].note} value={page.promptSubject} onChange={onChangeSubject} />
-                <SiteSubject fieldKey="promptType" value={page.promptType} addValue={page.setPromptType} field={fields['promptType']}/>
-                <SiteSubject fieldKey="promptPurpose" value={page.promptPurpose} addValue={page.setPromptPurpose} field={fields['promptPurpose']}/>
-                <SiteSubject fieldKey="promptProperty" value={page.promptProperty} addValue={page.setPromptProperty} field={fields['promptProperty']}/>
-
-                <hr/>
-                <SiteSubject fieldKey="promptExtra" value={page.promptExtra} addValue={page.setPromptExtra} field={extraConfig}/>
-                <button type="button" onClick={getContentInfo}>Отправить информацию</button>
-                <hr/>
-                <div className={s.answer}>Ответ:  {isPending ? <Loading/> : ''}</div>
-                {tokens > 0 && <div>Затрачено токенов: {tokens}</div>}
-                <hr/>
-                <Menu items={generatedItems} setItems={setGeneratedItems} addPage={() => {}}/>
-                <Pages pages={page.pages}/>
-            </InfoBlock>
             <ActionPanel title="Контент сайта" />
             <div className={s.mainInner}>
                 <CreationOptions

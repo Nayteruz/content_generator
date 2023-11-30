@@ -4,10 +4,11 @@ import { ModalBottom } from './ModalBottom';
 import s from './Modal.module.scss';
 
 export type ModalProps = {
-  title: string;
+  title?: string;
   show: boolean;
   onClose: () => void;
   children?: ReactNode;
+  style?: React.CSSProperties;
 };
 
 export const Modal = ({
@@ -15,6 +16,7 @@ export const Modal = ({
    show,
    onClose,
    children,
+   style
  }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>();
 
@@ -32,8 +34,8 @@ export const Modal = ({
       ref={modalRef}
       onClick={onClickBackdrop}
     >
-      <div className={s.modal_inner}>
-        <div className={s.title}>{title}</div>
+      <div className={s.modal_inner} style={style}>
+        {title && <div className={s.title}>{title}</div>}
         <button className={s.close} onClick={onClose}></button>
         {children}
       </div>

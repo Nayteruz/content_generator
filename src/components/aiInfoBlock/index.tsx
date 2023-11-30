@@ -4,7 +4,7 @@ import s from './AiInfoBlock.module.scss';
 import {IAiBlockTypes} from "@/components/aiInfoBlock/types";
 import {Button} from "@/components/ui";
 
-const AiInfoBlock = ({ title, subTitle }: IAiBlockTypes) => {
+const AiInfoBlock = ({ title, subTitle, onClick }: IAiBlockTypes) => {
     return (
         <div className={s.block}>
             <div className={s.blockLeftSide}>
@@ -28,7 +28,7 @@ const AiInfoBlock = ({ title, subTitle }: IAiBlockTypes) => {
             </div>
             <div className={s.blockRightSide}>
                 <CounterBlock />
-                <Button tag="div" size="small" appearance="purple">Сгенерировать</Button>
+                <Button tag="div" size="small" appearance="purple" onClick={onClick}>Сгенерировать</Button>
             </div>
         </div>
     );
