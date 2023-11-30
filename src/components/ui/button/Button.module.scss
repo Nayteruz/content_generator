@@ -8,7 +8,7 @@
   background: none;
   color: #ffffff;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
 }
@@ -20,6 +20,10 @@
 
 .blue {
   background: #3E97FF;
+}
+
+.light_blue {
+  background: #EEF6FF;
 }
 
 .purple {
@@ -36,23 +40,23 @@
 
 .color {
 
-  &__black {
+  &-black {
     color: #181c32;
   }
 
-  &__purple {
+  &-purple {
     color: #7239EA;
   }
 
-  &__blue {
+  &-blue {
     color: #3E97FF;
   }
 
-  &__green {
+  &-green {
     color: #50CD89;
   }
-  
-  &__grey {
+
+  &-grey {
     color: #7E8299;
   }
 }

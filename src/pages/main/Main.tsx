@@ -12,10 +12,12 @@ import {extraConfig, getMessage} from "@/utils/getMessage";
 import {IItem, parseResult} from "@/utils/parse";
 import {useStore} from "@/hooks/useStore";
 import {observer} from "mobx-react-lite";
+import CreationOptions from "@/components/creationOptions";
+import ActionPanel from "@/components/actionPanel";
 
 export const Main = observer(() => {
 
-    const {page} = useStore();
+    const { page } = useStore();
 
     const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
@@ -58,7 +60,7 @@ export const Main = observer(() => {
     }, [generatedItems]);
 
     return (
-        <>
+        <div className={s.mainWrapper}>
             <InfoBlock background="#d9edf7" color="#3a87ad" border={2} html>
                 {info1}
             </InfoBlock>
@@ -83,6 +85,21 @@ export const Main = observer(() => {
                 <Menu items={generatedItems} setItems={setGeneratedItems} addPage={() => {}}/>
                 <Pages pages={page.pages}/>
             </InfoBlock>
-        </>
+            <ActionPanel title="Контент сайта" />
+            <div className={s.mainInner}>
+                <CreationOptions
+                    title="Создать самостоятельно"
+                    subtitle="Добавьте страницы и заполните текстовое наполнение и добавьте изображение"
+                    buttonText="Заполнить"
+                    ai={false}
+                />
+                <CreationOptions
+                    title="Создать с помощью ИИ"
+                    subtitle="Ответьте на вопросы и опишите тематику сайта. ИИ предложит подходящую структуру и список страниц."
+                    buttonText="Сгенерировать"
+                    ai={true}
+                />
+            </div>
+        </div>
     );
 });
