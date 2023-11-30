@@ -51,13 +51,20 @@ export class Pages implements IPages {
         this.pages = pages || []
     }
 
-    @action
     addPage(page: IPageItem) {
         this.pages.push(page);
     }
 
     deletePage(pageId: string) {
         this.pages = this.pages.filter((page) => page.id !== pageId);
+    }
+
+    addUniquePages(page: IPageItem) {
+        const isPageUnique = !this.pages.some(existingPage => existingPage.name === page.name);
+
+        if (isPageUnique) {
+            this.pages.push(page);
+        }
     }
 
     setPromptSubject(value: string) {
@@ -88,5 +95,4 @@ export class Pages implements IPages {
     setContentProperty(value: string) {
         this.promptContentProperty = value;
     }
-
 }

@@ -11,6 +11,7 @@ import {IItem, parseResult} from "@/utils/parse";
 import {getMessage} from "@/utils/getMessage";
 import {useNavigate} from "react-router-dom";
 import {IGenerate} from "@/pages/generatePages/types";
+import {IPageItem} from "@/store/model/Pages/types";
 
 const GeneratePages = observer( ({ onClose }: IGenerate) => {
     const { page } = useStore();
@@ -58,8 +59,8 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
             setTokens(responseData?.usage?.total_tokens);
             const result = parseResult(responseMessage);
 
-            result.map((item) => {
-                page.addPage(item);
+            result.map((item:IPageItem) => {
+                page.addUniquePages(item);
             })
 
             onClose();
@@ -80,8 +81,12 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
                 <>
                     <ActionPanel title="Генерация разделов с помощью ИИ">
                         <CounterBlock />
-                        <Button size="medium" tag='div' appearance="purple">Сгенерировать</Button>
-                        <Button size="medium" tag='div' appearance="gray" color="color-grey">Отмена</Button>
+                        <Button size="medium" tag='div' appearance="purple" onClick={getContentInfo}>
+                            Сгенерировать
+                        </Button>
+                        <Button size="medium" tag='div' appearance="gray" color="color-grey" onClick={onClose}>
+                            Отмена
+                        </Button>
                     </ActionPanel>
                     <div className={s.top}>
                         <div className={s.description}>
