@@ -1,13 +1,8 @@
 .item {
-    display: grid;
-    grid-template-columns: auto 300px auto auto;
+    display: flex;
+    border: 1px solid #D8D8E5;
+    box-shadow: 0 3px 4px 0 #00000008;
     gap: 10px;
-    justify-content: start;
-    counter-increment: item 1;
-
-    &:before {
-        content: counter(item)".";
-        display: block;
-        min-width: 25px;
-    }
+    padding: 22px 28px;
+    border-radius: 12px;
 }

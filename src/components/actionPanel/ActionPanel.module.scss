@@ -1,0 +1,23 @@
+.actionPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.actionPanelTitle {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.actionPanelLeftSide {
+  display: flex;
+}
+
+.actionPanelRightSide {
+  display: flex;
+  gap: 10px;
+}

@@ -11,3 +11,18 @@
   gap: 30px;
   flex-wrap: wrap;
 }
+
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainInner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+
+  > div {
+    width: 50%;
+  }
+}
