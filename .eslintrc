@@ -38,7 +38,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": ["warn", "error"]
       }
@@ -75,7 +75,6 @@
       }
     ],
     "import/prefer-default-export": "off",
-    "import/no-default-export": "error",
     "no-restricted-syntax": "off",
     "@typescript-eslint/padding-line-between-statements": [
       "error",

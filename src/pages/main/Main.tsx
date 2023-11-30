@@ -1,70 +1,65 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {observer} from 'mobx-react-lite';
-import {getContent} from '@/api';
+import { observer } from 'mobx-react-lite';
+// import { getContent } from '@/api';
 import ActionPanel from '@/components/actionPanel';
 import CreationOptions from '@/components/creationOptions';
-import {Menu} from '@/components/generate';
-import {InfoBlock} from '@/components/infoBlock';
-import {info1, info2} from '@/components/information';
-import {Loading} from '@/components/loading';
-import {IPage, Pages} from '@/components/pages';
-import {fields, IMessage} from '@/components/prompt';
-import {SiteSubject} from '@/components/prompt/Subject/SiteSubject';
-import {Textarea} from '@/components/ui';
-import {useStore} from '@/hooks/useStore';
-import {extraConfig, getMessage} from '@/utils/getMessage';
-import {IItem, parseResult} from '@/utils/parse';
+// import {Menu} from '@/components/generate';
+// import {InfoBlock} from '@/components/infoBlock';
+// import {info1, info2} from '@/components/information';
+// import {Loading} from '@/components/loading';
+// import {IPage, Pages} from '@/components/pages';
+// import { fields, IMessage } from '@/components/prompt';
+// import { SiteSubject } from '@/components/prompt/Subject/SiteSubject';
+// import { Textarea } from '@/components/ui';
+// import { useStore } from '@/hooks/useStore';
+// import { extraConfig, getMessage } from '@/utils/getMessage';
+// import { IItem, parseResult } from '@/utils/parse';
 import s from './Main.module.scss';
 
-export const Main = observer(() => {
+export const Main = observer(() => 
+// const { page } = useStore();
 
-  const { page } = useStore();
+// const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
+// const [isPending, setIsPending] = useState(false);
+// const [tokens, setTokens] = useState<number>(0);
+//
+// const messageData = {
+//   subject: page.promptSubject,
+//   type: page.promptType,
+//   purpose: page.promptPurpose,
+//   property: page.promptProperty,
+// };
 
-  const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
-  const [isPending, setIsPending] = useState(false);
-  const [tokens, setTokens] = useState<number>(0);
+// const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
+//   page.setPromptSubject(event.target.value);
+// };
 
-  const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
-  };
+// const message: IMessage[] = getMessage(messageData);
+//
+// const extraMessage: IMessage[] = [{ role: 'system', content: page.promptExtra }];
 
-  const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    page.setPromptSubject(event.target.value);
-  };
+// const getContentInfo = async () => {
+//   setIsPending(true);
+//
+//   try {
+//     const messages = page.promptExtra ? extraMessage : message;
+//     const responseData = await getContent({ messages });
+//     const responseMessage = responseData?.choices[0]?.message?.content;
+//
+//     setTokens(responseData?.usage?.total_tokens);
+//     setGeneratedItems(parseResult(responseMessage));
+//   } catch (e) {
+//     console.log(e);
+//     alert('Ошибка запроса, не могу распарсить ответ');
+//   } finally {
+//     setIsPending(false);
+//   }
+// };
 
-  const message: IMessage[] = getMessage(messageData);
+// useEffect(() => {
+//   setIsPending(false);
+// }, [generatedItems]);
 
-  const extraMessage: IMessage[] = [
-    {role: 'system', content: page.promptExtra},
-  ];
-
-  const getContentInfo = async () => {
-    setIsPending(true);
-
-    try {
-      const messages = page.promptExtra ? extraMessage : message;
-      const responseData = await getContent({messages});
-      const responseMessage = responseData?.choices[0]?.message?.content;
-
-      setTokens(responseData?.usage?.total_tokens);
-      setGeneratedItems(parseResult(responseMessage));
-    } catch (e) {
-      console.log(e);
-      alert('Ошибка запроса, не могу распарсить ответ');
-    } finally {
-      setIsPending(false);
-    }
-
-  };
-
-  useEffect(() => {
-    setIsPending(false);
-  }, [generatedItems]);
-
-  return (
+  (
     <div className={s.mainWrapper}>
       <ActionPanel title="Контент сайта" />
       <div className={s.mainInner}>
@@ -82,5 +77,5 @@ export const Main = observer(() => {
         />
       </div>
     </div>
-  );
-});
+  )
+);
