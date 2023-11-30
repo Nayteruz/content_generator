@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeAutoObservable} from "mobx";
 import {IPageItem, IPageListPrompt, IPages} from './types';
 
 export class Pages implements IPages {
@@ -17,6 +17,12 @@ export class Pages implements IPages {
         property: 'микробизнес'
     };
 
+    promptContentSubject = '';
+    promptContentType = '';
+    promptContentPurpose = '';
+    promptContentProperty = '';
+
+
     constructor() {
         makeAutoObservable(this);
     }
@@ -26,22 +32,30 @@ export class Pages implements IPages {
             this.pageListPrompt.subject = subject;
         }
         if (type) {
-            this.pageListPrompt.subject = type;
+            this.pageListPrompt.type = type;
         }
         if (purpose) {
-            this.pageListPrompt.subject = purpose;
+            this.pageListPrompt.purpose = purpose;
         }
         if (property) {
-            this.pageListPrompt.subject = property;
+            this.pageListPrompt.property = property;
         }
     }
+
+    getPageById(id: number | string) {
+        return this.pages.find((page) => page.id === id);
+    }
+
 
     setPages(pages: IPageItem[] | null) {
         this.pages = pages || []
     }
+
+    @action
     addPage(page: IPageItem) {
         this.pages.push(page);
     }
+
     deletePage(pageId: string) {
         this.pages = this.pages.filter((page) => page.id !== pageId);
     }
@@ -60,6 +74,19 @@ export class Pages implements IPages {
     }
     setPromptExtra(value: string) {
         this.promptExtra = value;
+    }
+
+    setContentSubject(value: string) {
+        this.promptContentSubject = value;
+    }
+    setContentType(value: string) {
+        this.promptContentType = value;
+    }
+    setContentPurpose(value: string) {
+        this.promptContentPurpose = value;
+    }
+    setContentProperty(value: string) {
+        this.promptContentProperty = value;
     }
 
 }
