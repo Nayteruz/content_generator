@@ -11,6 +11,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: .3s all;
+
+  &:hover {
+    opacity: .8;
+  }
 }
 
 .black {
@@ -36,23 +41,23 @@
 
 .color {
 
-  &__black {
+  &-black {
     color: #181c32;
   }
 
-  &__purple {
+  &-purple {
     color: #7239EA;
   }
 
-  &__blue {
+  &-blue {
     color: #3E97FF;
   }
 
-  &__green {
+  &-green {
     color: #50CD89;
   }
   
-  &__grey {
+  &-grey {
     color: #7E8299;
   }
 }

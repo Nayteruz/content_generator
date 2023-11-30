@@ -3,7 +3,7 @@ import s from './Button.module.scss';
 import i from './Icon.module.scss';
 
 type TSize = 'small' | 'medium' | 'large';
-type TColor = 'color__black' | 'color__blue' | 'color__purple' | 'color_green' | 'color_grey';
+type TColor = 'color-black' | 'color-blue' | 'color-purple' | 'color-green' | 'color-grey';
 type TAppearance = 'black' | 'blue' | 'gray' | 'red' | 'purple' | 'green';
 
 export type ButtonProps = {
