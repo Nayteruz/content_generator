@@ -7,5 +7,7 @@ interface ContentProps {
 
 export const Content = ({children}: ContentProps) => {
 
-    return <div className={s.wrap}>{children}</div>
+    return <div className={s.wrap}>
+        {children}
+    </div>
 }
