@@ -2,6 +2,21 @@ export interface IPageItem {
     name: string;
     id?: string;
     content?: string;
+    questions?: IQuestions[];
+    answer?: IAnswer[];
+}
+
+export interface IQuestions {
+    question: string;
+}
+
+export interface IAnswer {
+    answer: string;
+}
+
+export interface IQuiz {
+    question: string;
+    answer: string;
 }
 
 export interface IPageListPrompt {

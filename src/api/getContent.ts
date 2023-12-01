@@ -22,30 +22,6 @@ interface getContentProps {
 }
 
 export const getContent = async ({messages}: getContentProps) => {
-
-    // try {
-    //     const result = await openai.completions.create({
-    //         model: "text-davinci-003",
-    //         prompt: messages,
-    //         temperature: 0.5,
-    //         max_tokens: 4000,
-    //     });
-    //     // setApiResponse(result.choices[0].text);
-    // } catch (e) {
-    //     // setApiResponse("Something is going wrong, Please try again.");
-    // }
-
-
-    // const result = await openai.chat.completions.create({
-    //     model: "text-davinci-003",
-    //     messages: messages,
-    //     temperature: 0.5,
-    //     max_tokens: 4000,
-    // });
-    // //
-    // console.log(result)
-
-
     try {
         const response = await fetch(`${apiUrl}`, {
             method: 'POST',

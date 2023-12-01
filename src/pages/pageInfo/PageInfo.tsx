@@ -1,59 +1,73 @@
-import {useParams} from "react-router-dom";
-import {useStore} from "@/hooks/useStore";
-import {observer} from "mobx-react-lite";
-import {IPageItem} from "@/store/model/Pages/types";
+import { useParams } from "react-router-dom";
+import { useStore } from "@/hooks/useStore";
+import { observer } from "mobx-react-lite";
+import { IPageItem } from "@/store/model/Pages/types";
 import ActionPanel from "@/components/actionPanel";
-import {Button, Modal} from "@/components/ui";
+import {Button, Modal, Textarea} from "@/components/ui";
 import AiInfoBlock from "@/components/aiInfoBlock";
-import {useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import GeneratePagesContent from "@/components/generatePagesContent";
+import { getQuestions } from "@/utils/getMessage";
+import { getContent } from "@/api";
+import { parsePageQuestion } from "@/utils/parse";
 
 export const PageInfo = observer(() => {
-    const { id } = useParams();
-    const { page } = useStore();
-    const [openModal, setOpenModal] = useState<boolean>();
+  const { id } = useParams();
+  const { page } = useStore();
+  const [openModal, setOpenModal] = useState<boolean>();
+  const [isPending, setIsPending] = useState(false);
+  const pageInfo: IPageItem = page.getPageById(id);
+  const messages = getQuestions(pageInfo.name);
+  const [content, setContent] = useState(pageInfo.content);
 
-    const pageInfo: IPageItem = page.getPageById(id);
-    // const questions = getQuestions(pageInfo.name);
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
 
-    const onClick = () => {
-        setOpenModal(true);
+  const getQuestionForPage = async () => {
+    setIsPending(true);
+
+    try {
+      const responseData = await getContent({ messages });
+      const responseMessage = responseData?.choices[0]?.message?.content;
+      const parsedResult = parsePageQuestion(responseMessage);
+      page.addQuestionPage(id, parsedResult);
+      setOpenModal(true);
+    } catch (e) {
+      console.log("error", e);
+    } finally {
+      setIsPending(false);
     }
+  };
 
-    const onCloseModal = () => {
-      setOpenModal(false);
-    }
+  const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value)
+  }
 
+  useEffect(() => {
+    setContent(pageInfo.content)
+  }, [pageInfo.content])
 
-    return (
-        <div>
-            <ActionPanel backButton="Назад к разделам">
-                <Button
-                    size="medium"
-                    tag="div"
-                    icon="message"
-                    appearance="light_blue"
-                >
-                    Добавить комментарий
-                </Button>
-                <Button
-                    size="medium"
-                    tag="div"
-                    icon="airplane"
-                    appearance="green"
-                >
-                    Отправить в работу
-                </Button>
-            </ActionPanel>
-            <h1>{pageInfo.name}</h1>
-            <AiInfoBlock
-                onClick={onClick}
-                title="Создайте текст с помощью ИИ"
-                subTitle="Ответь подробнее на несколько вопросов и ИИ предложит вам варианты разделов для сайта"
-            />
-            <Modal title="title" show={openModal} onClose={onCloseModal}>
-                <GeneratePagesContent onClose={onCloseModal} />
-            </Modal>
-        </div>
-    )
-})
+  return (
+    <div>
+      <ActionPanel backButton="Назад к разделам">
+        <Button size="medium" tag="div" icon="message" appearance="light_blue">
+          Добавить комментарий
+        </Button>
+        <Button size="medium" tag="div" icon="airplane" appearance="green">
+          Отправить в работу
+        </Button>
+      </ActionPanel>
+      <h1>{pageInfo.name}</h1>
+      <Textarea formField value={content} onChange={onChange} />
+      <AiInfoBlock
+        onClick={getQuestionForPage}
+        title="Создайте текст с помощью ИИ"
+        subTitle="Ответь подробнее на несколько вопросов и ИИ предложит вам варианты разделов для сайта"
+      />
+      <Modal show={openModal} onClose={onCloseModal} style={{ width: '100%' }}>
+        <GeneratePagesContent onClose={onCloseModal}/>
+      </Modal>
+    </div>
+  );
+});
