@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@types/ckeditor__ckeditor5-build-balloon": "^37.0.0",
     "@types/dotenv-webpack": "^7.0.7",
     "@types/node": "^20.9.0",
     "@types/react": "^18.2.37",
