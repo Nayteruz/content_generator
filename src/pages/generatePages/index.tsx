@@ -74,11 +74,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
 
   return (
     <>
-      {isPending && (
-        <div className={s.loaderContainer}>
-          <Preloader text="Генерация не займет много времени" />
-        </div>
-      )}
+      {isPending && <Preloader text="Генерация не займет много времени" />}
       <ActionPanel title="Генерация разделов с помощью ИИ">
         <CounterBlock />
         <Button

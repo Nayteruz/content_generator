@@ -78,11 +78,7 @@ export const PageInfo = observer(() => {
       <Modal show={openModal} onClose={onCloseModal} style={{ width: "100%" }}>
         <GeneratePagesContent onClose={onCloseModal} />
       </Modal>
-      {isPending && (
-        <div className={s.loaderContainer}>
-          <Preloader text="Генерация не займет много времени" />
-        </div>
-      )}
+      {isPending && <Preloader text="Генерация не займет много времени" />}
     </div>
   );
 });
