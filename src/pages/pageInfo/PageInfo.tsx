@@ -11,6 +11,7 @@ import { getQuestions } from "@/utils/getMessage";
 import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
 import { Preloader } from "@/components/preloader/Preloader";
+import { UploadFiles } from "@/components/uploadFiles/UploadFiles"
 import {useGetStorePagesInfo} from "@/hooks/useGetStorePagesInfo";
 
 export const PageInfo = observer(() => {
@@ -79,6 +80,7 @@ export const PageInfo = observer(() => {
         title="Создайте текст с помощью ИИ"
         subTitle="Ответь подробнее на несколько вопросов и ИИ предложит вам варианты разделов для сайта"
       />
+      <UploadFiles  />
       <Modal show={openModal} onClose={onCloseModal} style={{ width: "100%" }}>
         <GeneratePagesContent onClose={onCloseModal} />
       </Modal>
