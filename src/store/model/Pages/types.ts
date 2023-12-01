@@ -38,6 +38,7 @@ export interface IPages {
     promptPurpose: string;
     promptProperty: string;
     promptExtra: string;
+    generationCount: number;
 
     setPages: (pages: IPageItem[] | null) => void;
     addPage: (page: IPageItem) => void;
@@ -48,4 +49,5 @@ export interface IPages {
     setPromptPurpose: (value: string) => void;
     setPromptProperty: (value: string) => void;
     setPromptExtra: (value: string) => void;
+    setGenerationCount: (value: number) => void;
 }
