@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useStore } from "@/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { IPageItem } from "@/store/model/Pages/types";
@@ -17,6 +17,7 @@ import {useGetStorePagesInfo} from "@/hooks/useGetStorePagesInfo";
 export const PageInfo = observer(() => {
   const { id } = useParams();
   const { page } = useStore();
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<boolean>();
   const [isPending, setIsPending] = useState(false);
   useGetStorePagesInfo();
@@ -37,6 +38,11 @@ export const PageInfo = observer(() => {
   const onCloseModal = () => {
     setOpenModal(false);
   };
+
+  const onPageSended = () => {
+    navigate('/pageList');
+    page.setIsSended(id,true);
+  }
 
   const getQuestionForPage = async () => {
     setIsPending(true);
@@ -68,7 +74,15 @@ export const PageInfo = observer(() => {
   return (
     <div>
       <ActionPanel backButton="Назад к разделам">
-        <Button size="medium" tag="div" icon="airplane" appearance="green">Отправить в работу</Button>
+        <Button
+            size="medium"
+            tag="div"
+            icon="airplane"
+            appearance="green"
+            onClick={onPageSended}
+        >
+          Отправить в работу
+        </Button>
       </ActionPanel>
       <h1>{pageInfo?.name}</h1>
       <div style={{margin: '0 0 20px'}}>
