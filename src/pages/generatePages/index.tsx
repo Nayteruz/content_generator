@@ -142,7 +142,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
           </Button>
         </div>
       </div>
-      <Preloader text="Генерация не займет много времени" />
+      {isPending && <Preloader text="Генерация не займет много времени" />}
     </>
   );
 });
