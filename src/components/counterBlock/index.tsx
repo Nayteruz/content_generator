@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './Counter.module.scss';
+import {useStore} from "@/hooks/useStore";
+import {observer} from "mobx-react-lite";
 
-const CounterBlock = () => {
-    const [value, setValue] = useState('20');
-
+const CounterBlock = observer(() => {
+    const { page } = useStore();
+    const { generationCount } = page;
 
     return (
         <div className={s.counter}>
@@ -16,7 +18,7 @@ const CounterBlock = () => {
                     <path d="M14.09 15.25H7.73999C7.54108 15.25 7.35031 15.171 7.20966 15.0303C7.06901 14.8897 6.98999 14.6989 6.98999 14.5C6.98999 14.3011 7.06901 14.1103 7.20966 13.9697C7.35031 13.829 7.54108 13.75 7.73999 13.75H14.09C14.2889 13.75 14.4797 13.829 14.6203 13.9697C14.761 14.1103 14.84 14.3011 14.84 14.5C14.84 14.6989 14.761 14.8897 14.6203 15.0303C14.4797 15.171 14.2889 15.25 14.09 15.25Z" fill="#7239EA"/>
                 </svg>
             </div>
-            <div className={s.counterText}>У вас {value} генераций</div>
+            <div className={s.counterText}>У вас {generationCount} генераций</div>
             <div className={s.counterImage}>
                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.3" d="M10.5 18.3333C15.1023 18.3333 18.8333 14.6024 18.8333 9.99999C18.8333 5.39762 15.1023 1.66666 10.5 1.66666C5.89759 1.66666 2.16663 5.39762 2.16663 9.99999C2.16663 14.6024 5.89759 18.3333 10.5 18.3333Z" fill="#3F4254"/>
@@ -26,6 +28,6 @@ const CounterBlock = () => {
             </div>
         </div>
     );
-};
+});
 
 export default CounterBlock;

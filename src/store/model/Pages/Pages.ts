@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import {IAnswer, IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
+import {IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
 
 export class Pages implements IPages {
   pages: IPageItem[] = [];
@@ -8,6 +8,7 @@ export class Pages implements IPages {
   promptPurpose = "Реклама, информирование, привлечение новых клиентов";
   promptProperty = "Сайт компании";
   promptExtra = "";
+  generationCount = 20;
 
   pageListPrompt: IPageListPrompt = {
     subject: "Собственное производство полуфабрикатов",
@@ -113,5 +114,8 @@ export class Pages implements IPages {
   }
   setPromptExtra(value: string) {
     this.promptExtra = value;
+  }
+  setGenerationCount(value: number) {
+    this.generationCount = value;
   }
 }

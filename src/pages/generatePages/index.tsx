@@ -16,13 +16,14 @@ import { Preloader } from "@/components/preloader/Preloader";
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
+  const { promptSubject, promptType, promptPurpose, promptProperty, generationCount } = page;
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
+    subject: promptSubject,
+    type: promptType,
+    purpose: promptPurpose,
+    property: promptProperty,
   };
   const message: IMessage[] = getMessage(messageData);
 
@@ -67,6 +68,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
       console.log(e);
       alert("Ошибка запроса, не могу распарсить ответ");
     } finally {
+      page.setGenerationCount(generationCount - 1);
       setIsPending(false);
     }
   };

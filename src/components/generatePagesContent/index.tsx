@@ -42,6 +42,7 @@ const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
     } catch (e) {
       alert("Ошибка запроса, не могу распарсить ответ");
     } finally {
+      page.setGenerationCount(page.generationCount - 1);
       setIsPending(false);
     }
   };
