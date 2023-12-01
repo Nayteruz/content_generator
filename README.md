@@ -16,9 +16,10 @@ npm run start - frontend проекта
 Может потребоваться использовать VPN для полноценного использования сервиса
 ```
 
-## Ссылка на проект 
+## Ссылка на проект и публикация в сети
 
-[контент генератор](https://content-generator-hackaton.netlify.app/)
+Для публикации проекта в сети используется сервис [Netlify](https://www.netlify.com/)
+Сервис доступен в по ссылке [контент генератор](https://content-generator-hackaton.netlify.app/)
 
 ## Скрипты
 
