@@ -34,7 +34,7 @@ export const Page = ({page}: IPageProps) => {
                           <Icon size="small" icon="information"/>
                         </span>
                         {isHoveredIcon && (
-                            <div className={s.descriptionText}>testtest</div>
+                            <div className={s.descriptionText}>{page.description}</div>
                         )}
                       </>
                     )}

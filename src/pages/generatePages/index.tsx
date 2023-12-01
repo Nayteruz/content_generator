@@ -7,18 +7,17 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "@/hooks/useStore";
 import {fields, IMessage} from "@/components/prompt";
 import {getContent} from "@/api";
-import {IItem, parseResult} from "@/utils/parse";
+import {parseResult} from "@/utils/parse";
 import {getMessage} from "@/utils/getMessage";
 import {useNavigate} from "react-router-dom";
 import {IGenerate} from "@/pages/generatePages/types";
 import {IPageItem} from "@/store/model/Pages/types";
+import {Preloader} from "@/components/preloader/Preloader";
 
 const GeneratePages = observer( ({ onClose }: IGenerate) => {
     const { page } = useStore();
-    const usenavigate = useNavigate();
-    const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
+    const navigate = useNavigate();
     const [isPending, setIsPending] = useState(false);
-    const [tokens, setTokens] = useState<number>(0);
     const messageData = {
         subject: page.promptSubject,
         type: page.promptType,
@@ -36,8 +35,8 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
     }
 
     const onChangeType = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        page.setPromptType(event.target.value)
-    }
+        page.setPromptType(event.target.value);
+    };
 
     const onChangeProperty = (event: ChangeEvent<HTMLTextAreaElement>) => {
         page.setPromptProperty(event.target.value)
@@ -56,12 +55,13 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
             const responseData = await getContent({messages});
             const responseMessage = responseData?.choices[0]?.message?.content
 
-            setTokens(responseData?.usage?.total_tokens);
             const result = parseResult(responseMessage);
 
             result.map((item:IPageItem) => {
                 page.addUniquePages(item, true);
             })
+
+            navigate('/pageList');
 
             onClose();
         } catch (e) {
@@ -75,8 +75,9 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
     return (
         <>
             {isPending ? (
-                <span className={s.loader}>
-                </span>
+                <div className={s.loaderContainer}>
+                    <Preloader text="Генерация не займет много времени" />
+                </div>
             ) :
                 <>
                     <ActionPanel title="Генерация разделов с помощью ИИ">
@@ -118,8 +119,23 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
                     <div className={s.bottom}>
                         <CounterBlock />
                         <div className={s.bottomButtons}>
-                            <Button tag="div" size="medium" appearance="purple" onClick={getContentInfo}>Сгенерировать</Button>
-                            <Button tag="div" size="medium" appearance="gray" color="color-grey">Отмена</Button>
+                            <Button
+                                tag="div"
+                                size="medium"
+                                appearance="purple"
+                                onClick={getContentInfo}
+                            >
+                                Сгенерировать
+                            </Button>
+                            <Button
+                                tag="div"
+                                size="medium"
+                                appearance="gray"
+                                color="color-grey"
+                                onClick={onClose}
+                            >
+                                Отмена
+                            </Button>
                         </div>
                     </div>
                 </>
