@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import {Button, Icon} from "@/components/ui";
-import avatar from '@/assets/avatar.png';
+import image from '@/assets/elep.png';
 import s from './Upload.module.scss';
 import {UploadItem} from "./UploadItem";
 
@@ -37,7 +37,7 @@ export const UploadFiles = () => {
         </div>
       </div>
       <div className={s.itemList}>
-        <UploadItem name="Elephant 1802.jpg" icon={avatar} type="image"/>
+        <UploadItem name="Elephant 1802.jpg" icon={image} type="image"/>
         <UploadItem name="Главная.doc" icon="test" type="doc"/>
         <UploadItem name="Прайс лист.pdf" type="pdf"/>
         <UploadItem name="http://megagroup.ru" type="link"/>

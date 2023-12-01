@@ -113,4 +113,51 @@
       }
     }
   }
+
+  .fileActions {
+    position: relative;
+
+    .more {
+      cursor: pointer;
+    }
+
+    .list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        * {
+          white-space: nowrap;
+        }
+
+        &:first-child {
+          .button {
+            border-radius: 6px 6px 0 0;
+          }
+        }
+        &:last-child {
+          .button {
+            border-radius: 0 0 6px 6px;
+          }
+        }
+      }
+
+    }
+
+    .button {
+      width: 100%;
+      border-radius: 0;
+      background:none;
+      color:#7E8299;
+
+
+      &:hover {
+        background:#3E97FF;
+        color: #fff;
+      }
+    }
+  }
 }
