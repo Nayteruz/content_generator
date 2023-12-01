@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { IPageItem, IPageListPrompt, IPages } from "./types";
+import {IAnswer, IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
 
 export class Pages implements IPages {
   pages: IPageItem[] = [];
@@ -15,11 +15,6 @@ export class Pages implements IPages {
     purpose: "продажа",
     property: "микробизнес",
   };
-
-  promptContentSubject = "";
-  promptContentType = "";
-  promptContentPurpose = "";
-  promptContentProperty = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -61,14 +56,47 @@ export class Pages implements IPages {
     this.pages = this.pages.filter((page) => page.id !== pageId);
   }
 
-  addUniquePages(page: IPageItem) {
+  addUniquePages(page: IPageItem, isAi: boolean = false) {
     const isPageUnique = !this.pages.some(
       (existingPage) => existingPage.name === page.name,
     );
 
     if (isPageUnique) {
+      page.isAi = isAi;
       this.pages.push(page);
     }
+  }
+
+  addQuestionPage(id: string, value: IQuestions[]) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.questions = value;
+      }
+
+      return item;
+    });
+    this.setPages(pages);
+  }
+
+  addContentToPage(id: string, value: string) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.content = value;
+      }
+
+      return item;
+    });
+    this.setPages(pages);
+  }
+
+  getQuestions(id: string) {
+    const currentPage = this.getPageById(id);
+    return currentPage.questions;
+  }
+
+  getAnswer(id: string) {
+    const currentPage = this.getPageById(id);
+    return currentPage.answer;
   }
 
   setPromptSubject(value: string) {
@@ -85,18 +113,5 @@ export class Pages implements IPages {
   }
   setPromptExtra(value: string) {
     this.promptExtra = value;
-  }
-
-  setContentSubject(value: string) {
-    this.promptContentSubject = value;
-  }
-  setContentType(value: string) {
-    this.promptContentType = value;
-  }
-  setContentPurpose(value: string) {
-    this.promptContentPurpose = value;
-  }
-  setContentProperty(value: string) {
-    this.promptContentProperty = value;
   }
 }

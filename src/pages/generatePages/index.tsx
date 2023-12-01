@@ -60,7 +60,7 @@ const GeneratePages = observer( ({ onClose }: IGenerate) => {
             const result = parseResult(responseMessage);
 
             result.map((item:IPageItem) => {
-                page.addUniquePages(item);
+                page.addUniquePages(item, true);
             })
 
             onClose();
