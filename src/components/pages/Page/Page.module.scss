@@ -43,6 +43,7 @@
         .descriptionText {
             padding: 20px 16px;
             position: absolute;
+            z-index: 10;
             top: 100%;
             left: 0;
             width: 326px;
@@ -54,7 +55,8 @@
             border-radius: 6px;
             border: 1px solid #D8D8E5;
             background: #FFF;
-            box-shadow: 0px 8px 14px 0px rgba(15, 42, 81, 0.08);
+            box-shadow: 0 8px 14px 0 rgba(15, 42, 81, 0.08);
+            margin-top: 10px;
         }
     }
 
