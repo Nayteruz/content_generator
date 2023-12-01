@@ -8,15 +8,17 @@ import {fields, IMessage} from "@/components/prompt";
 import {getContent} from "@/api";
 import {IItem, parseResult} from "@/utils/parse";
 import {getMessage, getQuestions} from "@/utils/getMessage";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {IGenerate} from "@/pages/generatePages/types";
 import s from './GeneratePagesContent.module.scss';
 
-const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
+const GeneratePagesContent = observer( ({ onClose, resMessage }: IGenerate) => {
     const { page } = useStore();
+    const { id } = useParams();
     const usenavigate = useNavigate();
     const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
+    const questions = page.getQuestions(id);
     const messageData = {
         subject: page.promptSubject,
         type: page.promptType,
@@ -69,25 +71,18 @@ const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
         }
     }
 
-    // const getQuestionForPage = async () => {
-    //     setIsPending(true);
-    //
-    //     try {
-    //         const messages = page.name;
-    //         const responseData = await getContent({messages});
-    //         const responseMessage = responseData?.choices[0]?.message?.content;
-    //
-    //
-    //     } catch (e) {
-    //         console.log(e);
-    //         alert('')
-    //     } finally {
-    //         setIsPending(false);
-    //     }
-    // }
-
     return (
         <>
+            {questions.map((question) => {
+                console.log(question);
+                return (
+                    <Textarea
+                        value=""
+                        name={question.question}
+                        onChange={() => {}}
+                    />
+                )
+            })}
             <ActionPanel title="Генерация разделов с помощью ИИ">
                 <CounterBlock />
                 <Button size="medium" tag='div' appearance="purple">Сгенерировать</Button>

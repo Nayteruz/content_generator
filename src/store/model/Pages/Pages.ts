@@ -1,5 +1,5 @@
 import {action, makeAutoObservable} from "mobx";
-import {IPageItem, IPageListPrompt, IPages} from './types';
+import {IPageItem, IPageListPrompt, IPages, IQuestions} from './types';
 
 export class Pages implements IPages {
 
@@ -16,12 +16,6 @@ export class Pages implements IPages {
         purpose: 'продажа',
         property: 'микробизнес'
     };
-
-    promptContentSubject = '';
-    promptContentType = '';
-    promptContentPurpose = '';
-    promptContentProperty = '';
-
 
     constructor() {
         makeAutoObservable(this);
@@ -67,6 +61,22 @@ export class Pages implements IPages {
         }
     }
 
+    addQuestionPage(id: string, value: IQuestions[]) {
+        const pages = this.pages.map((item) => {
+            if (item.id === id) {
+                item.questions = value;
+            }
+
+            return item;
+        });
+        this.setPages(pages);
+    }
+
+    getQuestions(id: string) {
+        const currentPage = this.getPageById(id);
+        return currentPage.questions;
+    }
+
     setPromptSubject(value: string) {
         this.promptSubject = value;
     }
@@ -83,16 +93,4 @@ export class Pages implements IPages {
         this.promptExtra = value;
     }
 
-    setContentSubject(value: string) {
-        this.promptContentSubject = value;
-    }
-    setContentType(value: string) {
-        this.promptContentType = value;
-    }
-    setContentPurpose(value: string) {
-        this.promptContentPurpose = value;
-    }
-    setContentProperty(value: string) {
-        this.promptContentProperty = value;
-    }
 }

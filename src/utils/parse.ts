@@ -25,3 +25,17 @@ export const parseResult = (message: string) => {
 
     return flatList;
 }
+
+export interface IQuestion {
+    name: string;
+}
+
+export interface IQuestions {
+    list: IQuestion[];
+}
+
+export const parsePageQuestion = (list: IQuestions) => {
+    const parsedList = list.list.map((item) => ({ question: item.name, id: crypto.randomUUID(), answer: '' }));
+
+    return parsedList;
+};

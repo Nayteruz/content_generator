@@ -2,6 +2,12 @@ export interface IPageItem {
     name: string;
     id?: string;
     content?: string;
+    questions?: IQuestions[];
+}
+
+export interface IQuestions {
+    question: string;
+    answer?: string;
 }
 
 export interface IPageListPrompt {

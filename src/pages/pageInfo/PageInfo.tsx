@@ -7,21 +7,40 @@ import {Button, Modal} from "@/components/ui";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import {useState} from "react";
 import GeneratePagesContent from "@/components/generatePagesContent";
+import {getQuestions} from "@/utils/getMessage";
+import {getContent} from "@/api";
+import {parsePageQuestion} from "@/utils/parse";
+import {useLocalStorage} from "@/hooks/useLocalStorage";
 
 export const PageInfo = observer(() => {
     const { id } = useParams();
     const { page } = useStore();
     const [openModal, setOpenModal] = useState<boolean>();
+    const [isPending, setIsPending] = useState(false);
+    const [responseMessage, setResponseMessage] = useState();
 
     const pageInfo: IPageItem = page.getPageById(id);
-    // const questions = getQuestions(pageInfo.name);
-
-    const onClick = () => {
-        setOpenModal(true);
-    }
+    const messages = getQuestions(pageInfo.name);
 
     const onCloseModal = () => {
       setOpenModal(false);
+    }
+
+    const getQuestionForPage = async () => {
+        setIsPending(true);
+
+        try {
+            const responseData = await getContent({ messages });
+            const responseMessage = responseData?.choices[0]?.message?.content;
+            const parsedResult = parsePageQuestion(responseMessage);
+
+            page.addQuestionPage(id, parsedResult)
+            setOpenModal(true);
+        } catch (e) {
+
+        } finally {
+            setIsPending(false);
+        }
     }
 
 
@@ -47,12 +66,12 @@ export const PageInfo = observer(() => {
             </ActionPanel>
             <h1>{pageInfo.name}</h1>
             <AiInfoBlock
-                onClick={onClick}
+                onClick={getQuestionForPage}
                 title="Создайте текст с помощью ИИ"
                 subTitle="Ответь подробнее на несколько вопросов и ИИ предложит вам варианты разделов для сайта"
             />
             <Modal title="title" show={openModal} onClose={onCloseModal}>
-                <GeneratePagesContent onClose={onCloseModal} />
+                <GeneratePagesContent resMessage={responseMessage} onClose={onCloseModal} />
             </Modal>
         </div>
     )
