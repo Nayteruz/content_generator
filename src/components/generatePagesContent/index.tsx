@@ -85,34 +85,21 @@ const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
       <div className={s.content}>
         {questions.map((question, index) => {
           return (
-            <Textarea
-              value={userAnswers[index]}
-              onChange={(e) => onChangeText(index, e.target.value)}
-              name={question.question}
-            />
+              <div key={index}>
+                <Textarea
+                  value={userAnswers[index]}
+                  onChange={(e) => onChangeText(index, e.target.value)}
+                  name={question.question}
+                />
+              </div>
           );
         })}
       </div>
       <div className={s.bottom}>
         <CounterBlock />
         <div className={s.bottomButtons}>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="purple"
-            onClick={getContentInfo}
-          >
-            Сгенерировать
-          </Button>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="gray"
-            color="color-grey"
-            onClick={onClose}
-          >
-            Отмена
-          </Button>
+          <Button tag="div" size="medium" appearance="purple" onClick={getContentInfo}>Сгенерировать</Button>
+          <Button tag="div" size="medium" appearance="gray" color="color-grey" onClick={onClose}>Отмена</Button>
         </div>
       </div>
       {isPending && <Preloader text="Генерация не займет много времени" />}

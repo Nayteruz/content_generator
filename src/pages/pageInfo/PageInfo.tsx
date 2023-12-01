@@ -3,7 +3,7 @@ import { useStore } from "@/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { IPageItem } from "@/store/model/Pages/types";
 import ActionPanel from "@/components/actionPanel";
-import { Button, Modal, Textarea, Editor } from "@/components/ui";
+import { Button, Modal, Editor } from "@/components/ui";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import GeneratePagesContent from "@/components/generatePagesContent";
@@ -67,14 +67,12 @@ export const PageInfo = observer(() => {
   return (
     <div>
       <ActionPanel backButton="Назад к разделам">
-        <Button size="medium" tag="div" icon="airplane" appearance="green">
-          Отправить в работу
-        </Button>
+        <Button size="medium" tag="div" icon="airplane" appearance="green">Отправить в работу</Button>
       </ActionPanel>
       <h1>{pageInfo?.name}</h1>
       <div style={{margin: '0 0 20px'}}>
         <Editor data={editorContent} onChange={(event, editor) => setEditorContent(editor.getData())} />
-        <textarea style={{display: 'none'}} value={content} onChange={onChange}></textarea>
+        <textarea style={{display: 'none'}} value={content} onChange={onChange} />
       </div>
       <AiInfoBlock
         onClick={getQuestionForPage}

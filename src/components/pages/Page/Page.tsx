@@ -1,10 +1,10 @@
-import s from './Page.module.scss'
 import React, {useState} from "react";
 import {IPageItem} from "@/store/model/Pages/types";
 import {useNavigate} from "react-router-dom";
 import MoreIcon from '@/assets/more.svg';
 import {PopupPageAction} from "@/components/popupPageAction";
 import {Button, Icon} from "@/components/ui";
+import s from './Page.module.scss'
 
 interface IPageProps {
     page: IPageItem
@@ -45,11 +45,16 @@ export const Page = ({page}: IPageProps) => {
                 </div>
                 {isHoveredItem && (
                   <div className={s.actionsBtn}>
-                      <Button
-                        tag="div"
-                        size="small"
-                        appearance="green"
-                        icon="airplane">Отправить в работу</Button>
+                      {page.content && (
+                          <Button
+                              tag="div"
+                              size="small"
+                              appearance="green"
+                              icon="airplane"
+                          >
+                              Отправить в работу
+                          </Button>
+                      )}
                       <Button
                         tag="div"
                         size="small"

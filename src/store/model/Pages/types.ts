@@ -11,6 +11,7 @@ export interface IPageItem {
     answer?: IAnswer[];
     description?: string;
     isAi?: boolean;
+    isSended?: boolean;
     generatedContent?: IGenerateItem[];
 }
 
