@@ -1,3 +1,8 @@
+export interface IGenerateItem {
+    content: string;
+    answer: string;
+}
+
 export interface IPageItem {
     name: string;
     id?: string;
@@ -6,6 +11,7 @@ export interface IPageItem {
     answer?: IAnswer[];
     description?: string;
     isAi?: boolean;
+    generatedContent?: IGenerateItem[];
 }
 
 export interface IQuestions {

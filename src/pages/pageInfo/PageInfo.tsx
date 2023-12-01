@@ -11,24 +11,26 @@ import { getQuestions } from "@/utils/getMessage";
 import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
 import { Preloader } from "@/components/preloader/Preloader";
+import {useGetStorePagesInfo} from "@/hooks/useGetStorePagesInfo";
 
 export const PageInfo = observer(() => {
   const { id } = useParams();
   const { page } = useStore();
   const [openModal, setOpenModal] = useState<boolean>();
   const [isPending, setIsPending] = useState(false);
+  useGetStorePagesInfo();
   // со стора должно браться, список страниц useGetStorePagesInfo();
   const pageInfo: IPageItem = page.getPageById(id);
 
   const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
-    pageName: pageInfo.name,
+    subject: page?.promptSubject || '',
+    type: page?.promptType || '',
+    purpose: page?.promptPurpose || '',
+    property: page?.promptProperty || '',
+    pageName: pageInfo?.name || '',
   };
   const messages = getQuestions(messageData);
-  const [content, setContent] = useState(pageInfo.content);
+  const [content, setContent] = useState(pageInfo?.content);
   const [editorContent, setEditorContent] = useState(content)
 
   const onCloseModal = () => {
@@ -58,9 +60,9 @@ export const PageInfo = observer(() => {
   };
 
   useEffect(() => {
-    setContent(pageInfo.content);
-    setEditorContent(pageInfo.content);
-  }, [pageInfo.content]);
+    setContent(pageInfo?.content);
+    setEditorContent(pageInfo?.content);
+  }, [pageInfo?.content]);
 
   return (
     <div>
