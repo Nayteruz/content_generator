@@ -1,12 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import ActionPanel from "@/components/actionPanel";
 import CounterBlock from "@/components/counterBlock";
 import {Button, Textarea} from "@/components/ui";
 import {observer} from "mobx-react-lite";
 import {useStore} from "@/hooks/useStore";
-import {fields, IMessage} from "@/components/prompt";
 import {getContent} from "@/api";
-import {getAnswerForQuestions, getMessage, getQuestions} from "@/utils/getMessage";
+import {getAnswerForQuestions} from "@/utils/getMessage";
 import {useParams} from "react-router-dom";
 import {IGenerate} from "@/pages/generatePages/types";
 import s from './GeneratePagesContent.module.scss';
@@ -27,16 +26,13 @@ const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
                 answer: userAnswers[index],
             }));
             const formattedString = allAnswers.map(({ question, answer }) => `${question}\n${answer}`).join('\n\n');
-            console.log(formattedString)
             const messages = getAnswerForQuestions(formattedString);
             const responseData = await getContent({ messages });
             const responseMessage = responseData?.choices[0]?.message?.content;
 
-            console.log(responseMessage)
             page.addContentToPage(id, responseMessage);
             onClose();
         } catch (e) {
-            console.log(e);
             alert('Ошибка запроса, не могу распарсить ответ');
         } finally {
             setIsPending(false);
@@ -55,8 +51,8 @@ const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
         <>
             <ActionPanel title="Генерация разделов с помощью ИИ">
                 <CounterBlock />
-                <Button size="medium" tag='div' appearance="purple">Сгенерировать</Button>
-                <Button size="medium" tag='div' appearance="gray" color="color-grey">Отмена</Button>
+                <Button size="medium" tag='div' appearance="purple" onClick={getContentInfo}>Сгенерировать</Button>
+                <Button size="medium" tag='div' appearance="gray" color="color-grey" onClick={onClose}>Отмена</Button>
             </ActionPanel>
             <div className={s.top}>
                 <div className={s.description}>
@@ -78,7 +74,7 @@ const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
                 <CounterBlock />
                 <div className={s.bottomButtons}>
                     <Button tag="div" size="medium" appearance="purple" onClick={getContentInfo}>Сгенерировать</Button>
-                    <Button tag="div" size="medium" appearance="gray" color="color-grey">Отмена</Button>
+                    <Button tag="div" size="medium" appearance="gray" color="color-grey" onClick={onClose}>Отмена</Button>
                 </div>
             </div>
         </>

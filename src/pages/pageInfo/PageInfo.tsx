@@ -65,7 +65,7 @@ export const PageInfo = observer(() => {
         title="Создайте текст с помощью ИИ"
         subTitle="Ответь подробнее на несколько вопросов и ИИ предложит вам варианты разделов для сайта"
       />
-      <Modal title="title" show={openModal} onClose={onCloseModal} style={{ width: '100%' }}>
+      <Modal show={openModal} onClose={onCloseModal} style={{ width: '100%' }}>
         <GeneratePagesContent onClose={onCloseModal}/>
       </Modal>
     </div>
