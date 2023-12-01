@@ -68,8 +68,10 @@
     }
 
     &.isSended {
-        border-color: #50CD89;
         background: #EFFFF5;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        border: 0;
 
         .name .nameText {
             color: rgba(#000, 0.3);

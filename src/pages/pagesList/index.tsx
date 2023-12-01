@@ -46,7 +46,7 @@ const PagesList = observer(() => {
 
     return (
         <>
-            <ActionPanel title="Генерация разделов с помощью ИИ">
+            <ActionPanel title="Создание разделов сайта">
                 <CounterBlock />
                 <Button size="medium" tag='div' appearance="purple" onClick={onClickAiButton}>Сгенерировать с ИИ</Button>
                 <Button
