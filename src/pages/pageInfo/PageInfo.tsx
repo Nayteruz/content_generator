@@ -10,7 +10,6 @@ import GeneratePagesContent from "@/components/generatePagesContent";
 import { getQuestions } from "@/utils/getMessage";
 import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
-import { useGetStorePagesInfo } from "@/hooks/useGetStorePagesInfo";
 import s from "@/pages/generatePages/GeneratePages.module.scss";
 import { Preloader } from "@/components/preloader/Preloader";
 
@@ -21,7 +20,15 @@ export const PageInfo = observer(() => {
   const [isPending, setIsPending] = useState(false);
   // со стора должно браться, список страниц useGetStorePagesInfo();
   const pageInfo: IPageItem = page.getPageById(id);
-  const messages = getQuestions(pageInfo.name);
+
+  const messageData = {
+    subject: page.promptSubject,
+    type: page.promptType,
+    purpose: page.promptPurpose,
+    property: page.promptProperty,
+    pageName: pageInfo.name
+  }
+  const messages = getQuestions(messageData);
   const [content, setContent] = useState(pageInfo.content);
 
   const onCloseModal = () => {
@@ -55,15 +62,6 @@ export const PageInfo = observer(() => {
   return (
     <div>
       <ActionPanel backButton="Назад к разделам">
-        <Button
-          size="medium"
-          tag="div"
-          icon="message"
-          appearance="light_blue"
-          color="color-blue"
-        >
-          Добавить комментарий
-        </Button>
         <Button size="medium" tag="div" icon="airplane" appearance="green">
           Отправить в работу
         </Button>

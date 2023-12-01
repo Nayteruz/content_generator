@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import s from './Counter.module.scss';
 
 const CounterBlock = () => {
-    const [value, setValue] = useState('10');
+    const [value, setValue] = useState('20');
+
 
     return (
         <div className={s.counter}>
