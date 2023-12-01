@@ -1,15 +1,12 @@
 import { MouseEventHandler, ReactNode } from "react";
+import {Icon} from "@/components/ui";
+import { Size, Appearance, Color} from "./types";
 import s from './Button.module.scss';
-import i from './Icon.module.scss';
-
-type TSize = 'small' | 'medium' | 'large';
-type TColor = 'color-black' | 'color-blue' | 'color-purple' | 'color-green' | 'color-grey';
-type TAppearance = 'black' | 'blue' | 'light_blue' | 'gray' | 'red' | 'purple' | 'green';
 
 export type ButtonProps = {
-  size?: TSize;
-  appearance?: TAppearance;
-  color?: TColor;
+  size?: Size;
+  appearance?: Appearance;
+  color?: Color;
   href?: string;
   tag?: 'a' | 'button' | 'div';
   onClick?: MouseEventHandler<HTMLElement>;
@@ -29,14 +26,8 @@ export const Button = ({ size, color, appearance, tag, href, children, onClick, 
     className,
   ].filter(Boolean).join(' ');
 
-  const iconComponentClass = [
-    i.icon,
-    icon && i[icon],
-    size && i[size],
-  ].filter(Boolean).join(' ');
-
   const iconComponent = (
-    <i className={iconComponentClass}></i>
+    <Icon icon={icon} size={size} />
   )
 
   return (

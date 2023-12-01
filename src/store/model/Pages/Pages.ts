@@ -56,12 +56,13 @@ export class Pages implements IPages {
     this.pages = this.pages.filter((page) => page.id !== pageId);
   }
 
-  addUniquePages(page: IPageItem) {
+  addUniquePages(page: IPageItem, isAi: boolean = false) {
     const isPageUnique = !this.pages.some(
       (existingPage) => existingPage.name === page.name,
     );
 
     if (isPageUnique) {
+      page.isAi = isAi;
       this.pages.push(page);
     }
   }

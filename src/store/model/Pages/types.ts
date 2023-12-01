@@ -4,6 +4,8 @@ export interface IPageItem {
     content?: string;
     questions?: IQuestions[];
     answer?: IAnswer[];
+    description?: string;
+    isAi?: boolean;
 }
 
 export interface IQuestions {

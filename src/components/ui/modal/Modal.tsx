@@ -1,6 +1,4 @@
 import {ReactNode, useRef} from 'react';
-import { ModalContent } from './ModalContent';
-import { ModalBottom } from './ModalBottom';
 import s from './Modal.module.scss';
 
 export type ModalProps = {
@@ -42,6 +40,3 @@ export const Modal = ({
     </div>
   );
 };
-
-Modal.Content = ModalContent;
-Modal.Bottom = ModalBottom;

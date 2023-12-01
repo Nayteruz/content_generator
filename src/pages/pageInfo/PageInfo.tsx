@@ -51,7 +51,7 @@ export const PageInfo = observer(() => {
   return (
     <div>
       <ActionPanel backButton="Назад к разделам">
-        <Button size="medium" tag="div" icon="message" appearance="light_blue">
+        <Button size="medium" tag="div" icon="message" appearance="light_blue" color="color-blue">
           Добавить комментарий
         </Button>
         <Button size="medium" tag="div" icon="airplane" appearance="green">
