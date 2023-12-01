@@ -10,7 +10,6 @@ import GeneratePagesContent from "@/components/generatePagesContent";
 import { getQuestions } from "@/utils/getMessage";
 import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
-import s from "@/pages/generatePages/GeneratePages.module.scss";
 import { Preloader } from "@/components/preloader/Preloader";
 
 export const PageInfo = observer(() => {
@@ -26,8 +25,8 @@ export const PageInfo = observer(() => {
     type: page.promptType,
     purpose: page.promptPurpose,
     property: page.promptProperty,
-    pageName: pageInfo.name
-  }
+    pageName: pageInfo.name,
+  };
   const messages = getQuestions(messageData);
   const [content, setContent] = useState(pageInfo.content);
   const [editorContent, setEditorContent] = useState(content)
@@ -83,11 +82,7 @@ export const PageInfo = observer(() => {
       <Modal show={openModal} onClose={onCloseModal} style={{ width: "100%" }}>
         <GeneratePagesContent onClose={onCloseModal} />
       </Modal>
-      {isPending && (
-        <div className={s.loaderContainer}>
-          <Preloader text="Генерация не займет много времени" />
-        </div>
-      )}
+      {isPending && <Preloader text="Генерация не займет много времени" />}
     </div>
   );
 });
