@@ -6,62 +6,34 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "@/hooks/useStore";
 import {fields, IMessage} from "@/components/prompt";
 import {getContent} from "@/api";
-import {IItem, parseResult} from "@/utils/parse";
-import {getMessage, getQuestions} from "@/utils/getMessage";
-import {useNavigate, useParams} from "react-router-dom";
+import {getAnswerForQuestions, getMessage, getQuestions} from "@/utils/getMessage";
+import {useParams} from "react-router-dom";
 import {IGenerate} from "@/pages/generatePages/types";
 import s from './GeneratePagesContent.module.scss';
+import {IQuestions, IQuiz} from "@/store/model/Pages/types";
 
-const GeneratePagesContent = observer( ({ onClose, resMessage }: IGenerate) => {
+const GeneratePagesContent = observer( ({ onClose }: IGenerate) => {
     const { page } = useStore();
     const { id } = useParams();
-    const usenavigate = useNavigate();
-    const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
     const [isPending, setIsPending] = useState(false);
     const questions = page.getQuestions(id);
-    const messageData = {
-        subject: page.promptSubject,
-        type: page.promptType,
-        purpose: page.promptPurpose,
-        property: page.promptProperty
-    }
-    const message: IMessage[] = getMessage(messageData);
-
-    const extraMessage: IMessage[] = [
-        {role: 'system', content: page.promptExtra}
-    ]
-
-    const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        page.setPromptSubject(event.target.value)
-    }
-
-    const onChangeType = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        page.setPromptType(event.target.value)
-    }
-
-    const onChangeProperty = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        page.setPromptProperty(event.target.value)
-    }
-
-    const onChangePurpose = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        page.setPromptPurpose(event.target.value)
-    }
-
+    const [userAnswers, setUserAnswers] = useState(Array(questions.length).fill(''));
 
     const getContentInfo = async () => {
         setIsPending(true);
-
         try {
-            const messages = page.promptExtra ? extraMessage : message;
-            const responseData = await getContent({messages});
+            const allAnswers: IQuiz[] = questions.map((question: IQuestions, index) => ({
+                question: question.question,
+                answer: userAnswers[index],
+            }));
+            const formattedString = allAnswers.map(({ question, answer }) => `${question}\n${answer}`).join('\n\n');
+            console.log(formattedString)
+            const messages = getAnswerForQuestions(formattedString);
+            const responseData = await getContent({ messages });
             const responseMessage = responseData?.choices[0]?.message?.content;
 
-            const result = parseResult(responseMessage);
-
-            result.map((item) => {
-                page.addPage(item);
-            })
-
+            console.log(responseMessage)
+            page.addContentToPage(id, responseMessage);
             onClose();
         } catch (e) {
             console.log(e);
@@ -71,18 +43,16 @@ const GeneratePagesContent = observer( ({ onClose, resMessage }: IGenerate) => {
         }
     }
 
+    const onChangeText = (index: any, answer: any) => {
+        setUserAnswers((prevAnswers) => {
+            const newAnswers = [...prevAnswers];
+            newAnswers[index] = answer;
+            return newAnswers;
+        });
+    };
+
     return (
         <>
-            {questions.map((question) => {
-                console.log(question);
-                return (
-                    <Textarea
-                        value=""
-                        name={question.question}
-                        onChange={() => {}}
-                    />
-                )
-            })}
             <ActionPanel title="Генерация разделов с помощью ИИ">
                 <CounterBlock />
                 <Button size="medium" tag='div' appearance="purple">Сгенерировать</Button>
@@ -94,26 +64,15 @@ const GeneratePagesContent = observer( ({ onClose, resMessage }: IGenerate) => {
                 </div>
             </div>
             <div className={s.content}>
-                <Textarea
-                    value={page.promptSubject}
-                    name={fields['promptSubject'].note}
-                    onChange={onChangeSubject}
-                />
-                <Textarea
-                    value={page.promptType}
-                    name={fields['promptType'].note}
-                    onChange={onChangeType}
-                />
-                <Textarea
-                    value={page.promptPurpose}
-                    name={fields['promptPurpose'].note}
-                    onChange={onChangePurpose}
-                />
-                <Textarea
-                    value={page.promptProperty}
-                    name={fields['promptProperty'].note}
-                    onChange={onChangeProperty}
-                />
+                {questions.map((question, index) => {
+                    return (
+                        <Textarea
+                            value={userAnswers[index]}
+                            onChange={(e) => onChangeText(index, e.target.value)}
+                            name={question.question}
+                        />
+                    )
+                })}
             </div>
             <div className={s.bottom}>
                 <CounterBlock />

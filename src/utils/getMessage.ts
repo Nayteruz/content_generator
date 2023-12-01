@@ -61,6 +61,22 @@ export const getQuestions = (pageName: string): IMessage[] => {
     ]
 }
 
+export const getAnswerForQuestions = (allAnswers: string): IMessage[] => {
+    return [
+        {
+            role: 'system',
+            content: `You are a professional copywriter-marketer and content creation consultant for a website. 
+            The theme of a website is subject. Website type is type. 
+            The purpose of the website is purpose. The website will be property. 
+            Your task is to write a unique, high-quality, persuasive text for the Page name page of the website. 
+            Below is a list of questions and their corresponding answers from the website owner. 
+            Use them to personalize the text and enhance its quality and uniqueness. 
+            ${allAnswers}
+            The narrative style should inspire trust and encourage visitors to submit inquiries on the website. The text on the page should assist the owner in promoting their business online. Be sure to follow the text structure, including a Unique Selling Proposition (USP), headings that separate logical paragraphs, and consider using bulleted or numbered lists where appropriate. The length of the text should be no less than 1700 and no more than 2000 characters. The text should not exceed 30% redundancy, and wateriness should not exceed 15%. Тhe language of text is Russian`
+        }
+    ]
+}
+
 export const extraConfig = {
     id: '1', placeholder: 'Свой запрос', name: 'extra', note:'Ручной ввод запроса. Заполнять либо 4 верхних, либо только этот.'
 }

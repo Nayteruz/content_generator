@@ -3,7 +3,7 @@ import {useStore} from "@/hooks/useStore";
 import {Pages} from "@/components/pages";
 import {observer} from "mobx-react-lite";
 import CounterBlock from "@/components/counterBlock";
-import {Button, Modal} from "@/components/ui";
+import {Button, Input, Modal} from "@/components/ui";
 import ActionPanel from "@/components/actionPanel";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import s from './PageList.module.scss';
@@ -15,6 +15,7 @@ import {isEmptyObj} from "openai/core";
 const PagesList = observer(() => {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [pageModal, setPageModal] = useState<boolean>(false);
     const { page } = useStore();
     const defaultPages = [
         {id: '1', name: 'Главная', content: ''},
@@ -42,6 +43,10 @@ const PagesList = observer(() => {
 
     }
 
+    const onCloseModalPage = () => {
+
+    }
+
     return (
         <>
             <ActionPanel title="Генерация разделов с помощью ИИ">
@@ -61,7 +66,7 @@ const PagesList = observer(() => {
                 size="medium"
                 appearance="light_blue"
                 color="color-blue"
-                onClick={onAddPage}
+                onClick={() => setPageModal(true)}
             >
                 Новая страница
             </Button>
@@ -71,6 +76,9 @@ const PagesList = observer(() => {
             />
             <Modal show={openModal} onClose={onCloseModal} style={{ width: '100%' }}>
                 <GeneratePages onClose={onCloseModal}  />
+            </Modal>
+            <Modal title="Новый раздел" show={pageModal} onClose={onCloseModalPage} >
+                <Input name="Укажите название раздела"   />
             </Modal>
         </>
     );

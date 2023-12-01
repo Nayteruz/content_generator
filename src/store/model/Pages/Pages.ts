@@ -1,5 +1,5 @@
 import { action, makeAutoObservable } from "mobx";
-import { IPageItem, IPageListPrompt, IPages, IQuestions } from "./types";
+import {IAnswer, IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
 
 export class Pages implements IPages {
   pages: IPageItem[] = [];
@@ -67,7 +67,6 @@ export class Pages implements IPages {
   }
 
   addQuestionPage(id: string, value: IQuestions[]) {
-    console.log(id, value);
     const pages = this.pages.map((item) => {
       if (item.id === id) {
         item.questions = value;
@@ -75,13 +74,28 @@ export class Pages implements IPages {
 
       return item;
     });
-    console.log(pages);
+    this.setPages(pages);
+  }
+
+  addContentToPage(id: string, value: string) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.content = value;
+      }
+
+      return item;
+    });
     this.setPages(pages);
   }
 
   getQuestions(id: string) {
     const currentPage = this.getPageById(id);
     return currentPage.questions;
+  }
+
+  getAnswer(id: string) {
+    const currentPage = this.getPageById(id);
+    return currentPage.answer;
   }
 
   setPromptSubject(value: string) {
