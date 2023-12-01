@@ -7,10 +7,10 @@ import { useStore } from "@/hooks/useStore";
 import { getContent } from "@/api";
 import { getAnswerForQuestions } from "@/utils/getMessage";
 import { useParams } from "react-router-dom";
-import { IGenerate } from "@/pages/generatePages/types";
-import s from "./GeneratePagesContent.module.scss";
+import { IGenerate } from "@/components/generatePages/types";
 import { IQuestions, IQuiz } from "@/store/model/Pages/types";
 import { Preloader } from "@/components/preloader/Preloader";
+import s from "./GeneratePagesContent.module.scss";
 
 const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();

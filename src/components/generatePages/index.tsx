@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ActionPanel from "@/components/actionPanel";
 import CounterBlock from "@/components/counterBlock";
 import { Button, Textarea } from "@/components/ui";
-import s from "./GeneratePages.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
 import { fields, IMessage } from "@/components/prompt";
@@ -10,9 +9,10 @@ import { getContent } from "@/api";
 import { parseResult } from "@/utils/parse";
 import { getMessage } from "@/utils/getMessage";
 import { useNavigate } from "react-router-dom";
-import { IGenerate } from "@/pages/generatePages/types";
+import { IGenerate } from "@/components/generatePages/types";
 import { IPageItem } from "@/store/model/Pages/types";
 import { Preloader } from "@/components/preloader/Preloader";
+import s from "./GeneratePages.module.scss";
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();

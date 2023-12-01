@@ -90,6 +90,17 @@ export class Pages implements IPages {
     this.setPages(pages);
   }
 
+  setIsSended(id: string, value: boolean) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.isSended = value;
+      }
+
+      return item;
+    });
+    this.setPages(pages);
+  }
+
   getQuestions(id: string) {
     const currentPage = this.getPageById(id);
     return currentPage.questions;

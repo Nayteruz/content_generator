@@ -7,7 +7,7 @@ import {Button, Input, Modal} from "@/components/ui";
 import ActionPanel from "@/components/actionPanel";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import { useGetStorePagesInfo } from "@/hooks/useGetStorePagesInfo";
-import GeneratePages from "../generatePages";
+import GeneratePages from "@/components/generatePages";
 import s from './PageList.module.scss';
 
 const PagesList = observer(() => {
@@ -41,6 +41,7 @@ const PagesList = observer(() => {
         }
 
         page.addPage(newPage);
+        onClosePageModal();
     }
 
     return (
