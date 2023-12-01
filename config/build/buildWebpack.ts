@@ -21,7 +21,7 @@ export const buildWebpack = (options: BuildOptions): webpack.Configuration => {
             path: paths.output,
             filename: '[name].[contenthash].js',
             clean: true,
-            publicPath: '/',
+            publicPath: mode === 'production' ? 'https://content-generator-hackaton.netlify.app/' : '/',
         },
         optimization: {
             runtimeChunk: 'single',
