@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useStore} from "@/hooks/useStore";
 import {Pages} from "@/components/pages";
 import {observer} from "mobx-react-lite";
@@ -9,27 +9,14 @@ import AiInfoBlock from "@/components/aiInfoBlock";
 import s from './PageList.module.scss';
 import {useNavigate} from "react-router-dom";
 import GeneratePages from "../generatePages";
-import {set} from "mobx";
-import {isEmptyObj} from "openai/core";
+import { useGetStorePagesInfo } from "@/hooks/useGetStorePagesInfo";
 
 const PagesList = observer(() => {
+    useGetStorePagesInfo();
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [pageModal, setPageModal] = useState<boolean>(false);
     const { page } = useStore();
-    const defaultPages = [
-        {id: '1', name: 'Главная', content: ''},
-        {id: '2', name: 'О нас', content: ''},
-        {id: '3', name: 'Контакты', content: ''},
-    ]
-
-    useEffect(() => {
-        if (page.pages.length === 0) {
-            defaultPages.map((item) => {
-                page.addPage(item)
-            })
-        }
-    }, [page.pages.length]);
 
     const onClickAiButton = () => {
         setOpenModal(true)

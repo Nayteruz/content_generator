@@ -1,69 +1,40 @@
-import { useState, useEffect, useCallback } from 'react';
+const MAIN_NAME = "generator_content";
 
-const STORAGE_KEY = 'generatorStorage';
+export const useLocalStorage = () => {
+    const getData = <T>(keyItem: string): T => {
+        const data = localStorage.getItem(MAIN_NAME);
 
-type TLocalStorageHandler<T> = [T, (value: T | ((val: T) => T)) => void | null];
+        if (data) {
+            const parsed = JSON.parse(data);
 
-export const useLocalStorage = <T>(
-  key: string | undefined,
-  initialValue: T
-): TLocalStorageHandler<T> => {
-  const readValue = useCallback(() => {
-    try {
-      const item = window.localStorage.getItem(STORAGE_KEY);
-      const storedData = item ? JSON.parse(item) : {};
+            if (parsed[keyItem]) {
+                return parsed[keyItem];
+            }
+            return null;
+        } else {
+            return null;
+        }
+    };
 
-      if (!key) {
-        return null;
-      }
+    const setData = (keyItem: string, value: unknown) => {
+        const data = localStorage.getItem(MAIN_NAME);
 
-      return storedData[key] ?? initialValue;
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
+        if (data) {
+            const parsed = JSON.parse(data);
+            if (parsed[keyItem]) {
+                parsed[keyItem] = value;
+                localStorage.setItem(MAIN_NAME, JSON.stringify(parsed));
+            }
+        } else {
+            const newData: Record<string, unknown> = {};
 
-      return initialValue;
-    }
-  }, [initialValue, key]);
+            newData[keyItem] = value;
+            localStorage.setItem(MAIN_NAME, JSON.stringify(newData));
+        }
+    };
 
-  const [storedValue, setStoredValue] = useState(readValue);
-
-  const setValue: TLocalStorageHandler<T>[1] = (value) => {
-    const newValue = value instanceof Function ? value(storedValue) : value;
-
-    setStoredValue(newValue);
-
-    try {
-      if (key) {
-        const storedData = {
-          ...JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}'),
-          [key]: newValue,
-        };
-
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
-      }
-    } catch (error) {
-      console.error(`Error writing localStorage key "${key}":`, error);
-    }
-  };
-
-  useEffect(() => {
-    setStoredValue(readValue());
-  }, [key, readValue]);
-
-  useEffect(() => {
-    try {
-      if (key) {
-        const storedData = {
-          ...JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}'),
-          [key]: storedValue,
-        };
-
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
-      }
-    } catch (error) {
-      console.error(`Error writing localStorage key "${key}":`, error);
-    }
-  }, [key, storedValue]);
-
-  return [storedValue, setValue];
+    return {
+        getData,
+        setData,
+    };
 };

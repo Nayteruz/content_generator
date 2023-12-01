@@ -1,4 +1,4 @@
-import { action, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import {IAnswer, IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
 
 export class Pages implements IPages {
