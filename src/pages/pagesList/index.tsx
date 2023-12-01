@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useStore} from "@/hooks/useStore";
 import {Pages} from "@/components/pages";
 import {observer} from "mobx-react-lite";
@@ -6,16 +6,15 @@ import CounterBlock from "@/components/counterBlock";
 import {Button, Input, Modal} from "@/components/ui";
 import ActionPanel from "@/components/actionPanel";
 import AiInfoBlock from "@/components/aiInfoBlock";
-import s from './PageList.module.scss';
-import {useNavigate} from "react-router-dom";
-import GeneratePages from "../generatePages";
 import { useGetStorePagesInfo } from "@/hooks/useGetStorePagesInfo";
+import GeneratePages from "@/components/generatePages";
+import s from './PageList.module.scss';
 
 const PagesList = observer(() => {
     useGetStorePagesInfo();
-    const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [pageModal, setPageModal] = useState<boolean>(false);
+    const [pageName, setPageName] = useState<string>('');
     const { page } = useStore();
 
     const onClickAiButton = () => {
@@ -26,12 +25,23 @@ const PagesList = observer(() => {
         setOpenModal(!openModal);
     }
 
-    const onAddPage = () => {
-        // page.addPage()
+    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setPageName(event.target.value);
     }
 
     const onClosePageModal = () => {
         setPageModal(false);
+    }
+
+    const onAddPage = () => {
+        const newPage = {
+            name: pageName,
+            id: crypto.randomUUID(),
+            content: "",
+        }
+
+        page.addPage(newPage);
+        onClosePageModal();
     }
 
     return (
@@ -76,7 +86,7 @@ const PagesList = observer(() => {
             </Modal>
             <Modal title="Новый раздел" show={pageModal} onClose={onClosePageModal} >
                 <div className={s.modalInner}>
-                    <Input name="Укажите название раздела"   />
+                    <Input name="Укажите название раздела" onChange={onChangeInput}/>
                     <div className={s.modalButtons}>
                         <Button tag="div" size="medium" appearance="blue" onClick={onAddPage}>Добавить</Button>
                         <Button

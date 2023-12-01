@@ -3,7 +3,7 @@ import { useStore } from "@/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { IPageItem } from "@/store/model/Pages/types";
 import ActionPanel from "@/components/actionPanel";
-import { Button, Modal, Textarea, Editor } from "@/components/ui";
+import { Button, Modal, Editor } from "@/components/ui";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import GeneratePagesContent from "@/components/generatePagesContent";
@@ -12,24 +12,26 @@ import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
 import { Preloader } from "@/components/preloader/Preloader";
 import { UploadFiles } from "@/components/uploadFiles/UploadFiles"
+import {useGetStorePagesInfo} from "@/hooks/useGetStorePagesInfo";
 
 export const PageInfo = observer(() => {
   const { id } = useParams();
   const { page } = useStore();
   const [openModal, setOpenModal] = useState<boolean>();
   const [isPending, setIsPending] = useState(false);
+  useGetStorePagesInfo();
   // со стора должно браться, список страниц useGetStorePagesInfo();
   const pageInfo: IPageItem = page.getPageById(id);
 
   const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
-    pageName: pageInfo.name,
+    subject: page?.promptSubject || '',
+    type: page?.promptType || '',
+    purpose: page?.promptPurpose || '',
+    property: page?.promptProperty || '',
+    pageName: pageInfo?.name || '',
   };
   const messages = getQuestions(messageData);
-  const [content, setContent] = useState(pageInfo.content);
+  const [content, setContent] = useState(pageInfo?.content);
   const [editorContent, setEditorContent] = useState(content)
 
   const onCloseModal = () => {
@@ -59,21 +61,19 @@ export const PageInfo = observer(() => {
   };
 
   useEffect(() => {
-    setContent(pageInfo.content);
-    setEditorContent(pageInfo.content);
-  }, [pageInfo.content]);
+    setContent(pageInfo?.content);
+    setEditorContent(pageInfo?.content);
+  }, [pageInfo?.content]);
 
   return (
     <div>
       <ActionPanel backButton="Назад к разделам">
-        <Button size="medium" tag="div" icon="airplane" appearance="green">
-          Отправить в работу
-        </Button>
+        <Button size="medium" tag="div" icon="airplane" appearance="green">Отправить в работу</Button>
       </ActionPanel>
       <h1>{pageInfo?.name}</h1>
       <div style={{margin: '0 0 20px'}}>
         <Editor data={editorContent} onChange={(event, editor) => setEditorContent(editor.getData())} />
-        <textarea style={{display: 'none'}} value={content} onChange={onChange}></textarea>
+        <textarea style={{display: 'none'}} value={content} onChange={onChange} />
       </div>
       <AiInfoBlock
         onClick={getQuestionForPage}

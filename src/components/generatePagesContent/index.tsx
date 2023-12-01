@@ -7,10 +7,10 @@ import { useStore } from "@/hooks/useStore";
 import { getContent } from "@/api";
 import { getAnswerForQuestions } from "@/utils/getMessage";
 import { useParams } from "react-router-dom";
-import { IGenerate } from "@/pages/generatePages/types";
-import s from "./GeneratePagesContent.module.scss";
+import { IGenerate } from "@/components/generatePages/types";
 import { IQuestions, IQuiz } from "@/store/model/Pages/types";
 import { Preloader } from "@/components/preloader/Preloader";
+import s from "./GeneratePagesContent.module.scss";
 
 const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
@@ -42,6 +42,7 @@ const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
     } catch (e) {
       alert("Ошибка запроса, не могу распарсить ответ");
     } finally {
+      page.setGenerationCount(page.generationCount - 1);
       setIsPending(false);
     }
   };
@@ -84,34 +85,21 @@ const GeneratePagesContent = observer(({ onClose }: IGenerate) => {
       <div className={s.content}>
         {questions.map((question, index) => {
           return (
-            <Textarea
-              value={userAnswers[index]}
-              onChange={(e) => onChangeText(index, e.target.value)}
-              name={question.question}
-            />
+              <div key={index}>
+                <Textarea
+                  value={userAnswers[index]}
+                  onChange={(e) => onChangeText(index, e.target.value)}
+                  name={question.question}
+                />
+              </div>
           );
         })}
       </div>
       <div className={s.bottom}>
         <CounterBlock />
         <div className={s.bottomButtons}>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="purple"
-            onClick={getContentInfo}
-          >
-            Сгенерировать
-          </Button>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="gray"
-            color="color-grey"
-            onClick={onClose}
-          >
-            Отмена
-          </Button>
+          <Button tag="div" size="medium" appearance="purple" onClick={getContentInfo}>Сгенерировать</Button>
+          <Button tag="div" size="medium" appearance="gray" color="color-grey" onClick={onClose}>Отмена</Button>
         </div>
       </div>
       {isPending && <Preloader text="Генерация не займет много времени" />}

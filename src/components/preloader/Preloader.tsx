@@ -47,12 +47,12 @@ export const Preloader = ({ size = 350, text, background }: PreloaderProps) => {
           }}
         >
           <ul className={s.container}>
-            <li className={s.bubble}></li>
-            <li className={s.bubble}></li>
-            <li className={s.bubble}></li>
-            <li className={s.bubble}></li>
-            <li className={s.bubble}></li>
-            <li className={s.bubble}></li>
+            <li className={s.bubble}/>
+            <li className={s.bubble}/>
+            <li className={s.bubble}/>
+            <li className={s.bubble}/>
+            <li className={s.bubble}/>
+            <li className={s.bubble}/>
           </ul>
         </div>
         {text && <div className={s.text}>{text}</div>}

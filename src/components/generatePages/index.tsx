@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ActionPanel from "@/components/actionPanel";
 import CounterBlock from "@/components/counterBlock";
 import { Button, Textarea } from "@/components/ui";
-import s from "./GeneratePages.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
 import { fields, IMessage } from "@/components/prompt";
@@ -10,19 +9,21 @@ import { getContent } from "@/api";
 import { parseResult } from "@/utils/parse";
 import { getMessage } from "@/utils/getMessage";
 import { useNavigate } from "react-router-dom";
-import { IGenerate } from "@/pages/generatePages/types";
+import { IGenerate } from "@/components/generatePages/types";
 import { IPageItem } from "@/store/model/Pages/types";
 import { Preloader } from "@/components/preloader/Preloader";
+import s from "./GeneratePages.module.scss";
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
+  const { promptSubject, promptType, promptPurpose, promptProperty, generationCount } = page;
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
+    subject: promptSubject,
+    type: promptType,
+    purpose: promptPurpose,
+    property: promptProperty,
   };
   const message: IMessage[] = getMessage(messageData);
 
@@ -67,6 +68,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
       console.log(e);
       alert("Ошибка запроса, не могу распарсить ответ");
     } finally {
+      page.setGenerationCount(generationCount - 1);
       setIsPending(false);
     }
   };
@@ -142,7 +144,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
           </Button>
         </div>
       </div>
-      <Preloader text="Генерация не займет много времени" />
+      {isPending && <Preloader text="Генерация не займет много времени" />}
     </>
   );
 });
