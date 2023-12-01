@@ -11,6 +11,8 @@ import { getQuestions } from "@/utils/getMessage";
 import { getContent } from "@/api";
 import { parsePageQuestion } from "@/utils/parse";
 import { useGetStorePagesInfo } from "@/hooks/useGetStorePagesInfo";
+import s from "@/pages/generatePages/GeneratePages.module.scss";
+import { Preloader } from "@/components/preloader/Preloader";
 
 export const PageInfo = observer(() => {
   const { id } = useParams();
@@ -76,6 +78,11 @@ export const PageInfo = observer(() => {
       <Modal show={openModal} onClose={onCloseModal} style={{ width: "100%" }}>
         <GeneratePagesContent onClose={onCloseModal} />
       </Modal>
+      {isPending && (
+        <div className={s.loaderContainer}>
+          <Preloader text="Генерация не займет много времени" />
+        </div>
+      )}
     </div>
   );
 });
