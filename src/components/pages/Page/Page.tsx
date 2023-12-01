@@ -68,22 +68,27 @@ export const Page = ({page}: IPageProps) => {
                 <MoreIcon className={s.more} onClick={() => setTogglePopup((prev) => !prev)} />
                 {togglePopup && <PopupPageAction>
                     <ul className={s.list}>
-                        <li><Button className={s.button} tag="div" size="small" appearance="blue">Отправить в работу</Button></li>
                         <li>
                             <Button
                                 className={s.button}
                                 tag="div"
                                 size="small"
                                 appearance="blue"
-                                onClick={goToPageInfo}
                             >
-                                Наполнение
+                                Переименовать
                             </Button>
                         </li>
-                        <li><Button className={s.button}  tag="div" size="small" appearance="blue">Переименовать</Button></li>
-                        <li><Button className={s.button}  tag="div" size="small" appearance="blue">Выше по списку</Button></li>
-                        <li><Button className={s.button}  tag="div" size="small" appearance="blue">Ниже по списку</Button></li>
-                        <li><Button className={s.button}  tag="div" size="small" appearance="blue">Удалить</Button></li>
+                        <li>
+                            <Button
+                                className={s.button}
+                                tag="div"
+                                size="small"
+                                appearance="blue"
+                                onClick={() => modelPage.deletePage(page.id)}
+                            >
+                                Удалить
+                            </Button>
+                        </li>
                     </ul>
                 </PopupPageAction>}
             </div>
