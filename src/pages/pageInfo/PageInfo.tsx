@@ -3,7 +3,7 @@ import { useStore } from "@/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { IPageItem } from "@/store/model/Pages/types";
 import ActionPanel from "@/components/actionPanel";
-import { Button, Modal, Textarea } from "@/components/ui";
+import { Button, Modal, Textarea, Editor } from "@/components/ui";
 import AiInfoBlock from "@/components/aiInfoBlock";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import GeneratePagesContent from "@/components/generatePagesContent";
@@ -30,6 +30,7 @@ export const PageInfo = observer(() => {
   }
   const messages = getQuestions(messageData);
   const [content, setContent] = useState(pageInfo.content);
+  const [editorContent, setEditorContent] = useState(content)
 
   const onCloseModal = () => {
     setOpenModal(false);
@@ -52,11 +53,14 @@ export const PageInfo = observer(() => {
   };
 
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
+    const newContent = event.target.value;
+    setContent(newContent);
+    setEditorContent(newContent);
   };
 
   useEffect(() => {
     setContent(pageInfo.content);
+    setEditorContent(pageInfo.content);
   }, [pageInfo.content]);
 
   return (
@@ -67,7 +71,10 @@ export const PageInfo = observer(() => {
         </Button>
       </ActionPanel>
       <h1>{pageInfo?.name}</h1>
-      <Textarea formField value={content} onChange={onChange} />
+      <div style={{margin: '0 0 20px'}}>
+        <Editor data={editorContent} onChange={(event, editor) => setEditorContent(editor.getData())} />
+        <textarea style={{display: 'none'}} value={content} onChange={onChange}></textarea>
+      </div>
       <AiInfoBlock
         onClick={getQuestionForPage}
         title="Создайте текст с помощью ИИ"
