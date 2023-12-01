@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import GeneratePages from '../generatePages';
 import ActionPanel from '@/components/actionPanel';
@@ -11,7 +10,6 @@ import { useStore } from '@/hooks/useStore';
 import s from './PageList.module.scss';
 
 const PagesList = observer(() => {
-  // const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { page } = useStore();
   const defaultPages = [
@@ -24,6 +22,7 @@ const PagesList = observer(() => {
     if (page.pages.length === 0) {
       defaultPages.map((item) => page.addPage(item));
     }
+    // eslint-disable-next-line
   }, [page.pages.length]);
 
   const onClickAiButton = () => {

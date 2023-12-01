@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FocusEventHandler, MouseEventHandler } from 'react';
 import s from './Input.module.scss';
 
-export type InputProps = {
+export type TInputProps = {
   name?: string;
   onChange?: ChangeEventHandler<HTMLElement>;
   onClick?: MouseEventHandler<HTMLElement>;
@@ -10,14 +10,8 @@ export type InputProps = {
   value?: string;
 };
 
-export const Input = ({
-  name,
-  onClick,
-  onChange,
-  onFocus,
-  placeholder,
-  value,
-}: InputProps) => (
+export const Input = ({ name, onClick, onChange, onFocus, placeholder, value }: TInputProps) => (
+  // eslint-disable-next-line jsx-a11y/label-has-associated-control
   <label className={s.inputLabel}>
     <div className={s.title}>
       <div className={s.name}>{name}</div>

@@ -1,27 +1,23 @@
-import {ReactNode, useRef} from 'react';
+import { CSSProperties, MouseEvent, ReactNode, useRef } from 'react';
 import { ModalBottom } from './ModalBottom';
 import { ModalContent } from './ModalContent';
 import s from './Modal.module.scss';
 
-export type ModalProps = {
+export type TModalProps = {
   title?: string;
   show: boolean;
   onClose: () => void;
   children?: ReactNode;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 };
 
-export const Modal = ({
-  title,
-  show,
-  onClose,
-  children,
-  style,
-}: ModalProps) => {
+export const Modal = ({ title, show, onClose, children, style }: TModalProps) => {
   const modalRef = useRef<HTMLDivElement>();
 
-  const onClickBackdrop = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (modalRef.current === event.target) {onClose();}
+  const onClickBackdrop = (event: MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === event.target) {
+      onClose();
+    }
   };
 
   if (!show) {
@@ -29,14 +25,12 @@ export const Modal = ({
   }
 
   return (
-    <div
-      className={s.modal}
-      ref={modalRef}
-      onClick={onClickBackdrop}
-    >
+    <div role="presentation" className={s.modal} ref={modalRef} onClick={onClickBackdrop}>
       <div className={s.modal_inner} style={style}>
         {title && <div className={s.title}>{title}</div>}
-        <button className={s.close} onClick={onClose} />
+        <button type="button" className={s.close} onClick={onClose}>
+          &nbsp;
+        </button>
         {children}
       </div>
     </div>

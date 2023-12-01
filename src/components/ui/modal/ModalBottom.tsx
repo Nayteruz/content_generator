@@ -1,12 +1,8 @@
-import {ReactNode} from 'react';
+import { ReactNode } from 'react';
 import s from './Modal.module.scss';
 
-export type ModalBottomProps = {
+export type TModalBottomProps = {
   children?: ReactNode;
 };
 
-export const ModalBottom = ({ children }: ModalBottomProps) => (
-  <div className={s.bottom}>
-    {children}
-  </div>
-);
+export const ModalBottom = ({ children }: TModalBottomProps) => <div className={s.bottom}>{children}</div>;

@@ -1,7 +1,7 @@
 import { ChangeEvent, FocusEvent, MouseEventHandler, useState } from 'react';
 import s from './Textarea.module.scss';
 
-export type TextareaProps = {
+export type TTextareaProps = {
   name?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: MouseEventHandler<HTMLElement>;
@@ -23,7 +23,7 @@ export const Textarea = ({
   rows,
   value,
   formField,
-}: TextareaProps) => {
+}: TTextareaProps) => {
   const [characterCount, setCharacterCount] = useState(value?.length || 0);
   const calculateLabelClass = (): string => {
     if (characterCount > 500) {
@@ -33,9 +33,8 @@ export const Textarea = ({
     if (characterCount > 200) {
       return s.labelYellow;
     }
- 
+
     return s.labelGrey;
-    
   };
   const isError = !formField ? characterCount > 500 : false;
   const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -49,11 +48,14 @@ export const Textarea = ({
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label className={s.textareaLabel}>
       <div className={s.title}>
         <div className={s.name}>{name}</div>
         {!formField && (
-          <div className={`${s.counter} ${isError ? s.error : ''} ${calculateLabelClass()}`}>{`${characterCount} из 500`}</div>
+          <div
+            className={`${s.counter} ${isError ? s.error : ''} ${calculateLabelClass()}`}
+          >{`${characterCount} из 500`}</div>
         )}
       </div>
       <textarea

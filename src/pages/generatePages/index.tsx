@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ChangeEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { getContent } from '@/api';
 import ActionPanel from '@/components/actionPanel';
@@ -9,15 +8,12 @@ import { Button, Textarea } from '@/components/ui';
 import { useStore } from '@/hooks/useStore';
 import { IGenerate } from '@/pages/generatePages/types';
 import { getMessage } from '@/utils/getMessage';
-import { IItem, parseResult } from '@/utils/parse';
+import { parseResult } from '@/utils/parse';
 import s from './GeneratePages.module.scss';
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
-  const usenavigate = useNavigate();
-  const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
   const [isPending, setIsPending] = useState(false);
-  const [tokens, setTokens] = useState<number>(0);
   const messageData = {
     subject: page.promptSubject,
     type: page.promptType,
@@ -51,16 +47,15 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
       const messages = page.promptExtra ? extraMessage : message;
       const responseData = await getContent({ messages });
       const responseMessage = responseData?.choices[0]?.message?.content;
-
-      setTokens(responseData?.usage?.total_tokens);
-
       const result = parseResult(responseMessage);
 
       result.map((item) => page.addPage(item));
 
       onClose();
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log(e);
+      // eslint-disable-next-line no-alert
       alert('Ошибка запроса, не могу распарсить ответ');
     } finally {
       setIsPending(false);
@@ -68,6 +63,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
   };
 
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {isPending ? (
         <span className={s.loader} />

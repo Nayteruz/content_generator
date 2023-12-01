@@ -1,3 +1,5 @@
+import * as crypto from 'crypto';
+
 export interface IItem {
   name: string;
   id?: string;
