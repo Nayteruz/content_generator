@@ -1,12 +1,14 @@
 .wrapper {
     position: absolute;
+    z-index: 999;
     top: 0;
     right: 100%;
+
     margin-right: 10px;
+
     background:#fff;
-    border-radius: 6px;
-    border: 1px solid var(--gray-gray-400, #D8D8E5);
     background: var(--white-dark-white, #FFF);
-    box-shadow: 0 8px 14px 0 rgba(15, 42, 81, 0.08);
-    z-index: 999;
+    border: 1px solid var(--gray-gray-400, #D8D8E5);
+    border-radius: 6px;
+    box-shadow: 0 8px 14px 0 rgba(15, 42, 81, 8%);
 }

@@ -1,48 +1,53 @@
 
 .title {
-  padding-bottom: 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 18px;
 
   .name {
-    color: #5E6278;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 14px;
     margin-right: 50px;
+
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 14px;
+    color: #5E6278;
   }
 }
 
 .counter {
+  height: 20px;
+  padding: 0 10px;
+
   font-size: 10px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: 20px;
   letter-spacing: -0.3px;
-  border-radius: 22px;
-  padding: 0 10px;
-  height: 20px;
   white-space: nowrap;
+
+  border-radius: 22px;
 }
 
 .textarea {
-  border-radius: 6px;
-  border: 1px solid #E1E3EA;
-  background: #FFF;
-  padding: 17px 15px;
-  min-height: 96px;
   box-sizing: border-box;
-  color: #1D1D1B;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
   width: 100%;
   max-width: 100%;
+  min-height: 96px;
+  padding: 17px 15px;
+
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
+  color: #1D1D1B;
+
+  background: #FFF;
+  border: 1px solid #E1E3EA;
+  border-radius: 6px;
   outline: none;
-  font-family: 'Inter', sans-serif;
 
   &.error {
     border-color: #F1416C;
@@ -54,25 +59,26 @@
 }
 
 .labelGrey {
-  background: #F1F1F2;
   color: #a1a5b7;
+  background: #F1F1F2;
 }
 
 .labelYellow {
-  background: rgba(246, 192, 0, 0.10);
   color: #f6c000;
+  background: rgba(246, 192, 0, 10%);
 }
 
 .labelRed {
-  background: rgba(239, 48, 94, 0.10);
   color: #f1416c;
+  background: rgba(239, 48, 94, 10%);
 }
 
 .errorMessage {
   padding: 6px 0 0;
-  color: #F1416C;
+
   font-size: 15px;
-  font-style: normal;
   font-weight: 600;
+  font-style: normal;
   line-height: 20px;
+  color: #F1416C;
 }
