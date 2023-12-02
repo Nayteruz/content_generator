@@ -50,6 +50,11 @@ export const Page = observer(({page}: IPageProps) => {
       };
     }, []);
 
+    const onRenameModalHandler = () => {
+      setRenameModal(true);
+      setTogglePopup(false);
+    }
+
     return (
         <>
             <li className={classNames} onMouseEnter={() => setIsHoveredItem(true)} onMouseLeave={() => setIsHoveredItem(false)}>
@@ -110,7 +115,7 @@ export const Page = observer(({page}: IPageProps) => {
                                             tag="div"
                                             size="small"
                                             appearance="blue"
-                                            onClick={() => setRenameModal(true)}
+                                            onClick={onRenameModalHandler}
                                         >
                                             Переименовать
                                         </Button>
