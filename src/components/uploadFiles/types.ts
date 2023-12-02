@@ -1,8 +1,4 @@
-export interface UploadFilesTypes {
-
-}
-
-export interface UploadItemTypes {
+export interface IUploadItemTypes {
   name: string;
   comment?: string;
   type: string;

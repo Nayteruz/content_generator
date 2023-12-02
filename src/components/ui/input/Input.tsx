@@ -1,7 +1,7 @@
-import { ChangeEventHandler, MouseEventHandler } from "react";
-import s from "./Input.module.scss";
+import { ChangeEventHandler, MouseEventHandler } from 'react';
+import s from './Input.module.scss';
 
-export type InputProps = {
+export type TInputProps = {
   name?: string;
   onChange?: ChangeEventHandler<HTMLElement>;
   onClick?: MouseEventHandler<HTMLElement>;
@@ -9,27 +9,18 @@ export type InputProps = {
   value?: string;
 };
 
-export const Input = ({
-  name,
-  onClick,
-  onChange,
-  placeholder,
-  value,
-}: InputProps) => {
-
-  return (
-    <label className={s.inputLabel}>
-      <div className={s.title}>
-        <div className={s.name}>{name}</div>
-      </div>
-      <input
-        type="text"
-        className={s.input}
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-        onClick={onClick}
-      />
-    </label>
-  );
-};
+export const Input = ({ name, onClick, onChange, placeholder, value }: TInputProps) => (
+  <label className={s.inputLabel}>
+    <div className={s.title}>
+      <div className={s.name}>{name}</div>
+    </div>
+    <input
+      type="text"
+      className={s.input}
+      onChange={onChange}
+      placeholder={placeholder}
+      value={value}
+      onClick={onClick}
+    />
+  </label>
+);

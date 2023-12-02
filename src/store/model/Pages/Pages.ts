@@ -1,20 +1,26 @@
-import { makeAutoObservable } from "mobx";
-import {IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
+import { makeAutoObservable } from 'mobx';
+import {IPageItem, IPageListPrompt, IPages, IQuestions} from './types';
 
 export class Pages implements IPages {
   pages: IPageItem[] = [];
-  promptSubject = "Услуги ландшафтного дизайна: Проектирование, озеленение, сооружение водоемов, сооружение дренажа.";
-  promptType = "Информационный";
-  promptPurpose = "Реклама, информирование, привлечение новых клиентов";
-  promptProperty = "Сайт компании";
-  promptExtra = "";
+
+  promptSubject = 'Услуги ландшафтного дизайна: Проектирование, озеленение, сооружение водоемов, сооружение дренажа.';
+
+  promptType = 'Информационный';
+
+  promptPurpose = 'Реклама, информирование, привлечение новых клиентов';
+
+  promptProperty = 'Сайт компании';
+
+  promptExtra = '';
+
   generationCount = 20;
 
   pageListPrompt: IPageListPrompt = {
-    subject: "Собственное производство полуфабрикатов",
-    type: "интернет-магазин",
-    purpose: "продажа",
-    property: "микробизнес",
+    subject: 'Собственное производство полуфабрикатов',
+    type: 'интернет-магазин',
+    purpose: 'продажа',
+    property: 'микробизнес',
   };
 
   constructor() {
@@ -22,20 +28,23 @@ export class Pages implements IPages {
   }
 
   setPageListPrompt({
-    subject = "",
-    type = "",
-    purpose = "",
-    property = "",
+    subject = '',
+    type = '',
+    purpose = '',
+    property = '',
   }: IPageListPrompt) {
     if (subject) {
       this.pageListPrompt.subject = subject;
     }
+
     if (type) {
       this.pageListPrompt.type = type;
     }
+
     if (purpose) {
       this.pageListPrompt.purpose = purpose;
     }
+
     if (property) {
       this.pageListPrompt.property = property;
     }
@@ -76,6 +85,7 @@ export class Pages implements IPages {
 
       return item;
     });
+
     this.setPages(pages);
   }
 
@@ -87,6 +97,7 @@ export class Pages implements IPages {
 
       return item;
     });
+
     this.setPages(pages);
   }
 
@@ -98,6 +109,7 @@ export class Pages implements IPages {
 
       return item;
     });
+
     this.setPages(pages);
   }
 
@@ -109,34 +121,42 @@ export class Pages implements IPages {
 
       return item;
     });
+
     this.setPages(pages);
   }
 
   getQuestions(id: string) {
     const currentPage = this.getPageById(id);
+
     return currentPage.questions;
   }
 
   getAnswer(id: string) {
     const currentPage = this.getPageById(id);
+
     return currentPage.answer;
   }
 
   setPromptSubject(value: string) {
     this.promptSubject = value;
   }
+
   setPromptType(value: string) {
     this.promptType = value;
   }
+
   setPromptPurpose(value: string) {
     this.promptPurpose = value;
   }
+
   setPromptProperty(value: string) {
     this.promptProperty = value;
   }
+
   setPromptExtra(value: string) {
     this.promptExtra = value;
   }
+
   setGenerationCount(value: number) {
     this.generationCount = value;
   }

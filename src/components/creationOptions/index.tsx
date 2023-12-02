@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ICreationOptions } from "@/components/creationOptions/types";
-import { Button, Modal } from "@/components/ui";
-import CounterBlock from "@/components/counterBlock";
-import GeneratePages from "@/components/generatePages";
-import s from "./CreationOptions.module.scss";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CounterBlock from '@/components/counterBlock';
+import { ICreationOptions } from '@/components/creationOptions/types';
+import GeneratePages from '@/components/generatePages';
+import { Button, Modal } from '@/components/ui';
+import s from './CreationOptions.module.scss';
 
 const CreationOptions = ({
   title,
@@ -19,7 +19,7 @@ const CreationOptions = ({
     if (ai) {
       setOpenModal(true);
     } else {
-      navigate("pageList");
+      navigate('pageList');
     }
   };
 
@@ -38,11 +38,11 @@ const CreationOptions = ({
         onClick={onClick}
         tag="div"
         size="medium"
-        appearance={ai ? "purple" : "blue"}
+        appearance={ai ? 'purple' : 'blue'}
       >
         {buttonText}
       </Button>
-      <Modal show={openModal} onClose={onCloseModal} style={{ width: "100%" }}>
+      <Modal show={openModal} onClose={onCloseModal} style={{ width: '100%' }}>
         <GeneratePages onClose={onCloseModal} />
       </Modal>
     </div>

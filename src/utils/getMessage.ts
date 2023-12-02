@@ -1,11 +1,12 @@
-import {IMessage} from "@/components/prompt";
+import {IMessage} from '@/components/prompt';
 
 
 export const getMessage = (props: {subject: string; type: string; purpose: string; property: string;}): IMessage[] => {
-    const {subject, type, purpose, property} = props;
-    return [{
-        role: 'system',
-        content: `You are a professional copywriter-marketer and content creation consultant for a website. The theme of a website is ${subject}. Website type is ${type}. The purpose of the website is ${purpose}. The website will be ${property}. Your task is to prepare a recommended list and structure of pages and subpages for this website based on the information about the site. Each page and subpage should have a description of what information is required for its content. This explanation should give the website owner an understanding of what information to place on the page in order to capture the visitor's attention and be useful. Provide in the description an approximate structure of the page's content or the questions it should address for website visitors. Be sure to specify and give real names to the subpages for pages with services or products.
+  const {subject, type, purpose, property} = props;
+
+  return [{
+    role: 'system',
+    content: `You are a professional copywriter-marketer and content creation consultant for a website. The theme of a website is ${subject}. Website type is ${type}. The purpose of the website is ${purpose}. The website will be ${property}. Your task is to prepare a recommended list and structure of pages and subpages for this website based on the information about the site. Each page and subpage should have a description of what information is required for its content. This explanation should give the website owner an understanding of what information to place on the page in order to capture the visitor's attention and be useful. Provide in the description an approximate structure of the page's content or the questions it should address for website visitors. Be sure to specify and give real names to the subpages for pages with services or products.
                   Provide the result in the form of a list of pages and subpages, formatted as a json as shown below:: {
                   "list": [
                      {
@@ -43,16 +44,17 @@ export const getMessage = (props: {subject: string; type: string; purpose: strin
                     ]
                 }
     Page and subpage names should be in Russian. In the list, the following page names should always be present: “Главная”, “Контакты”, “Вопрос-ответ”
-The first page should always be named "Главная” and should not contain subpages. The last page should always be named "Контакты” and should not contain subpages. Consider the context when creating the "О нас" or "Обо мне" or "О компании" page. If the website represents an individual, use the title "Обо мне". If the website represents a company or institution, you can name the page "О нас" or "О компании". There should be no more than 15 options.`
-    }]
-}
+The first page should always be named "Главная” and should not contain subpages. The last page should always be named "Контакты” and should not contain subpages. Consider the context when creating the "О нас" or "Обо мне" or "О компании" page. If the website represents an individual, use the title "Обо мне". If the website represents a company or institution, you can name the page "О нас" or "О компании". There should be no more than 15 options.`,
+  }];
+};
 
 export const getQuestions = (props: {subject: string; type: string; purpose: string; property: string; pageName: string}): IMessage[] => {
-    const {subject, type, purpose, property, pageName} = props;
-    return [
-        {
-          role: 'system',
-          content: `You are a professional copywriter-marketer and content creation consultant for a website. 
+  const {subject, type, purpose, property, pageName} = props;
+
+  return [
+    {
+      role: 'system',
+      content: `You are a professional copywriter-marketer and content creation consultant for a website. 
           The theme of a website is ${subject}. Website type is ${type}. 
           The purpose of the website is ${purpose}. 
           The website will be ${property}. 
@@ -74,26 +76,24 @@ export const getQuestions = (props: {subject: string; type: string; purpose: str
               ]
           }
           The website owner, who needs to address the tasks this website is meant to solve, will be answering the questions.
-          Therefore, through these questions, you should gather maximum information from the website owner that will assist them in promoting their business through the website.` }
-    ]
-}
+          Therefore, through these questions, you should gather maximum information from the website owner that will assist them in promoting their business through the website.` },
+  ];
+};
 
-export const getAnswerForQuestions = (allAnswers: string): IMessage[] => {
-    return [
-        {
-            role: 'system',
-            content: `You are a professional copywriter-marketer and content creation consultant for a website. 
+export const getAnswerForQuestions = (allAnswers: string): IMessage[] => [
+  {
+    role: 'system',
+    content: `You are a professional copywriter-marketer and content creation consultant for a website. 
             The theme of a website is subject. Website type is type. 
             The purpose of the website is purpose. The website will be property. 
             Your task is to write a unique, high-quality, persuasive text for the Page name page of the website. 
             Below is a list of questions and their corresponding answers from the website owner. 
             Use them to personalize the text and enhance its quality and uniqueness. 
             ${allAnswers}
-            The narrative style should inspire trust and encourage visitors to submit inquiries on the website. The text on the page should assist the owner in promoting their business online. Be sure to follow the text structure, including a Unique Selling Proposition (USP), headings that separate logical paragraphs, and consider using bulleted or numbered lists where appropriate. The length of the text should be no less than 1700 and no more than 2000 characters. The text should not exceed 30% redundancy, and wateriness should not exceed 15%. Тhe language of text is Russian`
-        }
-    ]
-}
+            The narrative style should inspire trust and encourage visitors to submit inquiries on the website. The text on the page should assist the owner in promoting their business online. Be sure to follow the text structure, including a Unique Selling Proposition (USP), headings that separate logical paragraphs, and consider using bulleted or numbered lists where appropriate. The length of the text should be no less than 1700 and no more than 2000 characters. The text should not exceed 30% redundancy, and wateriness should not exceed 15%. Тhe language of text is Russian`,
+  },
+];
 
 export const extraConfig = {
-    id: '1', placeholder: 'Свой запрос', name: 'extra', note:'Ручной ввод запроса. Заполнять либо 4 верхних, либо только этот.'
-}
+  id: '1', placeholder: 'Свой запрос', name: 'extra', note:'Ручной ввод запроса. Заполнять либо 4 верхних, либо только этот.',
+};

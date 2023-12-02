@@ -1,18 +1,18 @@
-import React, { ChangeEvent, useState } from "react";
-import ActionPanel from "@/components/actionPanel";
-import CounterBlock from "@/components/counterBlock";
-import { Button, Textarea } from "@/components/ui";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/hooks/useStore";
-import { fields, IMessage } from "@/components/prompt";
-import { getContent } from "@/api";
-import { parseResult } from "@/utils/parse";
-import { getMessage } from "@/utils/getMessage";
-import { useNavigate } from "react-router-dom";
-import { IGenerate } from "@/components/generatePages/types";
-import { IPageItem } from "@/store/model/Pages/types";
-import { Preloader } from "@/components/preloader/Preloader";
-import s from "./GeneratePages.module.scss";
+import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { getContent } from '@/api';
+import ActionPanel from '@/components/actionPanel';
+import CounterBlock from '@/components/counterBlock';
+import { IGenerate } from '@/components/generatePages/types';
+import { Preloader } from '@/components/preloader/Preloader';
+import { fields, IMessage } from '@/components/prompt';
+import { Button, Textarea } from '@/components/ui';
+import { useStore } from '@/hooks/useStore';
+import { IPageItem } from '@/store/model/Pages/types';
+import { getMessage } from '@/utils/getMessage';
+import { parseResult } from '@/utils/parse';
+import s from './GeneratePages.module.scss';
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
@@ -27,9 +27,7 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
   };
   const message: IMessage[] = getMessage(messageData);
 
-  const extraMessage: IMessage[] = [
-    { role: "system", content: page.promptExtra },
-  ];
+  const extraMessage: IMessage[] = [{ role: 'system', content: page.promptExtra }];
 
   const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement>) => {
     page.setPromptSubject(event.target.value);
@@ -57,16 +55,18 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
 
       const result = parseResult(responseMessage);
 
-      result.map((item: IPageItem) => {
+      result.forEach((item: IPageItem) => {
         page.addUniquePages(item, true);
       });
 
-      navigate("/pageList");
+      navigate('/pageList');
 
       onClose();
     } catch (e) {
+      // eslint-disable-next-line
       console.log(e);
-      alert("Ошибка запроса, не могу распарсить ответ");
+      // eslint-disable-next-line
+      alert('Ошибка запроса, не могу распарсить ответ');
     } finally {
       page.setGenerationCount(generationCount - 1);
       setIsPending(false);
@@ -77,69 +77,29 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
     <>
       <ActionPanel title="Генерация разделов с помощью ИИ">
         <CounterBlock />
-        <Button
-          size="medium"
-          tag="div"
-          appearance="purple"
-          onClick={getContentInfo}
-        >
+        <Button size="medium" tag="div" appearance="purple" onClick={getContentInfo}>
           Сгенерировать
         </Button>
-        <Button
-          size="medium"
-          tag="div"
-          appearance="gray"
-          color="color-grey"
-          onClick={onClose}
-        >
+        <Button size="medium" tag="div" appearance="gray" color="color-grey" onClick={onClose}>
           Отмена
         </Button>
       </ActionPanel>
       <div className={s.top}>
-        <div className={s.description}>
-          Ответьте на вопросы чтобы помочь ИИ сгенерировать качественный контент
-        </div>
+        <div className={s.description}>Ответьте на вопросы чтобы помочь ИИ сгенерировать качественный контент</div>
       </div>
       <div className={s.content}>
-        <Textarea
-          value={page.promptSubject}
-          name={fields["promptSubject"].note}
-          onChange={onChangeSubject}
-        />
-        <Textarea
-          value={page.promptType}
-          name={fields["promptType"].note}
-          onChange={onChangeType}
-        />
-        <Textarea
-          value={page.promptPurpose}
-          name={fields["promptPurpose"].note}
-          onChange={onChangePurpose}
-        />
-        <Textarea
-          value={page.promptProperty}
-          name={fields["promptProperty"].note}
-          onChange={onChangeProperty}
-        />
+        <Textarea value={page.promptSubject} name={fields.promptSubject.note} onChange={onChangeSubject} />
+        <Textarea value={page.promptType} name={fields.promptType.note} onChange={onChangeType} />
+        <Textarea value={page.promptPurpose} name={fields.promptPurpose.note} onChange={onChangePurpose} />
+        <Textarea value={page.promptProperty} name={fields.promptProperty.note} onChange={onChangeProperty} />
       </div>
       <div className={s.bottom}>
         <CounterBlock />
         <div className={s.bottomButtons}>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="purple"
-            onClick={getContentInfo}
-          >
+          <Button tag="div" size="medium" appearance="purple" onClick={getContentInfo}>
             Сгенерировать
           </Button>
-          <Button
-            tag="div"
-            size="medium"
-            appearance="gray"
-            color="color-grey"
-            onClick={onClose}
-          >
+          <Button tag="div" size="medium" appearance="gray" color="color-grey" onClick={onClose}>
             Отмена
           </Button>
         </div>

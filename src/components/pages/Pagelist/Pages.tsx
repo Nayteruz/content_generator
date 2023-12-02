@@ -1,17 +1,12 @@
-import { Page } from "../Page/Page";
-import s from "./Pagelist.module.scss";
-import { IPageItem } from "@/store/model/Pages/types";
-import { useStore } from "@/hooks/useStore";
-import { observer } from "mobx-react-lite";
+import { observer } from 'mobx-react-lite';
+import { Page } from '../Page/Page';
+import { IPageItem } from '@/store/model/Pages/types';
+import s from './Pagelist.module.scss';
 
-interface PageProps {
+interface IPageProps {
   pages: IPageItem[];
 }
 
-export const Pages = observer(({ pages }: PageProps) => {
-  return (
-    <ul className={s.list}>
-      {pages && pages.map((page, index) => <Page page={page} key={page.id} />)}
-    </ul>
-  );
-});
+export const Pages = observer(({ pages }: IPageProps) => (
+  <ul className={s.list}>{pages && pages.map((page) => <Page page={page} key={page.id} />)}</ul>
+));

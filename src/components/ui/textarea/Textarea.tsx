@@ -1,7 +1,7 @@
-import { ChangeEvent, MouseEventHandler, useState } from "react";
-import s from "./Textarea.module.scss";
+import { ChangeEvent, MouseEventHandler, useState } from 'react';
+import s from './Textarea.module.scss';
 
-export type TextareaProps = {
+export type TTextareaProps = {
   name?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: MouseEventHandler<HTMLElement>;
@@ -10,27 +10,23 @@ export type TextareaProps = {
   formField?: boolean;
 };
 
-export const Textarea = ({
-   name,
-   onClick,
-   onChange,
-   placeholder,
-   value,
-   formField,
- }: TextareaProps) => {
+export const Textarea = ({ name, onClick, onChange, placeholder, value, formField }: TTextareaProps) => {
   const [characterCount, setCharacterCount] = useState(value?.length || 0);
   const calculateLabelClass = (): string => {
     if (characterCount > 500) {
       return s.labelRed;
-    } else if (characterCount > 200) {
-      return s.labelYellow;
-    } else {
-      return s.labelGrey;
     }
+
+    if (characterCount > 200) {
+      return s.labelYellow;
+    }
+
+    return s.labelGrey;
   };
   const isError = !formField ? characterCount > 500 : false;
   const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     const currentCharacterCount = event.target.value.length;
+
     setCharacterCount(currentCharacterCount);
 
     if (onChange) {
@@ -43,11 +39,13 @@ export const Textarea = ({
       <div className={s.title}>
         <div className={s.name}>{name}</div>
         {!formField && (
-          <div className={`${s.counter} ${isError ? s.error : ""} ${calculateLabelClass()}`}>{`${characterCount} из 500`}</div>
+          <div
+            className={`${s.counter} ${isError ? s.error : ''} ${calculateLabelClass()}`}
+          >{`${characterCount} из 500`}</div>
         )}
       </div>
       <textarea
-        className={`${s.textarea} ${isError ? s.error : ""}`}
+        className={`${s.textarea} ${isError ? s.error : ''}`}
         onChange={handleTextareaChange}
         placeholder={placeholder}
         value={value}

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useEffect, useState } from 'react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-interface EditorProps {
+interface IEditorProps {
   data: string;
   onChange?: (event: any, editor: any) => void;
 }
 
-export const Editor = ({ data, onChange }: EditorProps) => {
+export const Editor = ({ data, onChange }: IEditorProps) => {
   const [editorData, setEditorData] = useState<string>(data);
 
   useEffect(() => {
@@ -16,15 +16,11 @@ export const Editor = ({ data, onChange }: EditorProps) => {
 
   const handleEditorChange = (event: any, editor: any) => {
     const newData = editor.getData();
+
     setEditorData(newData);
+
     onChange && onChange(event, editor);
   };
 
-  return (
-    <CKEditor
-      editor={ClassicEditor}
-      data={editorData}
-      onChange={handleEditorChange}
-    />
-  );
+  return <CKEditor editor={ClassicEditor} data={editorData} onChange={handleEditorChange} />;
 };
