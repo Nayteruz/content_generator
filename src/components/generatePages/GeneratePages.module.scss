@@ -1,16 +1,19 @@
+.top {
+
+}
+
 .content {
+  gap: 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .bottom {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: flex-start;
-
-  margin-top: 40px;
+  gap: 20px;
 }
 
 .bottomButtons {
@@ -20,7 +23,6 @@
 
 .description {
   margin: 40px 0;
-
   font-size: 14px;
   font-weight: 500;
   line-height: 14px;
@@ -28,39 +30,29 @@
 }
 
 .loader {
-  position: relative;
-
-  display: inline-block;
-
-  box-sizing: border-box;
   width: 40px;
   height: 98px;
-
-  color: rgba(255, 61, 0, 90%);
-
-  background: #fff;
+  display: inline-block;
+  position: relative;
   border: 2px solid #FFF;
+  box-sizing: border-box;
+  color: rgba(255, 61, 0, 0.9);
   border-radius: 20px 20px 4px 4px;
-
+  background: #fff;
   animation: fill 2s linear infinite alternate;
 }
-
 .loader::after {
   content: '';
-
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50% , -95%);
-
   box-sizing: border-box;
-  width: 15px;
-  height: 35px;
-
-  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50% , -95%);
   border: 2px solid #FFF;
   border-bottom: none;
-
+  background: #fff;
+  width: 15px;
+  height: 35px;
   animation: fillNeck 2s linear infinite alternate;
 }
 

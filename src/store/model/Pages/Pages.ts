@@ -1,13 +1,14 @@
 import { makeAutoObservable } from "mobx";
-import {IAnswer, IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
+import {IPageItem, IPageListPrompt, IPages, IQuestions} from "./types";
 
 export class Pages implements IPages {
   pages: IPageItem[] = [];
-  promptSubject = "";
-  promptType = "";
-  promptPurpose = "";
-  promptProperty = "";
+  promptSubject = "Услуги ландшафтного дизайна: Проектирование, озеленение, сооружение водоемов, сооружение дренажа.";
+  promptType = "Информационный";
+  promptPurpose = "Реклама, информирование, привлечение новых клиентов";
+  promptProperty = "Сайт компании";
   promptExtra = "";
+  generationCount = 20;
 
   pageListPrompt: IPageListPrompt = {
     subject: "Собственное производство полуфабрикатов",
@@ -89,6 +90,17 @@ export class Pages implements IPages {
     this.setPages(pages);
   }
 
+  setIsSended(id: string, value: boolean) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.isSended = value;
+      }
+
+      return item;
+    });
+    this.setPages(pages);
+  }
+
   getQuestions(id: string) {
     const currentPage = this.getPageById(id);
     return currentPage.questions;
@@ -113,5 +125,8 @@ export class Pages implements IPages {
   }
   setPromptExtra(value: string) {
     this.promptExtra = value;
+  }
+  setGenerationCount(value: number) {
+    this.generationCount = value;
   }
 }

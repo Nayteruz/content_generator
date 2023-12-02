@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ICreationOptions } from "@/components/creationOptions/types";
 import { Button, Modal } from "@/components/ui";
-import s from "./CreationOptions.module.scss";
 import CounterBlock from "@/components/counterBlock";
-import GeneratePages from "../../pages/generatePages";
+import GeneratePages from "@/components/generatePages";
+import s from "./CreationOptions.module.scss";
 
 const CreationOptions = ({
   title,

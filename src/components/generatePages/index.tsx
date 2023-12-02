@@ -1,30 +1,29 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ActionPanel from "@/components/actionPanel";
 import CounterBlock from "@/components/counterBlock";
 import { Button, Textarea } from "@/components/ui";
-import s from "./GeneratePages.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
 import { fields, IMessage } from "@/components/prompt";
 import { getContent } from "@/api";
-import { IItem, parseResult } from "@/utils/parse";
+import { parseResult } from "@/utils/parse";
 import { getMessage } from "@/utils/getMessage";
 import { useNavigate } from "react-router-dom";
-import { IGenerate } from "@/pages/generatePages/types";
+import { IGenerate } from "@/components/generatePages/types";
 import { IPageItem } from "@/store/model/Pages/types";
 import { Preloader } from "@/components/preloader/Preloader";
+import s from "./GeneratePages.module.scss";
 
 const GeneratePages = observer(({ onClose }: IGenerate) => {
   const { page } = useStore();
-  const usenavigate = useNavigate();
-  const [generatedItems, setGeneratedItems] = useState<IItem[]>([]);
+  const { promptSubject, promptType, promptPurpose, promptProperty, generationCount } = page;
+  const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
-  const [tokens, setTokens] = useState<number>(0);
   const messageData = {
-    subject: page.promptSubject,
-    type: page.promptType,
-    purpose: page.promptPurpose,
-    property: page.promptProperty,
+    subject: promptSubject,
+    type: promptType,
+    purpose: promptPurpose,
+    property: promptProperty,
   };
   const message: IMessage[] = getMessage(messageData);
 
@@ -56,29 +55,26 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
       const responseData = await getContent({ messages });
       const responseMessage = responseData?.choices[0]?.message?.content;
 
-      setTokens(responseData?.usage?.total_tokens);
       const result = parseResult(responseMessage);
 
       result.map((item: IPageItem) => {
         page.addUniquePages(item, true);
       });
 
+      navigate("/pageList");
+
       onClose();
     } catch (e) {
       console.log(e);
       alert("Ошибка запроса, не могу распарсить ответ");
     } finally {
+      page.setGenerationCount(generationCount - 1);
       setIsPending(false);
     }
   };
 
   return (
     <>
-      {isPending && (
-        <div className={s.loaderContainer}>
-          <Preloader text="Генерация не займет много времени" />
-        </div>
-      )}
       <ActionPanel title="Генерация разделов с помощью ИИ">
         <CounterBlock />
         <Button
@@ -137,11 +133,18 @@ const GeneratePages = observer(({ onClose }: IGenerate) => {
           >
             Сгенерировать
           </Button>
-          <Button tag="div" size="medium" appearance="gray" color="color-grey">
+          <Button
+            tag="div"
+            size="medium"
+            appearance="gray"
+            color="color-grey"
+            onClick={onClose}
+          >
             Отмена
           </Button>
         </div>
       </div>
+      {isPending && <Preloader text="Генерация не займет много времени" />}
     </>
   );
 });

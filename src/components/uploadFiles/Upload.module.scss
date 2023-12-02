@@ -1,0 +1,163 @@
+.uploadWrapper {
+  padding: 40px 0 50px;
+
+  .uploadHeader {
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+    .title {
+      flex: 1 1 auto;
+      padding-right: 20px;
+      color: #3F4254;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 18px;
+      letter-spacing: -0.18px;
+    }
+
+    .uploadBtn {
+      display: flex;
+      align-items: center;
+      gap:12px;
+    }
+  }
+
+  .uploadBlock {
+    display: flex;
+    gap:14px;
+    
+    .upload {
+      flex: 0 0 calc(50% - 7px);
+      border-radius: 6px;
+      border: 1px dashed #3E97FF;
+      background: #EEF6FF;
+      padding: 28px 30px;
+      display: flex;
+      gap:18px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: .3s all;
+
+      &:hover {
+        opacity: .7;
+      }
+
+      .right {
+        flex: 1 1 auto;
+
+        .name {
+          color: #3E97FF;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 18px;
+          letter-spacing: -0.18px;
+          padding-bottom: 10px;
+        }
+
+        .text {
+          color: #A1A5B7;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 14px; 
+        }
+      }
+    }
+  }
+}
+
+.itemList {
+  padding: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .item {
+    width: 100%;
+    padding: 13px 20px;
+    border-radius: 12px;
+    border: 1px dashed #E1E3EA;
+    display: flex;
+    gap:10px;
+    align-items: center;
+
+    .image {
+      flex: 0 0 50px;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .detals {
+      flex: 1 1 auto;
+
+      .filename {
+        color: #3F4254;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 14px;
+        padding-bottom: 8px;
+
+        a {
+          color: #2884EF;
+        }
+      }
+
+      .commentBtn {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .fileActions {
+    position: relative;
+
+    .more {
+      cursor: pointer;
+    }
+
+    .list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        * {
+          white-space: nowrap;
+        }
+
+        &:first-child {
+          .button {
+            border-radius: 6px 6px 0 0;
+          }
+        }
+        &:last-child {
+          .button {
+            border-radius: 0 0 6px 6px;
+          }
+        }
+      }
+
+    }
+
+    .button {
+      width: 100%;
+      border-radius: 0;
+      background:none;
+      color:#7E8299;
+
+
+      &:hover {
+        background:#3E97FF;
+        color: #fff;
+      }
+    }
+  }
+}

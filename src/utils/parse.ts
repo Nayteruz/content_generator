@@ -1,6 +1,7 @@
 export interface IItem {
   name: string;
   id?: string;
+  description?: string;
   content?: string;
 }
 
@@ -14,13 +15,14 @@ export const parseResult = (message: string) => {
   const flatList: IItem[] = parsedList.reduce(
     (acc: any, item: IItemWithSublist) => {
       const newItem = [
-        { name: item.name, id: crypto.randomUUID(), content: "" },
+        { name: item.name, id: crypto.randomUUID(), content: "", description: item.description },
       ];
       if (item?.sublist) {
         const subItems = item.sublist.map((subItem) => ({
           name: subItem.name,
           id: crypto.randomUUID(),
           content: "",
+          description: subItem.description,
         }));
         newItem.push(...subItems);
       }
