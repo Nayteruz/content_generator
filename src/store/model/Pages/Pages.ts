@@ -101,6 +101,17 @@ export class Pages implements IPages {
     this.setPages(pages);
   }
 
+  renamePage(id: string, value: string) {
+    const pages = this.pages.map((item) => {
+      if (item.id === id) {
+        item.name = value;
+      }
+
+      return item;
+    });
+    this.setPages(pages);
+  }
+
   getQuestions(id: string) {
     const currentPage = this.getPageById(id);
     return currentPage.questions;
