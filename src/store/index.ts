@@ -1,1 +1,1 @@
-export {store} from './root/index'
+export {store} from './root/index';

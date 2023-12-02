@@ -1,13 +1,13 @@
 .wrap {
-    width: 100%;
-    min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .answer {
     display: flex;
-    align-items: center;
-    gap: 30px;
     flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
 }

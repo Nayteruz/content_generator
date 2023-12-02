@@ -1,0 +1,9 @@
+#folders
+build
+public
+
+#files
+.eslintrc
+.prettierrc
+jest.config.js
+global.d.ts

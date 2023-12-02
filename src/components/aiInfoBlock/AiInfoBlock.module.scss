@@ -1,9 +1,11 @@
 .block {
   display: flex;
   justify-content: space-between;
+
   padding: 16px 14px;
-  border-radius: 12px;
+
   background: #F8F5FF;
+  border-radius: 12px;
 }
 
 .blockLeftSide {
@@ -32,12 +34,12 @@
 
 .blockRightSide {
   display: flex;
-  align-items: center;
   gap: 20px;
+  align-items: center;
 }
 
 .blockImage {
-  margin-right: 15px;
   width: 35px;
   height: 35px;
+  margin-right: 15px;
 }

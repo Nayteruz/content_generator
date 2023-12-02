@@ -15,18 +15,22 @@ export const parseResult = (message: string) => {
   const flatList: IItem[] = parsedList.reduce(
     (acc: any, item: IItemWithSublist) => {
       const newItem = [
-        { name: item.name, id: crypto.randomUUID(), content: "", description: item.description },
+        { name: item.name, id: crypto.randomUUID(), content: '', description: item.description },
       ];
+
       if (item?.sublist) {
         const subItems = item.sublist.map((subItem) => ({
           name: subItem.name,
           id: crypto.randomUUID(),
-          content: "",
+          content: '',
           description: subItem.description,
         }));
+
         newItem.push(...subItems);
       }
+
       acc.push(...newItem);
+
       return acc;
     },
     [],
@@ -44,7 +48,7 @@ export const parsePageQuestion = (message: string) => {
   const parsedList = parsed.map((item) => ({
     question: item.name,
     id: crypto.randomUUID(),
-    answer: "",
+    answer: '',
   }));
 
   return parsedList;

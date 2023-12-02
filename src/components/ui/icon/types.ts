@@ -1,1 +1,1 @@
-export type Size = 'small' | 'medium' | 'large' | 'big';
+export type TSize = 'small' | 'medium' | 'large' | 'big';

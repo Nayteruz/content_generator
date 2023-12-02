@@ -2,14 +2,34 @@
 .createOptionsAi {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
+
   width: 635px;
-  border-radius: 12px;
-  border: 1px solid #D8D8E5;
-  gap: 10px;
-  background: #fff;
   padding: 30px 14px;
+
+  background: #fff;
+  border: 1px solid #D8D8E5;
+  border-radius: 12px;
+}
+
+.title {
+  margin-bottom: 16px;
+
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 38px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.subTitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  color: #A1A5B7;
+  text-align: center;
 }
 
 .createOptions {
@@ -24,21 +44,4 @@
   .title {
     color: #9747FF;
   }
-}
-
-.title {
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 38px;
-  letter-spacing: -0.02em;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.subTitle {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 25px;
-  text-align: center;
-  color: #A1A5B7;
 }

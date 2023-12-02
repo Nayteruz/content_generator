@@ -1,76 +1,84 @@
 .item {
-    display: flex;
-    align-items: center;
-    border: 1px solid #D8D8E5;
-    box-shadow: 0 3px 4px 0 #00000008;
-    gap: 10px;
-    padding: 13px 22px 13px 12px;
-    border-radius: 12px;
     position: relative;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    padding: 13px 22px 13px 12px;
+
+    border: 1px solid #D8D8E5;
+    border-radius: 12px;
+    box-shadow: 0 3px 4px 0 #00000008;
 
     .name {
         display: flex;
-        align-items: center;
-        gap: 12px;
         flex: 1 1 auto;
+        gap: 12px;
+        align-items: center;
 
         .nameText {
-            color: #3F4254;
             font-size: 22px;
-            font-style: normal;
             font-weight: 600;
+            font-style: normal;
             line-height: 38px;
+            color: #3F4254;
             letter-spacing: -0.44px;
         }
 
         .labelAI {
-            white-space: nowrap;
-            color: #BEA2F9;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 12px;
             padding: 3px 8px;
-            border-radius: 6px;
+
+            font-size: 10px;
+            font-weight: 600;
+            font-style: normal;
+            line-height: 12px;
+            color: #BEA2F9;
+            white-space: nowrap;
+
             background:#F8F5FF;
+            border-radius: 6px;
         }
     }
 
     .description {
-        flex: 0 0 26px;
         position: relative;
+        flex: 0 0 26px;
 
         .descriptionText {
-            padding: 20px 16px;
             position: absolute;
             z-index: 10;
             top: 100%;
             left: 0;
+
             width: 326px;
-            color: #A1A5B7;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 20px;
-            border-radius: 6px;
-            border: 1px solid #D8D8E5;
-            background: #FFF;
-            box-shadow: 0 8px 14px 0 rgba(15, 42, 81, 0.08);
             margin-top: 10px;
+            padding: 20px 16px;
+
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            line-height: 20px;
+            color: #A1A5B7;
+
+            background: #FFF;
+            border: 1px solid #D8D8E5;
+            border-radius: 6px;
+            box-shadow: 0 8px 14px 0 rgba(15, 42, 81, 8%);
         }
     }
 
     .actionsBtn {
         display: flex;
-        align-items: center;
         gap: 20px;
+        align-items: center;
         margin-right: 10px;
     }
 
     &.isSended {
-        background: #EFFFF5;
         padding-top: 9px;
         padding-bottom: 9px;
+        background: #EFFFF5;
         border: 0;
 
         .name .nameText {
@@ -81,13 +89,14 @@
 
 .rightInfoSend {
     display: flex;
+    gap: 5px;
     align-items: center;
     justify-content: center;
+
     font-size: 13px;
     font-weight: 700;
     line-height: 14px;
     color: #50CD89;
-    gap: 5px;
 }
 
 .pageActions {
@@ -99,12 +108,27 @@
     opacity: 0.5;
 }
 
+.button {
+    width: 100%;
+    color:#7E8299;
+    background:none;
+    border-radius: 0;
+
+
+    &:hover {
+        color: #fff;
+        background:#3E97FF;
+    }
+}
+
 .list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
     display: flex;
     flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
 
     li {
         * {
@@ -116,6 +140,7 @@
                 border-radius: 6px 6px 0 0;
             }
         }
+
         &:last-child {
             .button {
                 border-radius: 0 0 6px 6px;
@@ -123,19 +148,6 @@
         }
     }
 
-}
-
-.button {
-    width: 100%;
-    border-radius: 0;
-    background:none;
-    color:#7E8299;
-
-
-    &:hover {
-        background:#3E97FF;
-        color: #fff;
-    }
 }
 
 .modalInner {

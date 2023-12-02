@@ -1,8 +1,8 @@
 import { IRootStoreModel } from './types';
-import {Pages} from "@/store/model/Pages";
+import {Pages} from '@/store/model/Pages';
 
 class RootStoreModel implements IRootStoreModel {
-    page = new Pages();
+  page = new Pages();
 }
 
 export const store = new RootStoreModel();

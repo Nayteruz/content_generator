@@ -1,1 +1,1 @@
-export {getContent, IMessage} from './getContent'
+export {getContent, IMessage} from './getContent';
