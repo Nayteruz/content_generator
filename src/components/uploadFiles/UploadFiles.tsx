@@ -80,8 +80,7 @@ export const UploadFiles = () => {
               size="medium"
               appearance="gray"
               color="color-grey"
-              onClick={onCloseModal}
-            >
+              onClick={onCloseModal}>
               Отмена
             </Button>
           </div>
