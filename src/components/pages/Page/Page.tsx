@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {useEffect, useRef, useState, ChangeEvent} from "react";
 import {IPageItem} from "@/store/model/Pages/types";
 import {useNavigate} from "react-router-dom";
 import MoreIcon from '@/assets/more.svg';
@@ -21,6 +21,7 @@ export const Page = observer(({page}: IPageProps) => {
     const [renameModal, setRenameModal] = useState(false);
     const [pageName, setPageName] = useState<string>(page.name);
     const classNames = [s.item, page.isSended && s.isSended].filter(Boolean).join(' ');
+    const itemRef = useRef<HTMLDivElement>();
 
     const goToPageInfo = () => {
         navigate(`/page/${page.id}`);
@@ -34,6 +35,20 @@ export const Page = observer(({page}: IPageProps) => {
         modelPage.renamePage(page.id, pageName)
         setRenameModal(false);
     }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (itemRef.current && !itemRef.current.contains(event.target as Node)) {
+        setTogglePopup(false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener('click', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, []);
 
     return (
         <>
@@ -85,7 +100,7 @@ export const Page = observer(({page}: IPageProps) => {
                                 </Button>
                             </div>
                         )}
-                        <div className={s.pageActions}>
+                        <div className={s.pageActions} ref={itemRef}>
                             <MoreIcon className={s.more} onClick={() => setTogglePopup((prev) => !prev)} />
                             {togglePopup && <PopupPageAction>
                                 <ul className={s.list}>
@@ -123,6 +138,7 @@ export const Page = observer(({page}: IPageProps) => {
                         name="Укажите название раздела"
                         placeholder="Новая страница"
                         onChange={onSetPageName}
+                        value={pageName}
                     />
                     <div className={s.modalButtons}>
                         <Button tag="div" size="medium" appearance="blue" onClick={onRename}>Добавить</Button>
