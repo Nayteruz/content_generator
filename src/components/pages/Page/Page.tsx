@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {IPageItem} from "@/store/model/Pages/types";
 import {useNavigate} from "react-router-dom";
 import MoreIcon from '@/assets/more.svg';
@@ -19,9 +19,24 @@ export const Page = observer(({page}: IPageProps) => {
     const [isHoveredIcon, setIsHoveredIcon] = useState(false);
     const [isHoveredItem, setIsHoveredItem] = useState(false);
     const classNames = [s.item, page.isSended && s.isSended].filter(Boolean).join(' ');
+    const itemRef = useRef<HTMLDivElement>();
     const goToPageInfo = () => {
         navigate(`/page/${page.id}`);
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (itemRef.current && !itemRef.current.contains(event.target as Node)) {
+        setTogglePopup(false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener('click', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, []);
 
     return (
         <li className={classNames} onMouseEnter={() => setIsHoveredItem(true)} onMouseLeave={() => setIsHoveredItem(false)}>
@@ -72,7 +87,7 @@ export const Page = observer(({page}: IPageProps) => {
                             </Button>
                         </div>
                     )}
-                    <div className={s.pageActions}>
+                    <div className={s.pageActions} ref={itemRef}>
                         <MoreIcon className={s.more} onClick={() => setTogglePopup((prev) => !prev)} />
                         {togglePopup && <PopupPageAction>
                             <ul className={s.list}>
