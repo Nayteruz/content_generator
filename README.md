@@ -40,7 +40,7 @@ npm run start - frontend проекта
 - `npm run lint:tsx:fix` - Исправление ts файлов линтером
 - `npm run lint:css` - Проверка scss файлов style линтером
 - `npm run lint:css:fix` - Исправление scss файлов style линтером
-
+поправил описание
 ----
 
 ## Конфигурация проекта
