@@ -1,10 +1,4 @@
-import { OpenAI } from "openai";
-
 const apiKey = process.env.APIKEY;
-
-const openai = new OpenAI({
-    apiKey, dangerouslyAllowBrowser: true
-});
 
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 const header = {
