@@ -14,7 +14,7 @@
 
 Для публикации проекта в сети используется сервис [Netlify](https://www.netlify.com/).
 
-Сервис доступен в по ссылке [контент генератор](https://content-generator-hackaton.netlify.app/)
+Сервис доступен в по ссылке [контент генератор](https://content-generator-gpt.netlify.app/)
 
 ## Запуск проекта
 ```
